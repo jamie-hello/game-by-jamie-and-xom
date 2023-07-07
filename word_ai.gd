@@ -9,6 +9,7 @@ var SQ_TW = 13
 
 
 var board = create_proto_board()
+var tableau = create_2d_array(15, 15, 0) # tableau is tiles on board; 0 is empty, 1 is wildcard, uppercase ASCII codes for letters
 
 
 func _ready():
