@@ -20,7 +20,7 @@ func letter_mult(square):
 
 
 func word_mult(square):
-	return square & 4
+	return square >> 4
 
 
 func create_proto_board():
