@@ -2,6 +2,10 @@
 extends Node
 
 
+var BINGO_BONUS = 50
+var BOARD_SIZE = 15
+var BOARD_END = BOARD_SIZE - 1
+
 var DIR_EAST = 0
 var DIR_SOUTH = 1
 
@@ -13,7 +17,7 @@ var SQ_TW = 13
 
 
 var board = create_proto_board()
-var tableau = create_2d_array(15, 15, 0) # tableau is tiles on board; 0 is empty, 1 is unplayed wildcard, uppercase ASCII codes for letters, lowercase for played wildcards
+var tableau = create_2d_array(BOARD_SIZE, BOARD_SIZE, 0) # tableau is tiles on board; 0 is empty, 1 is unplayed wildcard, uppercase ASCII codes for letters, lowercase for played wildcards
 
 
 func _ready():
@@ -28,9 +32,53 @@ func word_mult(square):
 	return square >> 4
 
 
+func score_perpendicular(x, y, orig_dir, letter):
+	if orig_dir == DIR_SOUTH:
+		if (x == 0 or tableau[y][x-1] == 0) and (x == BOARD_END or tableau[y][x+1] == 0):
+			return 0
+		var xx = x
+		while xx != 0 and tableau[y][xx-1] != 0:
+			xx -= 1
+		var start = xx
+		var word = []
+		word.append(letter if xx == x else tableau[y][xx])
+		while xx != BOARD_END and tableau[y][xx+1] != 0:
+			xx += 1
+			word.append(letter if xx == x else tableau[y][xx])
+		return score_one_word(start, y, DIR_EAST, word)
+	else:
+		if (y == 0 or tableau[y-1][x] == 0) and (y == BOARD_END or tableau[y+1][x] == 0):
+			return 0
+		var yy = y
+		while yy != 0 and tableau[yy-1][x] != 0:
+			yy -= 1
+		var start = yy
+		var word = []
+		word.append(letter if yy == y else tableau[yy][x])
+		while yy != BOARD_END and tableau[yy+1][x] != 0:
+			yy += 1
+			word.append(letter if yy == y else tableau[yy][x])
+		return score_one_word(x, start, DIR_SOUTH, word)
+
+
 # does not test validity; word should be a int array or PackedByteArray
 func score_move(x, y, dir, word):
 	var result = score_one_word(x, y, dir, word)
+	var tiles_used = 0
+
+	if dir == DIR_SOUTH:
+		for i in word.size():
+			if (tableau[y+i][x] == 0):
+				result += score_perpendicular(x, y + i, dir, word[i])
+				tiles_used += 1
+	else:
+		for i in word.size():
+			if (tableau[y][x+i] == 0):
+				result += score_perpendicular(x, y + i, dir, word[i])
+				tiles_used += 1
+
+	if tiles_used == 7:
+		result += BINGO_BONUS
 	return result
 
 
@@ -39,7 +87,7 @@ func score_one_word(x, y, dir, word):
 	var result = 0
 	var mult = 1
 	var tiles_index = 0
-	
+
 	if dir == DIR_SOUTH:
 		for i in word.size():
 			if (tableau[y+i][x] == 0):
@@ -81,7 +129,7 @@ func letter_value(letter):
 
 
 func create_proto_board():
-	var result = create_2d_array(15, 15, 0)
+	var result = create_2d_array(BOARD_SIZE, BOARD_SIZE, 0)
 	result[1][2] = SQ_DL
 	result[1][12] = SQ_DL
 	result[2][1] = SQ_DL
