@@ -1,10 +1,39 @@
-[gd_scene load_steps=3 format=3 uid="uid://2v74n5qo7jyh"]
+[gd_scene load_steps=7 format=3 uid="uid://2v74n5qo7jyh"]
 
 [ext_resource type="PackedScene" uid="uid://npib1ad5mqrc" path="res://logo.tscn" id="1_grydc"]
 [ext_resource type="PackedScene" uid="uid://b8aykduqsqo68" path="res://word_ai.tscn" id="2_374l1"]
+[ext_resource type="Texture2D" uid="uid://b0hlhmd7qy1s2" path="res://logo-lowalpha.png" id="2_tek4f"]
+[ext_resource type="Script" path="res://clickAndDragTile.gd" id="4_wwyoh"]
+[ext_resource type="Texture2D" uid="uid://cucajl66bcfjo" path="res://S tile placeholder.png" id="5_cydw8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vylgp"]
+size = Vector2(28, 28)
 
 [node name="Main" type="Node"]
 
 [node name="Logo" parent="." instance=ExtResource("1_grydc")]
+position = Vector2(393.75, 262.111)
+scale = Vector2(0.1269, 0.150904)
+texture = ExtResource("2_tek4f")
 
 [node name="WordAI" parent="." instance=ExtResource("2_374l1")]
+
+[node name="dealerUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="tile (placeholder instance)" type="Node2D" parent="dealerUI"]
+position = Vector2(30, 200)
+script = ExtResource("4_wwyoh")
+
+[node name="Sprite2D" type="Sprite2D" parent="dealerUI/tile (placeholder instance)"]
+texture = ExtResource("5_cydw8")
+
+[node name="clickbox" type="Area2D" parent="dealerUI/tile (placeholder instance)"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="dealerUI/tile (placeholder instance)/clickbox"]
+shape = SubResource("RectangleShape2D_vylgp")
+
+[connection signal="input_event" from="dealerUI/tile (placeholder instance)/clickbox" to="dealerUI/tile (placeholder instance)" method="_on_clickbox_input_event"]
