@@ -18,10 +18,16 @@ var SQ_TW = 13
 
 var board = create_proto_board()
 var tableau = create_2d_array(BOARD_SIZE, BOARD_SIZE, 0) # tableau is tiles on board; 0 is empty, 1 is unplayed wildcard, uppercase ASCII codes for letters, lowercase for played wildcards
+var word_dict = {}
 
 
 func _ready():
-	pass # Replace with function body.
+	var f = FileAccess.open("res://CSW22.txt", FileAccess.READ)
+	while not f.eof_reached():
+		word_dict[f.get_line()] = true
+	f.close()
+	word_dict.erase("")
+#	pass # Replace with function body.
 
 
 func letter_mult(square):
