@@ -1,5 +1,9 @@
+# based on https://github.com/charlescapps/ProScrabble (MIT license)
 extends Node
 
+
+var DIR_EAST = 0
+var DIR_SOUTH = 1
 
 var SQ_NORMAL = 5
 var SQ_DL = 6
@@ -9,7 +13,7 @@ var SQ_TW = 13
 
 
 var board = create_proto_board()
-var tableau = create_2d_array(15, 15, 0) # tableau is tiles on board; 0 is empty, 1 is wildcard, uppercase ASCII codes for letters
+var tableau = create_2d_array(15, 15, 0) # tableau is tiles on board; 0 is empty, 1 is unplayed wildcard, uppercase ASCII codes for letters, lowercase for played wildcards
 
 
 func _ready():
@@ -22,6 +26,58 @@ func letter_mult(square):
 
 func word_mult(square):
 	return square >> 4
+
+
+# does not test validity; word should be a int array or PackedByteArray
+func score_move(x, y, dir, word):
+	var result = score_one_word(x, y, dir, word)
+	return result
+
+
+# word should be a int array or PackedByteArray
+func score_one_word(x, y, dir, word):
+	var result = 0
+	var mult = 1
+	var tiles_index = 0
+	
+	if dir == DIR_SOUTH:
+		for i in word.size():
+			if (tableau[y+i][x] == 0):
+				result += letter_value(word[i]) * letter_mult(board[y+i][x])
+				mult *= word_mult(board[y+i][x])
+			else:
+				result += letter_value(word[i])
+	else:
+		for i in word.length():
+			if (tableau[y][x+i] == 0):
+				result += letter_value(word[i]) * letter_mult(board[y][x+i])
+				mult *= word_mult(board[y][x+i])
+			else:
+				result += letter_value(word[i])
+	
+	return result * mult
+
+
+func letter_value(letter):
+	match letter:
+		65, 69, 73, 78, 79, 82, 83, 84:
+			return 1
+		68, 76, 85:
+			return 2
+		67, 71, 72, 77:
+			return 3
+		66, 70, 80, 87, 89:
+			return 4
+		75, 86:
+			return 5
+		74:
+			return 8
+		88:
+			return 9
+		81, 90:
+			return 10
+		_:
+			return 0
 
 
 func create_proto_board():
