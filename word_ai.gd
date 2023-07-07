@@ -24,9 +24,15 @@ var word_dict = {}
 func _ready():
 	var f = FileAccess.open("res://CSW22.txt", FileAccess.READ)
 	while not f.eof_reached():
-		word_dict[f.get_line()] = true
+		var word = f.get_line()
+		if word == "":
+			break
+		var alpha = alphabetize(word)
+		if word_dict.has(alpha):
+			word_dict[alpha].append(word)
+		else:
+			word_dict[alpha] = [word]
 	f.close()
-	word_dict.erase("")
 #	pass # Replace with function body.
 
 
@@ -36,6 +42,19 @@ func letter_mult(square):
 
 func word_mult(square):
 	return square >> 4
+
+
+func alphabetize(word):
+	var ascii = word.to_ascii_buffer()
+	ascii.sort()
+	return ascii.get_string_from_ascii()
+
+
+func get_anagrams(s):
+	var alpha = alphabetize(s)
+	if not word_dict.has(alpha):
+		return []
+	return word_dict[alpha]
 
 
 func score_perpendicular(x, y, orig_dir, letter):
