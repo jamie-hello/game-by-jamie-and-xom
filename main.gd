@@ -59,7 +59,6 @@ func deal_tile(whoseturn, tile):
 	var ascii_code = tile.Letter.to_ascii_buffer()[0] if tile.Letter.length() == 1 else 1
 	dealer_hand.pop_at(dealer_hand.find(ascii_code))
 	whoseturn.add_tile(tile)
-	tile.drawn_by_player()
 	print("added ", tile.Letter, " to ", whoseturn)
 	if dealer_hand.is_empty():
 		dealer_newhand()

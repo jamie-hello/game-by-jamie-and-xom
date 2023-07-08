@@ -3,6 +3,7 @@ extends Node2D
 
 var hand = [] # ASCII
 var rack = [] # instances
+var score = 0
 
 
 func _ready():
@@ -45,6 +46,9 @@ func play_turn(): # TODO: Should counts_for_score (false on first turn) be a par
 				tile.global_position = Vector2((move[0] + i) * 490 / 14 + 300, move[1] * 210 / 14 + 160)
 				tile.global_position = Vector2(0.515 * (move[0] + i - 7) * 930 / 14 + 528, 0.452 * (move[1] - 7) * 960 / 14 + 226)
 				tile.rest_point = tile.global_position
+	if not $"../../phase singleton".is_opening:
+		score += move[4]
+		print(score)
 	cleanup()
 
 
@@ -55,6 +59,7 @@ func cleanup():
 
 
 func add_tile(tile):
+	tile.drawn_by_player()
 	rack.append(tile)
 	tile.set_position(get_children()[hand.size()].global_position)
 	add_child(tile)

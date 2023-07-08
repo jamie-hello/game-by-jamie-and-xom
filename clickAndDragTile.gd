@@ -48,7 +48,6 @@ func _ready():
 
 func drawn_by_player():
 	dealtalready = true
-	pass
 
 
 func set_letter(lettervalue):
