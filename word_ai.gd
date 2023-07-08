@@ -465,7 +465,7 @@ func score_move(x, y, dir, word):
 	else:
 		for i in word.size():
 			if (tableau[y][x+i] == 0):
-				result += score_perpendicular(x, y + i, dir, word[i])
+				result += score_perpendicular(x + i, y, dir, word[i])
 				tiles_used += 1
 
 	if tiles_used == 7:
