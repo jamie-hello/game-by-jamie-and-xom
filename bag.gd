@@ -1,58 +1,44 @@
 extends Node2D
 
+
+var DECK = [9, 2, 2, 5, 13, 2, 3, 3, 9, 1, 1, 4, 2, 6, 8, 2, 1, 6, 5, 7, 4, 2, 2, 1, 2, 1]
 var contents = []
+var wildcard_played = false
+
 
 func newbagnewgame():
-	for a in 9:
-		contents.append("A")
-	for b in 2:
-		contents.append("B")
-	for c in 2:
-		contents.append("C")
-	for d in 5:
-		contents.append("D")
-	for e in 13:
-		contents.append("E")
-	for F in 2:
-		contents.append("F")
-	for G in 3:
-		contents.append("G")
-	for H in 3:
-		contents.append("H")
-	for I in 9:
-		contents.append("I")
-		#j
-	for k in 1:
-		contents.append("K")
-	for l in 4:
-		contents.append("L")
-	for m in 2:
-		contents.append("M")
-	for n in 6:
-		contents.append("N")
-	for o in 8:
-		contents.append("O")
-	for p in 2:
-		contents.append("P")
-		#q
-	for r in 6:
-		contents.append("R")
-	for s in 5:
-		contents.append("S")
-	for t in 7:
-		contents.append("T")
-	for u in 4:
-		contents.append("U")
-	for v in 2:
-		contents.append("V")
-	for w in 2:
-		contents.append("W")
-	for y in 2:
-		contents.append("Y")
-		
-	print(contents)
-	
-	
+	contents = []
+	wildcard_played = false
+	for i in DECK.size():
+		for j in DECK[i] - 1: # save one of each letter from being dealt into starting hands
+			contents.append(65 + i) # ASCII
+
+
+func add_remaining_letters():
+	for i in DECK.size():
+		contents.append(65 + i)
+	contents.append(1) # save other wildcard until first is used
+
+
+func draw_seven():
+	if contents.size() == 6:
+		set_wildcard_played()
+	var result = []
+	for i in 7:
+		var r = randi() % contents.size()
+		result.append(contents[r])
+		contents[r] = contents[contents.size() - 1]
+		contents.resize(contents.size() - 1)
+	if contents.size() == 41 and wildcard_played: # add second wildcard when halfway
+		contents.append(1)
+	return result
+
+
+func set_wildcard_played():
+	if not wildcard_played:
+		wildcard_played = true
+		if contents.size() <= 41: # else add second wildcard later
+			contents.append(1)
 
 
 # Called when the node enters the scene tree for the first time.
