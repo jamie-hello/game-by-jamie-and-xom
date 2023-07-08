@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dcvk0hmraq7o1"]
 
 [ext_resource type="Script" path="res://clickAndDragTile.gd" id="1_0sed8"]
-[ext_resource type="Texture2D" uid="uid://damgfdt40tfk" path="res://letters/S.png" id="2_5sim4"]
+[ext_resource type="Texture2D" uid="uid://damgfdt40tfk" path="res://img/letters/S.png" id="2_gjo2c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vylgp"]
 size = Vector2(30, 30)
@@ -14,7 +14,7 @@ position = Vector2(-50, 200)
 script = ExtResource("1_0sed8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_5sim4")
+texture = ExtResource("2_gjo2c")
 
 [node name="clickbox" type="Area2D" parent="." groups=["tile"]]
 collision_layer = 5
