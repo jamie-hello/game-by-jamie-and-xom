@@ -20,8 +20,8 @@ PhaseSingleton="*res://phase singleton.gd"
 
 [display]
 
-window/size/viewport_width=800
-window/size/viewport_height=600
+window/size/viewport_width=1280
+window/size/viewport_height=720
 
 [input]
 
