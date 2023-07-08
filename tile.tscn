@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dcvk0hmraq7o1"]
 
-[ext_resource type="Script" path="res://clickAndDragTile.gd" id="1_ur4sh"]
+[ext_resource type="Script" path="res://tile.gd" id="1_sri1r"]
 [ext_resource type="Texture2D" uid="uid://damgfdt40tfk" path="res://img/letters/S.png" id="2_tih03"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vylgp"]
@@ -11,7 +11,7 @@ radius = 22.0227
 
 [node name="Tile" type="Node2D" groups=["tile"]]
 position = Vector2(-50, 200)
-script = ExtResource("1_ur4sh")
+script = ExtResource("1_sri1r")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_tih03")
