@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://2v74n5qo7jyh"]
+[gd_scene load_steps=19 format=3 uid="uid://2v74n5qo7jyh"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_63v1i"]
 [ext_resource type="PackedScene" uid="uid://b8aykduqsqo68" path="res://word_ai.tscn" id="2_374l1"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" path="res://sounds/refresh_hand.gd" id="16_3e3ur"]
 [ext_resource type="Script" path="res://bag.gd" id="16_o01yg"]
 [ext_resource type="PackedScene" uid="uid://c1vhlig43wshy" path="res://deal_zone_player.tscn" id="16_pu1g3"]
+[ext_resource type="AudioStream" uid="uid://ck7p2mmpj2f7f" path="res://sounds/POL-end-of-time-short.wav" id="17_cdye7"]
 
 [sub_resource type="Theme" id="Theme_6hi3u"]
 
@@ -119,6 +120,11 @@ script = ExtResource("14_v03jb")
 [node name="refresh_hand" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("15_hvvdl")
 script = ExtResource("16_3e3ur")
+
+[node name="music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("17_cdye7")
+volume_db = -14.991
+autoplay = true
 
 [connection signal="timeout" from="PhaseSingleton/TimerFirstTurn1" to="PhaseSingleton" method="_on_timer_first_turn_1_timeout"]
 [connection signal="timeout" from="PhaseSingleton/TimerFirstTurn2" to="PhaseSingleton" method="_on_timer_first_turn_2_timeout"]
