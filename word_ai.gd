@@ -138,7 +138,7 @@ func get_best_local_move(hand, substr_by_len, x, y, searched):
 							num_tiles_req += 1
 					if num_tiles_req > hand.size():
 						break
-					var substrings = substr_by_len[num_tiles_req]
+					var substrings = substr_by_len[num_tiles_req - 1]
 					for s in substrings:
 						var sub_index = 0
 						var cand = PackedByteArray()
@@ -177,7 +177,7 @@ func get_best_local_move(hand, substr_by_len, x, y, searched):
 							num_tiles_req += 1
 					if num_tiles_req > hand.size():
 						break
-					var substrings = substr_by_len[num_tiles_req]
+					var substrings = substr_by_len[num_tiles_req - 1]
 					for s in substrings:
 						var sub_index = 0
 						var cand = PackedByteArray()
@@ -245,7 +245,7 @@ func get_best_parallel_move(hand, substr_by_len, x, y, dir):
 					break
 				if y + j >= BOARD_SIZE or (y + j < BOARD_END and tableau[y + j + 1][x] != 0):
 					break
-				var substrings = substr_by_len[i + j + 1]
+				var substrings = substr_by_len[i + j]
 				for s in substrings:
 					var anags = get_anagrams(s.get_string_from_ascii().to_upper())
 					for m in anags:
@@ -268,7 +268,7 @@ func get_best_parallel_move(hand, substr_by_len, x, y, dir):
 					break
 				if x + j >= BOARD_SIZE or (x + j < BOARD_END and tableau[y][x + j + 1] != 0):
 					break
-				var substrings = substr_by_len[i + j + 1]
+				var substrings = substr_by_len[i + j]
 				for s in substrings:
 					var anags = get_anagrams(s.get_string_from_ascii().to_upper())
 					for m in anags:
@@ -325,8 +325,8 @@ func is_valid_move(x, y, dir, word, is_parallel):
 			if x + word.size() < BOARD_SIZE and tableau[y][x + word.size()] != 0:
 				return false
 	var next_to_something = false
-	var xx = x
-	var yy = y
+#	var xx = x
+#	var yy = y
 	
 	# "Check if it's a prefix/suffix of some word" is commented out in the original code
 	
@@ -356,7 +356,7 @@ func is_perp_invalid(x, y, orig_dir, letter):
 		var xx = x
 		while xx != 0 and tableau[y][xx-1] != 0:
 			xx -= 1
-		var start = xx
+#		var start = xx
 		var str = ""
 		str += String.chr(letter if xx == x else tableau[y][xx])
 		while xx != BOARD_END and tableau[y][xx+1] != 0:
@@ -371,7 +371,7 @@ func is_perp_invalid(x, y, orig_dir, letter):
 		var yy = y
 		while yy != 0 and tableau[yy-1][x] != 0:
 			yy -= 1
-		var start = yy
+#		var start = yy
 		var str = ""
 		str += String.chr(letter if yy == y else tableau[yy][x])
 		while yy != BOARD_END and tableau[yy+1][x] != 0:
@@ -477,7 +477,6 @@ func score_move(x, y, dir, word):
 func score_one_word(x, y, dir, word):
 	var result = 0
 	var mult = 1
-	var tiles_index = 0
 
 	if dir == DIR_SOUTH:
 		for i in word.size():

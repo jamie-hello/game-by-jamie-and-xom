@@ -28,7 +28,7 @@ func _on_timer_timeout():
 func player1firstturn():
 	#active_turn=player1
 	player1.get_node("Arrow").set_visible(true)
-	player1.playfirstturn()
+	player1.play_turn()
 	$TimerFirstTurn1.start(1)
 
 
@@ -40,7 +40,7 @@ func _on_timer_first_turn_1_timeout():
 func player2firstturn():
 	#active_turn=player2
 	player2.get_node("Arrow").set_visible(true)
-	player2.playfirstturn()
+	player2.play_turn()
 	$TimerFirstTurn2.start(1)
 
 
@@ -52,7 +52,7 @@ func _on_timer_first_turn_2_timeout():
 func player3firstturn():
 	#active_turn=player3
 	player3.get_node("Arrow").set_visible(true)
-	player3.playfirstturn()
+	player3.play_turn()
 	$TimerFirstTurn3.start(1)
 	pass
 

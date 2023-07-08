@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1vhlig43wshy"]
+
+[ext_resource type="Texture2D" uid="uid://20u2p4oaewjk" path="res://img/arrow.png" id="1_bej43"]
+[ext_resource type="Script" path="res://deal_zone_player.gd" id="1_c04r7"]
+[ext_resource type="Texture2D" uid="uid://0rkuon2p2bh7" path="res://img/toplayer1.png" id="1_ypphn"]
+[ext_resource type="Texture2D" uid="uid://bwedxmm2ya8n" path="res://img/player1dealzone.png" id="2_g58qw"]
+
+[node name="DealZonePlayer" type="Node2D"]
+script = ExtResource("1_c04r7")
+
+[node name="Rack" type="Sprite2D" parent="."]
+texture = ExtResource("2_g58qw")
+
+[node name="NameTag" type="Sprite2D" parent="."]
+texture = ExtResource("1_ypphn")
+
+[node name="Arrow" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -200)
+texture = ExtResource("1_bej43")
+
+[node name="restPosition1" type="Node2D" parent="." groups=["restzone"]]
+position = Vector2(-103, 0)
+
+[node name="restPosition2" type="Node2D" parent="." groups=["restzone"]]
+position = Vector2(-68, 0)
+
+[node name="restPosition3" type="Node2D" parent="." groups=["restzone"]]
+position = Vector2(-33, 0)
+
+[node name="restPosition4" type="Node2D" parent="." groups=["restzone"]]
+position = Vector2(2, 0)
+
+[node name="restPosition5" type="Node2D" parent="." groups=["restzone"]]
+position = Vector2(37, 0)
+
+[node name="restPosition6" type="Node2D" parent="." groups=["restzone"]]
+position = Vector2(72, 0)
+
+[node name="restPosition7" type="Node2D" parent="." groups=["restzone"]]
+position = Vector2(107, 0)

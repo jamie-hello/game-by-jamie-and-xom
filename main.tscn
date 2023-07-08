@@ -1,34 +1,20 @@
-[gd_scene load_steps=23 format=3 uid="uid://2v74n5qo7jyh"]
+[gd_scene load_steps=11 format=3 uid="uid://2v74n5qo7jyh"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_63v1i"]
 [ext_resource type="PackedScene" uid="uid://npib1ad5mqrc" path="res://logo.tscn" id="1_grydc"]
 [ext_resource type="PackedScene" uid="uid://b8aykduqsqo68" path="res://word_ai.tscn" id="2_374l1"]
-[ext_resource type="Texture2D" uid="uid://brpbxnesju8o" path="res://board.png" id="2_jtecq"]
-[ext_resource type="Texture2D" uid="uid://b0hlhmd7qy1s2" path="res://logo-lowalpha.png" id="2_tek4f"]
+[ext_resource type="Texture2D" uid="uid://brpbxnesju8o" path="res://img/board.png" id="2_jtecq"]
+[ext_resource type="Texture2D" uid="uid://b0hlhmd7qy1s2" path="res://img/logo-lowalpha.png" id="2_tek4f"]
 [ext_resource type="Script" path="res://phase singleton.gd" id="3_o658c"]
-[ext_resource type="Script" path="res://DealZone Player1.gd" id="5_cl6y5"]
-[ext_resource type="Texture2D" uid="uid://0rkuon2p2bh7" path="res://toplayer1.png" id="5_rastk"]
-[ext_resource type="Texture2D" uid="uid://bwedxmm2ya8n" path="res://player1dealzone.png" id="6_27qk1"]
-[ext_resource type="Texture2D" uid="uid://cxre1hq4skr8f" path="res://bag.png" id="7_2flgw"]
-[ext_resource type="Texture2D" uid="uid://ystwu15pkc6k" path="res://toplayer2.png" id="7_vcriq"]
-[ext_resource type="Texture2D" uid="uid://dpbkbmfvoos5f" path="res://player2dealzone.png" id="7_vmve3"]
-[ext_resource type="Script" path="res://DealZone Player2.gd" id="8_17t1j"]
-[ext_resource type="Script" path="res://acceptor.gd" id="8_cbbw5"]
-[ext_resource type="Texture2D" uid="uid://c68f6c81rxofj" path="res://player3dealzone.png" id="8_vdm6k"]
-[ext_resource type="Texture2D" uid="uid://ccs5qb7u82v8q" path="res://toplayer3.png" id="9_d3unp"]
-[ext_resource type="Texture2D" uid="uid://20u2p4oaewjk" path="res://arrow.png" id="10_xgl1a"]
-[ext_resource type="Script" path="res://DealZone Player3.gd" id="11_4bq7q"]
+[ext_resource type="Texture2D" uid="uid://cxre1hq4skr8f" path="res://img/bag.png" id="7_2flgw"]
 [ext_resource type="PackedScene" uid="uid://dcvk0hmraq7o1" path="res://tile_(placeholder_instance).tscn" id="15_rrxli"]
 [ext_resource type="Script" path="res://bag.gd" id="16_o01yg"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qfcl0"]
-size = Vector2(229, 20)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pqirq"]
-size = Vector2(240, 46)
+[ext_resource type="PackedScene" uid="uid://c1vhlig43wshy" path="res://deal_zone_player.tscn" id="16_pu1g3"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_63v1i")
+
+[node name="WordAI" parent="." instance=ExtResource("2_374l1")]
 
 [node name="Board" type="Sprite2D" parent="."]
 position = Vector2(528, 226)
@@ -52,8 +38,6 @@ position = Vector2(122, 270)
 scale = Vector2(0.0594, 0.187819)
 texture = ExtResource("2_tek4f")
 
-[node name="WordAI" parent="." instance=ExtResource("2_374l1")]
-
 [node name="Bag" type="Sprite2D" parent="."]
 position = Vector2(216, 141)
 scale = Vector2(0.39, 0.441667)
@@ -73,158 +57,14 @@ offset_right = 290.0
 offset_bottom = 32.0
 text = "evaluate hands"
 
-[node name="DealZone Player1" type="Node2D" parent="dealerUI"]
+[node name="DealZone Player1" parent="dealerUI" instance=ExtResource("16_pu1g3")]
 position = Vector2(130, 560)
-script = ExtResource("5_cl6y5")
 
-[node name="restPosition1" type="Node2D" parent="dealerUI/DealZone Player1" groups=["restzone"]]
-position = Vector2(-103, 0)
-
-[node name="restPosition2" type="Node2D" parent="dealerUI/DealZone Player1" groups=["restzone"]]
-position = Vector2(-68, 0)
-
-[node name="restPosition3" type="Node2D" parent="dealerUI/DealZone Player1" groups=["restzone"]]
-position = Vector2(-33, 0)
-
-[node name="restPosition4" type="Node2D" parent="dealerUI/DealZone Player1" groups=["restzone"]]
-position = Vector2(2, 0)
-
-[node name="restPosition5" type="Node2D" parent="dealerUI/DealZone Player1" groups=["restzone"]]
-position = Vector2(37, 0)
-
-[node name="restPosition6" type="Node2D" parent="dealerUI/DealZone Player1" groups=["restzone"]]
-position = Vector2(72, 0)
-
-[node name="restPosition7" type="Node2D" parent="dealerUI/DealZone Player1" groups=["restzone"]]
-position = Vector2(107, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="dealerUI/DealZone Player1"]
-texture = ExtResource("6_27qk1")
-
-[node name="Sprite2D2" type="Sprite2D" parent="dealerUI/DealZone Player1"]
-texture = ExtResource("5_rastk")
-
-[node name="Arrow" type="Sprite2D" parent="dealerUI/DealZone Player1"]
-visible = false
-position = Vector2(0, -200)
-texture = ExtResource("10_xgl1a")
-
-[node name="evaluator" type="Area2D" parent="dealerUI/DealZone Player1"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="dealerUI/DealZone Player1/evaluator"]
-position = Vector2(3.5, 0)
-shape = SubResource("RectangleShape2D_qfcl0")
-
-[node name="acceptor" type="Area2D" parent="dealerUI/DealZone Player1"]
-collision_layer = 4
-collision_mask = 4
-script = ExtResource("8_cbbw5")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="dealerUI/DealZone Player1/acceptor"]
-position = Vector2(1, -1)
-shape = SubResource("RectangleShape2D_pqirq")
-
-[node name="DealZone Player2" type="Node2D" parent="dealerUI"]
+[node name="DealZone Player2" parent="dealerUI" instance=ExtResource("16_pu1g3")]
 position = Vector2(400, 530)
-script = ExtResource("8_17t1j")
 
-[node name="restPosition1" type="Node2D" parent="dealerUI/DealZone Player2" groups=["restzone"]]
-position = Vector2(-103, 0)
-
-[node name="restPosition2" type="Node2D" parent="dealerUI/DealZone Player2" groups=["restzone"]]
-position = Vector2(-68, 0)
-
-[node name="restPosition3" type="Node2D" parent="dealerUI/DealZone Player2" groups=["restzone"]]
-position = Vector2(-33, 0)
-
-[node name="restPosition4" type="Node2D" parent="dealerUI/DealZone Player2" groups=["restzone"]]
-position = Vector2(2, 0)
-
-[node name="restPosition5" type="Node2D" parent="dealerUI/DealZone Player2" groups=["restzone"]]
-position = Vector2(37, 0)
-
-[node name="restPosition6" type="Node2D" parent="dealerUI/DealZone Player2" groups=["restzone"]]
-position = Vector2(72, 0)
-
-[node name="restPosition7" type="Node2D" parent="dealerUI/DealZone Player2" groups=["restzone"]]
-position = Vector2(107, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="dealerUI/DealZone Player2"]
-texture = ExtResource("7_vmve3")
-
-[node name="Sprite2D2" type="Sprite2D" parent="dealerUI/DealZone Player2"]
-texture = ExtResource("7_vcriq")
-
-[node name="Arrow" type="Sprite2D" parent="dealerUI/DealZone Player2"]
-visible = false
-position = Vector2(1, -188)
-texture = ExtResource("10_xgl1a")
-
-[node name="evaluator" type="Area2D" parent="dealerUI/DealZone Player2"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="dealerUI/DealZone Player2/evaluator"]
-position = Vector2(3.5, 0)
-shape = SubResource("RectangleShape2D_qfcl0")
-
-[node name="acceptor" type="Area2D" parent="dealerUI/DealZone Player2"]
-collision_layer = 4
-collision_mask = 4
-script = ExtResource("8_cbbw5")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="dealerUI/DealZone Player2/acceptor"]
-position = Vector2(1, -1)
-shape = SubResource("RectangleShape2D_pqirq")
-
-[node name="DealZone Player3" type="Node2D" parent="dealerUI"]
-position = Vector2(650, 560)
-script = ExtResource("11_4bq7q")
-
-[node name="restPosition1" type="Node2D" parent="dealerUI/DealZone Player3" groups=["restzone"]]
-position = Vector2(-103, 0)
-
-[node name="restPosition2" type="Node2D" parent="dealerUI/DealZone Player3" groups=["restzone"]]
-position = Vector2(-68, 0)
-
-[node name="restPosition3" type="Node2D" parent="dealerUI/DealZone Player3" groups=["restzone"]]
-position = Vector2(-33, 0)
-
-[node name="restPosition4" type="Node2D" parent="dealerUI/DealZone Player3" groups=["restzone"]]
-position = Vector2(2, 0)
-
-[node name="restPosition5" type="Node2D" parent="dealerUI/DealZone Player3" groups=["restzone"]]
-position = Vector2(37, 0)
-
-[node name="restPosition6" type="Node2D" parent="dealerUI/DealZone Player3" groups=["restzone"]]
-position = Vector2(72, 0)
-
-[node name="restPosition7" type="Node2D" parent="dealerUI/DealZone Player3" groups=["restzone"]]
-position = Vector2(107, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="dealerUI/DealZone Player3"]
-texture = ExtResource("8_vdm6k")
-
-[node name="Sprite2D2" type="Sprite2D" parent="dealerUI/DealZone Player3"]
-texture = ExtResource("9_d3unp")
-
-[node name="Arrow" type="Sprite2D" parent="dealerUI/DealZone Player3"]
-visible = false
-position = Vector2(23, -168)
-texture = ExtResource("10_xgl1a")
-
-[node name="evaluator" type="Area2D" parent="dealerUI/DealZone Player3"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="dealerUI/DealZone Player3/evaluator"]
-position = Vector2(3.5, 0)
-shape = SubResource("RectangleShape2D_qfcl0")
-
-[node name="acceptor" type="Area2D" parent="dealerUI/DealZone Player3"]
-collision_layer = 4
-collision_mask = 4
-script = ExtResource("8_cbbw5")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="dealerUI/DealZone Player3/acceptor"]
-position = Vector2(1, -1)
-shape = SubResource("RectangleShape2D_pqirq")
+[node name="DealZone Player3" parent="dealerUI" instance=ExtResource("16_pu1g3")]
+position = Vector2(670, 560)
 
 [node name="tile (placeholder instance)" parent="." instance=ExtResource("15_rrxli")]
 
@@ -235,14 +75,10 @@ autostart = true
 [node name="bag" type="Node2D" parent="."]
 script = ExtResource("16_o01yg")
 
-[connection signal="add_tile_to_player1_inventory" from="." to="dealerUI/DealZone Player1" method="_on_main_add_tile_to_player_1_inventory"]
-[connection signal="add_tile_to_player2_inventory" from="." to="dealerUI/DealZone Player2" method="_on_main_add_tile_to_player_2_inventory"]
-[connection signal="add_tile_to_player3_inventory" from="." to="dealerUI/DealZone Player3" method="_on_main_add_tile_to_player_3_inventory"]
 [connection signal="timeout" from="phase singleton/TimerFirstTurn1" to="phase singleton" method="_on_timer_first_turn_1_timeout"]
 [connection signal="timeout" from="phase singleton/TimerFirstTurn2" to="phase singleton" method="_on_timer_first_turn_2_timeout"]
 [connection signal="timeout" from="phase singleton/TimerFirstTurn3" to="phase singleton" method="_on_timer_first_turn_3_timeout"]
 [connection signal="pressed" from="dealerUI/evaluatehandsbutton" to="." method="_on_evaluatehandsbutton_pressed"]
-[connection signal="released_tile_from_mouse" from="tile (placeholder instance)" to="dealerUI/DealZone Player1/acceptor" method="_on_tile_placeholder_instance_released_tile_from_mouse"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Timer" to="phase singleton" method="_on_timer_timeout"]
 

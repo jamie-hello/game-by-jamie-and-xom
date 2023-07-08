@@ -101,12 +101,9 @@ func set_letter(lettervalue):
 		"Y":
 			$Sprite2D.set_texture(y)
 		"Z":
-			$Sprite2D.set_texture(z)		
+			$Sprite2D.set_texture(z)
 		"blank":
 			$Sprite2D.set_texture(blank)
-
-
-	
 
 
 func _process(delta):
@@ -117,9 +114,8 @@ func _process(delta):
 		else:
 			var whoseturn = get_parent().get_node("phase singleton").active_turn
 			if whoseturn != null:
-				if whoseturn.tileholder.size() < 7:
-					whoseturn.add_a_tile(self)
-					print("added ",Letter," to ",whoseturn)
+				if whoseturn.rack.size() < 7:
+					get_parent().deal_tile(whoseturn, self)
 	else:
 		global_position = lerp(global_position, rest_point, 25*delta)
 		pass
