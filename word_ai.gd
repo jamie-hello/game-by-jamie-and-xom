@@ -164,7 +164,16 @@ func get_best_local_move(hand, substr_by_len, x, y, searched):
 					break
 				searched[DIR_SOUTH][r1][x] = true
 		else: # "Perp word case going SOUTH, i.e. we're in the middle of a word"
-			pass # TODO
+			var perp_moves = get_perp_moves(hand, substr_by_len, x, y, DIR_SOUTH)
+			for move in perp_moves:
+				var score = score_move(move[0], move[1], move[2], move[3])
+				if score == best_score:
+					move.append(score)
+					best_moves.append(move)
+				elif score > best_score:
+					best_score = score
+					move.append(score)
+					best_moves = [move]
 	if not searched[DIR_EAST][y][x]:
 		var base = get_word_starting_here(x, y, DIR_EAST)
 		if base != null:
@@ -203,8 +212,120 @@ func get_best_local_move(hand, substr_by_len, x, y, searched):
 					break
 				searched[DIR_EAST][y][c1] = true
 		else: # "Perp word case going EAST, i.e. we're in the middle of a word"
-			pass # TODO
+			var perp_moves = get_perp_moves(hand, substr_by_len, x, y, DIR_EAST)
+			for move in perp_moves:
+				var score = score_move(move[0], move[1], move[2], move[3])
+				if score == best_score:
+					move.append(score)
+					best_moves.append(move)
+				elif score > best_score:
+					best_score = score
+					move.append(score)
+					best_moves = [move]
 	return best_moves
+
+
+func get_perp_moves(hand, substr_by_len, x, y, dir):
+	var num_tiles = hand.size()
+	var moves = []
+	if dir == DIR_SOUTH:
+		for i in y + 1:
+			for j in BOARD_SIZE - y:
+				var num_tiles_req = 0
+				for r1 in range(y - i, y + j + 1):
+					if tableau[r1][x] == 0:
+						num_tiles_req += 1
+				if num_tiles_req == 0:
+					continue
+				if num_tiles_req > num_tiles:
+					break
+				var substrings = substr_by_len[num_tiles_req - 1]
+				for s in substrings:
+					var sub_index = 0
+					var cand = PackedByteArray()
+					for r1 in range(y - i, y + j + 1):
+						if tableau[r1][x] == 0:
+							cand.append(s[sub_index])
+							sub_index += 1
+						else:
+							cand.append(tableau[r1][x])
+					var str = cand.get_string_from_ascii().to_upper()
+					var anags = get_anagrams(str)
+					if anags.is_empty():
+						continue
+					for m in anags:
+						var lines_up = true
+						for r1 in range(y - 1, y + j + 1):
+							if tableau[r1][x] != 0 and String.chr(tableau[r1][x]).to_upper() != m[r1 - y + i]:
+								lines_up = false
+								break
+						if lines_up:
+							var word = assign_wildcards_for_perp(hand, m, x, y - i, dir)
+							if is_valid_move(x, y - i, dir, word, false):
+								moves.append([x, y - i, dir, word])
+	else:
+		for i in x + 1:
+			for j in BOARD_SIZE - x:
+				var num_tiles_req = 0
+				for c1 in range(x - i, x + j + 1):
+					if tableau[y][c1] == 0:
+						num_tiles_req += 1
+				if num_tiles_req == 0:
+					continue
+				if num_tiles_req > num_tiles:
+					break
+				var substrings = substr_by_len[num_tiles_req - 1]
+				for s in substrings:
+					var sub_index = 0
+					var cand = PackedByteArray()
+					for c1 in range(x - i, x + j + 1):
+						if tableau[y][c1] == 0:
+							cand.append(s[sub_index])
+							sub_index += 1
+						else:
+							cand.append(tableau[y][c1])
+					var str = cand.get_string_from_ascii().to_upper()
+					var anags = get_anagrams(str)
+					if anags.is_empty():
+						continue
+					for m in anags:
+						var lines_up = true
+						for c1 in range(x - i, x + j + 1):
+							if tableau[y][c1] != 0 and String.chr(tableau[y][c1]).to_upper() != m[c1 - x + i]:
+								lines_up = false
+								break
+						if lines_up:
+							var word = assign_wildcards_for_perp(hand, m, x - i, y, dir)
+							if is_valid_move(x - i, y, dir, word, false):
+								moves.append([x - i, y, dir, word])
+	return moves
+
+
+# assume m is all caps
+func assign_wildcards_for_perp(hand, m, x, y, dir):
+	var result = m.to_ascii_buffer()
+	var h = hand.duplicate()
+	if dir == DIR_SOUTH:
+		for i in result.size():
+			if tableau[y + i][x] != 0:
+				result[i] = tableau[y + i][x]
+			else:
+				var pos = h.find(result[i])
+				if pos == -1:
+					result[i] += 32 # to lower case
+				else:
+					h.remove_at(pos)
+	else:
+		for i in result.size():
+			if tableau[y][x + i] != 0:
+				result[i] = tableau[y][x + i]
+			else:
+				var pos = h.find(result[i])
+				if pos == -1:
+					result[i] += 32 # to lower case
+				else:
+					h.remove_at(pos)
+	return result
 
 
 func get_word_starting_here(x, y, dir):
@@ -386,7 +507,7 @@ func is_perp_invalid(x, y, orig_dir, letter):
 func assign_wildcards(hand, m):
 	var result = m.to_ascii_buffer()
 	var h = hand.duplicate()
-	for i in range(result.size()):
+	for i in result.size():
 		var pos = h.find(result[i])
 		if pos == -1:
 			result[i] += 32 # to lower case
