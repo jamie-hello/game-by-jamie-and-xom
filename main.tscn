@@ -1,19 +1,22 @@
-[gd_scene load_steps=20 format=3 uid="uid://2v74n5qo7jyh"]
+[gd_scene load_steps=23 format=3 uid="uid://2v74n5qo7jyh"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_63v1i"]
 [ext_resource type="PackedScene" uid="uid://npib1ad5mqrc" path="res://logo.tscn" id="1_grydc"]
 [ext_resource type="PackedScene" uid="uid://b8aykduqsqo68" path="res://word_ai.tscn" id="2_374l1"]
 [ext_resource type="Texture2D" uid="uid://brpbxnesju8o" path="res://board.png" id="2_jtecq"]
 [ext_resource type="Texture2D" uid="uid://b0hlhmd7qy1s2" path="res://logo-lowalpha.png" id="2_tek4f"]
+[ext_resource type="Script" path="res://phase singleton.gd" id="3_o658c"]
 [ext_resource type="Script" path="res://DealZone Player1.gd" id="5_cl6y5"]
 [ext_resource type="Texture2D" uid="uid://0rkuon2p2bh7" path="res://toplayer1.png" id="5_rastk"]
 [ext_resource type="Texture2D" uid="uid://bwedxmm2ya8n" path="res://player1dealzone.png" id="6_27qk1"]
+[ext_resource type="Texture2D" uid="uid://cxre1hq4skr8f" path="res://bag.png" id="7_2flgw"]
 [ext_resource type="Texture2D" uid="uid://ystwu15pkc6k" path="res://toplayer2.png" id="7_vcriq"]
 [ext_resource type="Texture2D" uid="uid://dpbkbmfvoos5f" path="res://player2dealzone.png" id="7_vmve3"]
 [ext_resource type="Script" path="res://DealZone Player2.gd" id="8_17t1j"]
 [ext_resource type="Script" path="res://acceptor.gd" id="8_cbbw5"]
 [ext_resource type="Texture2D" uid="uid://c68f6c81rxofj" path="res://player3dealzone.png" id="8_vdm6k"]
 [ext_resource type="Texture2D" uid="uid://ccs5qb7u82v8q" path="res://toplayer3.png" id="9_d3unp"]
+[ext_resource type="Texture2D" uid="uid://20u2p4oaewjk" path="res://arrow.png" id="10_xgl1a"]
 [ext_resource type="Script" path="res://DealZone Player3.gd" id="11_4bq7q"]
 [ext_resource type="PackedScene" uid="uid://dcvk0hmraq7o1" path="res://tile_(placeholder_instance).tscn" id="15_rrxli"]
 [ext_resource type="Script" path="res://bag.gd" id="16_o01yg"]
@@ -32,12 +35,29 @@ position = Vector2(528, 226)
 scale = Vector2(0.515054, 0.452083)
 texture = ExtResource("2_jtecq")
 
+[node name="phase singleton" type="Node" parent="."]
+script = ExtResource("3_o658c")
+
+[node name="TimerFirstTurn1" type="Timer" parent="phase singleton"]
+one_shot = true
+
+[node name="TimerFirstTurn2" type="Timer" parent="phase singleton"]
+one_shot = true
+
+[node name="TimerFirstTurn3" type="Timer" parent="phase singleton"]
+one_shot = true
+
 [node name="Logo" parent="." instance=ExtResource("1_grydc")]
-position = Vector2(393.75, 262.111)
-scale = Vector2(0.1269, 0.150904)
+position = Vector2(122, 270)
+scale = Vector2(0.0594, 0.187819)
 texture = ExtResource("2_tek4f")
 
 [node name="WordAI" parent="." instance=ExtResource("2_374l1")]
+
+[node name="Bag" type="Sprite2D" parent="."]
+position = Vector2(216, 141)
+scale = Vector2(0.39, 0.441667)
+texture = ExtResource("7_2flgw")
 
 [node name="dealerUI" type="Control" parent="."]
 layout_mode = 3
@@ -47,14 +67,14 @@ offset_bottom = 40.0
 
 [node name="evaluatehandsbutton" type="Button" parent="dealerUI"]
 layout_mode = 0
-offset_left = 50.0
-offset_top = 50.0
-offset_right = 70.0
-offset_bottom = 70.0
+offset_left = 164.0
+offset_top = 1.0
+offset_right = 290.0
+offset_bottom = 32.0
 text = "evaluate hands"
 
 [node name="DealZone Player1" type="Node2D" parent="dealerUI"]
-position = Vector2(130, 510)
+position = Vector2(130, 560)
 script = ExtResource("5_cl6y5")
 
 [node name="restPosition1" type="Node2D" parent="dealerUI/DealZone Player1" groups=["restzone"]]
@@ -84,6 +104,11 @@ texture = ExtResource("6_27qk1")
 [node name="Sprite2D2" type="Sprite2D" parent="dealerUI/DealZone Player1"]
 texture = ExtResource("5_rastk")
 
+[node name="Arrow" type="Sprite2D" parent="dealerUI/DealZone Player1"]
+visible = false
+position = Vector2(0, -200)
+texture = ExtResource("10_xgl1a")
+
 [node name="evaluator" type="Area2D" parent="dealerUI/DealZone Player1"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="dealerUI/DealZone Player1/evaluator"]
@@ -100,7 +125,7 @@ position = Vector2(1, -1)
 shape = SubResource("RectangleShape2D_pqirq")
 
 [node name="DealZone Player2" type="Node2D" parent="dealerUI"]
-position = Vector2(400, 470)
+position = Vector2(400, 530)
 script = ExtResource("8_17t1j")
 
 [node name="restPosition1" type="Node2D" parent="dealerUI/DealZone Player2" groups=["restzone"]]
@@ -130,6 +155,11 @@ texture = ExtResource("7_vmve3")
 [node name="Sprite2D2" type="Sprite2D" parent="dealerUI/DealZone Player2"]
 texture = ExtResource("7_vcriq")
 
+[node name="Arrow" type="Sprite2D" parent="dealerUI/DealZone Player2"]
+visible = false
+position = Vector2(1, -188)
+texture = ExtResource("10_xgl1a")
+
 [node name="evaluator" type="Area2D" parent="dealerUI/DealZone Player2"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="dealerUI/DealZone Player2/evaluator"]
@@ -146,7 +176,7 @@ position = Vector2(1, -1)
 shape = SubResource("RectangleShape2D_pqirq")
 
 [node name="DealZone Player3" type="Node2D" parent="dealerUI"]
-position = Vector2(650, 510)
+position = Vector2(650, 560)
 script = ExtResource("11_4bq7q")
 
 [node name="restPosition1" type="Node2D" parent="dealerUI/DealZone Player3" groups=["restzone"]]
@@ -176,6 +206,11 @@ texture = ExtResource("8_vdm6k")
 [node name="Sprite2D2" type="Sprite2D" parent="dealerUI/DealZone Player3"]
 texture = ExtResource("9_d3unp")
 
+[node name="Arrow" type="Sprite2D" parent="dealerUI/DealZone Player3"]
+visible = false
+position = Vector2(23, -168)
+texture = ExtResource("10_xgl1a")
+
 [node name="evaluator" type="Area2D" parent="dealerUI/DealZone Player3"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="dealerUI/DealZone Player3/evaluator"]
@@ -203,8 +238,12 @@ script = ExtResource("16_o01yg")
 [connection signal="add_tile_to_player1_inventory" from="." to="dealerUI/DealZone Player1" method="_on_main_add_tile_to_player_1_inventory"]
 [connection signal="add_tile_to_player2_inventory" from="." to="dealerUI/DealZone Player2" method="_on_main_add_tile_to_player_2_inventory"]
 [connection signal="add_tile_to_player3_inventory" from="." to="dealerUI/DealZone Player3" method="_on_main_add_tile_to_player_3_inventory"]
+[connection signal="timeout" from="phase singleton/TimerFirstTurn1" to="phase singleton" method="_on_timer_first_turn_1_timeout"]
+[connection signal="timeout" from="phase singleton/TimerFirstTurn2" to="phase singleton" method="_on_timer_first_turn_2_timeout"]
+[connection signal="timeout" from="phase singleton/TimerFirstTurn3" to="phase singleton" method="_on_timer_first_turn_3_timeout"]
 [connection signal="pressed" from="dealerUI/evaluatehandsbutton" to="." method="_on_evaluatehandsbutton_pressed"]
 [connection signal="released_tile_from_mouse" from="tile (placeholder instance)" to="dealerUI/DealZone Player1/acceptor" method="_on_tile_placeholder_instance_released_tile_from_mouse"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer" to="phase singleton" method="_on_timer_timeout"]
 
 [editable path="tile (placeholder instance)"]

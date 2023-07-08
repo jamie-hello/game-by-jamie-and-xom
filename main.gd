@@ -8,17 +8,31 @@ var player1hand=[] #["X","J","E","S","S"]
 var player2hand=[] #
 var player3hand=[] #
 var dealerhand=[]  #
+"""
 var player1tileholder = [] #[<tileobject>,<tileobject>...]
 var player2tileholder = [] #
 var player3tileholder = [] #
 var dealertileholder = []  #
+"""
 
 func _ready():
 	newgame_deal_out_some_tiles()
 
-
 func _process(delta):
 	pass
+
+func dealer_newhand():
+	for x in range(7):
+		var rand = randi_range(0,$bag.contents.size()-1)
+		var newtile = instance.instantiate()
+		var to_hand = $bag.contents.pop_at(rand)
+		newtile.set_letter(to_hand)
+		dealerhand.append(to_hand)
+		newtile.set_position(Vector2((x+1)*30,(x+1)*50 + 165))
+		add_child(newtile)
+	
+	pass
+	
 
 
 func newgame_deal_out_some_tiles():
@@ -28,9 +42,10 @@ func newgame_deal_out_some_tiles():
 		var rand = randi_range(0,$bag.contents.size()-1)
 		var newtile = instance.instantiate()
 		
-		newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player1/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
-		newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player2/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
-		newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player3/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
+		#newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player1/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
+		#newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player2/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
+		#newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player3/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
+		#$"phase singleton".active_player.connect(newtile._on_active_player)
 		
 		#matchit(newtile,rand)
 		var to_hand = $bag.contents.pop_at(rand)
@@ -43,9 +58,9 @@ func newgame_deal_out_some_tiles():
 		var rand = randi_range(0,$bag.contents.size()-1)
 		var newtile = instance.instantiate()
 		
-		newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player1/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
-		newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player2/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
-		newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player3/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
+		#newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player1/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
+		#newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player2/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
+		#newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player3/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
 		
 		var to_hand = $bag.contents.pop_at(rand)
 		newtile.set_letter(to_hand)
@@ -57,9 +72,9 @@ func newgame_deal_out_some_tiles():
 		var rand = randi_range(0,$bag.contents.size()-1)
 		var newtile = instance.instantiate()
 		
-		newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player1/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
-		newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player2/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
-		newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player3/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
+		#newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player1/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
+		#newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player2/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
+		#newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player3/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
 		
 		var to_hand = $bag.contents.pop_at(rand)
 		newtile.set_letter(to_hand)
@@ -78,14 +93,14 @@ func newgame_deal_out_some_tiles():
 		var rand = randi_range(0,$bag.contents.size()-1)
 		var newtile = instance.instantiate()
 		
-		newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player1/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
-		newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player2/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
-		newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player3/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
+		#newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player1/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
+		#newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player2/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
+		#newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player3/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
 		
 		var to_hand = $bag.contents.pop_at(rand)
 		newtile.set_letter(to_hand)
 		dealerhand.append(to_hand)
-		newtile.set_position(Vector2((x+1)*30,(x+1)*50 + 75))
+		newtile.set_position(Vector2((x+1)*30,(x+1)*50 + 165))
 		add_child(newtile)
 		
 func matchit(newtile,rand):
