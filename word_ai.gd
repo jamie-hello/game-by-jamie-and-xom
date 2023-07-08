@@ -100,7 +100,7 @@ func get_best_move(hand):
 	for y in BOARD_SIZE:
 		for x in BOARD_SIZE:
 			if tableau[y][x] != 0:
-				var best_local = get_best_local_move(x, y, searched)
+				var best_local = get_best_local_move(hand, substr_by_len, x, y, searched)
 				if not best_local.is_empty():
 					if best_local[0][4] == best_score:
 						best_moves.append_array(best_local)
@@ -122,6 +122,111 @@ func get_best_move(hand):
 		return null
 	return best_moves.pick_random()
 
+
+func get_best_local_move(hand, substr_by_len, x, y, searched):
+	var best_moves = []
+	var best_score = -1
+	if not searched[DIR_SOUTH][y][x]:
+		var base = get_word_starting_here(x, y, DIR_SOUTH)
+		if base != null:
+			var w_len = base.size()
+			for i in range(w_len, BOARD_SIZE - y):
+				for j in range(y + 1):
+					var num_tiles_req = 0
+					for r1 in range(y - j, y + i + 1):
+						if tableau[r1][x] == 0:
+							num_tiles_req += 1
+					if num_tiles_req > hand.size():
+						break
+					var substrings = substr_by_len[num_tiles_req]
+					for s in substrings:
+						var sub_index = 0
+						var cand = PackedByteArray()
+						for r1 in range(y - j, y + i + 1):
+							if tableau[r1][x] == 0:
+								cand.append(s[sub_index])
+								sub_index += 1
+							else:
+								cand.append(tableau[r1][x])
+						var str = cand.get_string_from_ascii().to_upper()
+						var alpha = alphabetize(str)
+						if not (word_dict.has(alpha) and str in word_dict[alpha]):
+							continue
+						if is_valid_move(x, y - j, DIR_SOUTH, cand, false):
+							var score = score_move(x, y - j, DIR_SOUTH, cand)
+							if score == best_score:
+								best_moves.append([x, y - j, DIR_SOUTH, cand, score])
+							elif score > best_score:
+								best_score = score
+								best_moves = [[x, y - j, DIR_SOUTH, cand, score]]
+			for r1 in range(y, w_len):
+				if r1 >= BOARD_SIZE or tableau[r1][x] == 0:
+					break
+				searched[DIR_SOUTH][r1][x] = true
+		else: # "Perp word case going SOUTH, i.e. we're in the middle of a word"
+			pass # TODO
+	if not searched[DIR_EAST][y][x]:
+		var base = get_word_starting_here(x, y, DIR_EAST)
+		if base != null:
+			var w_len = base.size()
+			for i in range(w_len, BOARD_SIZE - x):
+				for j in range(x + 1):
+					var num_tiles_req = 0
+					for c1 in range(x - j, x + i + 1):
+						if tableau[y][c1] == 0:
+							num_tiles_req += 1
+					if num_tiles_req > hand.size():
+						break
+					var substrings = substr_by_len[num_tiles_req]
+					for s in substrings:
+						var sub_index = 0
+						var cand = PackedByteArray()
+						for c1 in range(x - j, x + i + 1):
+							if tableau[y][c1] == 0:
+								cand.append(s[sub_index])
+								sub_index += 1
+							else:
+								cand.append(tableau[y][c1])
+						var str = cand.get_string_from_ascii().to_upper()
+						var alpha = alphabetize(str)
+						if not (word_dict.has(alpha) and str in word_dict[alpha]):
+							continue
+						if is_valid_move(x - j, y, DIR_EAST, cand, false):
+							var score = score_move(x - j, y, DIR_EAST, cand)
+							if score == best_score:
+								best_moves.append([x - j, y, DIR_EAST, cand, score])
+							elif score > best_score:
+								best_score = score
+								best_moves = [[x - j, y, DIR_EAST, cand, score]]
+			for c1 in range(x, w_len):
+				if c1 >= BOARD_SIZE or tableau[y][c1] == 0:
+					break
+				searched[DIR_EAST][y][c1] = true
+		else: # "Perp word case going EAST, i.e. we're in the middle of a word"
+			pass # TODO
+	return best_moves
+
+
+func get_word_starting_here(x, y, dir):
+	if dir == DIR_SOUTH:
+		if y > 0 and tableau[y - 1][x] != 0:
+			return null
+		var southerly = PackedByteArray()
+		var i = 0
+		while y + i < BOARD_SIZE and tableau[y + i][x] != 0:
+			southerly.append(tableau[y + i][x])
+			i += 1
+		return southerly if southerly.size() >= 2 else null
+	else:
+		if x > 0 and tableau[y][x - 1] != 0:
+			return null
+		var easterly = PackedByteArray()
+		var i = 0
+		while x + i < BOARD_SIZE and tableau[y][x + i] != 0:
+			easterly.append(tableau[y][x + i])
+			i += 1
+		return easterly if easterly.size() >= 2 else null
+		
 
 func get_best_parallel_move(hand, substr_by_len, x, y, dir):
 	var max_play_size = hand.size()
@@ -145,7 +250,7 @@ func get_best_parallel_move(hand, substr_by_len, x, y, dir):
 					var anags = get_anagrams(s.get_string_from_ascii().to_upper())
 					for m in anags:
 						var word = assign_wildcards(hand, m)
-						if is_valid_move(x, y - i, dir, word):
+						if is_valid_move(x, y - i, dir, word, true):
 							var score = score_move(x, y - i, dir, word)
 							if score == best_score:
 								best_moves.append([x, y - i, dir, word, score])
@@ -168,7 +273,7 @@ func get_best_parallel_move(hand, substr_by_len, x, y, dir):
 					var anags = get_anagrams(s.get_string_from_ascii().to_upper())
 					for m in anags:
 						var word = assign_wildcards(hand, m)
-						if is_valid_move(x - i, y, dir, word):
+						if is_valid_move(x - i, y, dir, word, true):
 							var score = score_move(x - i, y, dir, word)
 							if score == best_score:
 								best_moves.append([x - i, y, dir, word, score])
@@ -202,13 +307,23 @@ func has_parallel_move(x, y):
 	return -1
 
 
-func is_valid_move(x, y, dir, word):
+func is_valid_move(x, y, dir, word, is_parallel):
 	# can skip check for using tiles from hand?
 	if word.size() < 2:
 		return false
 	# can skip dictionary check on word itself?
 	# can skip board boundary check?
-	# can skip check for collision before and after word itself?
+	if not is_parallel: # if parallel, can skip check for collision before and after word itself?
+		if dir == DIR_SOUTH:
+			if y > 0 and tableau[y - 1][x] != 0:
+				return false
+			if y + word.size() < BOARD_SIZE and tableau[y + word.size()][x] != 0:
+				return false
+		else:
+			if x > 0 and tableau[y][x - 1] != 0:
+				return false
+			if x + word.size() < BOARD_SIZE and tableau[y][x + word.size()] != 0:
+				return false
 	var next_to_something = false
 	var xx = x
 	var yy = y
@@ -226,7 +341,6 @@ func is_valid_move(x, y, dir, word):
 				next_to_something = true
 	else:
 		for i in word.size():
-			# can skip check word overlaps correctly with letters on tableau?
 			var perp_invalid = is_perp_invalid(x + i, y, dir, word[i])
 			if perp_invalid:
 				return false
@@ -304,7 +418,8 @@ func generate_substrings(hand):
 	for tile in hand:
 		substr_by_len.append([])
 	for v in d.values():
-		substr_by_len[v.size() - 1].append(v)
+		if v.size() > 0:
+			substr_by_len[v.size() - 1].append(v)
 	return substr_by_len
 
 
