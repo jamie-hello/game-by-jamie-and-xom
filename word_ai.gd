@@ -18,10 +18,22 @@ var SQ_TW = 13
 
 var board = create_proto_board()
 var tableau = create_2d_array(BOARD_SIZE, BOARD_SIZE, 0) # tableau is tiles on board; 0 is empty, 1 is unplayed wildcard, uppercase ASCII codes for letters, lowercase for played wildcards
+var word_dict = {}
 
 
 func _ready():
-	pass # Replace with function body.
+	var f = FileAccess.open("res://CSW22.txt", FileAccess.READ)
+	while not f.eof_reached():
+		var word = f.get_line()
+		if word == "":
+			break
+		var alpha = alphabetize(word)
+		if word_dict.has(alpha):
+			word_dict[alpha].append(word)
+		else:
+			word_dict[alpha] = [word]
+	f.close()
+#	pass # Replace with function body.
 
 
 func letter_mult(square):
@@ -30,6 +42,19 @@ func letter_mult(square):
 
 func word_mult(square):
 	return square >> 4
+
+
+func alphabetize(word):
+	var ascii = word.to_ascii_buffer()
+	ascii.sort()
+	return ascii.get_string_from_ascii()
+
+
+func get_anagrams(s):
+	var alpha = alphabetize(s)
+	if not word_dict.has(alpha):
+		return []
+	return word_dict[alpha]
 
 
 func score_perpendicular(x, y, orig_dir, letter):
@@ -130,69 +155,69 @@ func letter_value(letter):
 
 func create_proto_board():
 	var result = create_2d_array(BOARD_SIZE, BOARD_SIZE, 0)
-	result[1][2] = SQ_DL
-	result[1][12] = SQ_DL
-	result[2][1] = SQ_DL
-	result[2][4] = SQ_DL
-	result[2][10] = SQ_DL
-	result[2][13] = SQ_DL
-	result[4][2] = SQ_DL
-	result[4][6] = SQ_DL
-	result[4][8] = SQ_DL
-	result[4][12] = SQ_DL
-	result[6][4] = SQ_DL
-	result[6][10] = SQ_DL
-	result[8][4] = SQ_DL
-	result[8][10] = SQ_DL
-	result[10][2] = SQ_DL
-	result[10][6] = SQ_DL
-	result[10][8] = SQ_DL
-	result[10][12] = SQ_DL
-	result[12][1] = SQ_DL
-	result[12][4] = SQ_DL
-	result[12][10] = SQ_DL
-	result[12][13] = SQ_DL
-	result[13][2] = SQ_DL
-	result[13][12] = SQ_DL
-
-	result[0][6] = SQ_TL
-	result[0][8] = SQ_TL
-	result[3][3] = SQ_TL
-	result[3][11] = SQ_TL
-	result[5][5] = SQ_TL
-	result[5][9] = SQ_TL
-	result[6][0] = SQ_TL
-	result[6][14] = SQ_TL
-	result[8][0] = SQ_TL
-	result[8][14] = SQ_TL
-	result[9][5] = SQ_TL
-	result[9][9] = SQ_TL
-	result[11][3] = SQ_TL
-	result[11][11] = SQ_TL
-	result[14][6] = SQ_TL
-	result[14][8] = SQ_TL
-
-	result[1][5] = SQ_DW
-	result[1][9] = SQ_DW
-	result[3][7] = SQ_DW
-	result[5][1] = SQ_DW
-	result[5][13] = SQ_DW
-	result[7][3] = SQ_DW
-	result[7][11] = SQ_DW
-	result[9][1] = SQ_DW
-	result[9][13] = SQ_DW
-	result[11][7] = SQ_DW
-	result[13][5] = SQ_DW
-	result[13][9] = SQ_DW
-
-	result[0][4] = SQ_TW
-	result[0][10] = SQ_TW
-	result[4][0] = SQ_TW
-	result[4][14] = SQ_TW
-	result[10][0] = SQ_TW
-	result[10][14] = SQ_TW
-	result[14][4] = SQ_TW
-	result[14][10] = SQ_TW
+	result[0][0] = SQ_TW
+	result[0][7] = SQ_TW
+	result[0][14] = SQ_TW
+	result[7][0] = SQ_TW
+	result[7][14] = SQ_TW
+	result[14][0] = SQ_TW
+	result[14][7] = SQ_TW
+	result[14][14] = SQ_TW
+	
+	result[1][2] = SQ_DW
+	result[1][12] = SQ_DW
+	result[2][1] = SQ_DW
+	result[2][13] = SQ_DW
+	result[3][4] = SQ_DW
+	result[3][10] = SQ_DW
+	result[4][3] = SQ_DW
+	result[4][11] = SQ_DW
+	result[10][3] = SQ_DW
+	result[10][11] = SQ_DW
+	result[11][4] = SQ_DW
+	result[11][10] = SQ_DW
+	result[12][1] = SQ_DW
+	result[12][13] = SQ_DW
+	result[13][2] = SQ_DW
+	result[13][12] = SQ_DW
+	
+	result[1][6] = SQ_TL
+	result[1][8] = SQ_TL
+	result[2][5] = SQ_TL
+	result[2][9] = SQ_TL
+	result[5][2] = SQ_TL
+	result[5][12] = SQ_TL
+	result[6][1] = SQ_TL
+	result[6][13] = SQ_TL
+	result[8][1] = SQ_TL
+	result[8][13] = SQ_TL
+	result[9][2] = SQ_TL
+	result[9][12] = SQ_TL
+	result[12][5] = SQ_TL
+	result[12][9] = SQ_TL
+	result[13][6] = SQ_TL
+	result[13][8] = SQ_TL
+	
+	result[0][3] = SQ_DL
+	result[0][11] = SQ_DL
+	result[3][0] = SQ_DL
+	result[3][14] = SQ_DL
+	result[4][7] = SQ_DL
+	result[5][6] = SQ_DL
+	result[5][8] = SQ_DL
+	result[6][5] = SQ_DL
+	result[6][9] = SQ_DL
+	result[7][4] = SQ_DL
+	result[7][10] = SQ_DL
+	result[8][5] = SQ_DL
+	result[8][9] = SQ_DL
+	result[9][6] = SQ_DL
+	result[9][8] = SQ_DL
+	result[10][7] = SQ_DL
+	result[11][0] = SQ_DL
+	result[11][14] = SQ_DL
+	result[14][3] = SQ_DL
+	result[14][11] = SQ_DL
 	return result
 
 
