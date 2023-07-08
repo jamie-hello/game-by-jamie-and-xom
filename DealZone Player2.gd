@@ -1,5 +1,5 @@
 extends Node2D
-var count = 0
+var addcount = 0
 var Letters_as_string = ""
 var tiles_in_hand=0
 
@@ -13,11 +13,15 @@ func _process(delta):
 	pass
 
 
+var tileholder = []
 func _on_main_add_tile_to_player_2_inventory(newtile):
 	
-	newtile.set_position(get_children()[count].global_position)
+	tileholder.append(newtile)
+	var cards_in_hand = get_parent().get_parent().player2hand.size()
+	newtile.set_position(get_children()[cards_in_hand-1].global_position)
 	add_child(newtile)
-	count = count+1
+	addcount = addcount+1
+	newtile.drawn_by_player()
 	
 func evaluate():
 	tiles_in_hand=0

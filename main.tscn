@@ -1,8 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://2v74n5qo7jyh"]
+[gd_scene load_steps=20 format=3 uid="uid://2v74n5qo7jyh"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_63v1i"]
 [ext_resource type="PackedScene" uid="uid://npib1ad5mqrc" path="res://logo.tscn" id="1_grydc"]
 [ext_resource type="PackedScene" uid="uid://b8aykduqsqo68" path="res://word_ai.tscn" id="2_374l1"]
+[ext_resource type="Texture2D" uid="uid://brpbxnesju8o" path="res://board.png" id="2_jtecq"]
 [ext_resource type="Texture2D" uid="uid://b0hlhmd7qy1s2" path="res://logo-lowalpha.png" id="2_tek4f"]
 [ext_resource type="Script" path="res://DealZone Player1.gd" id="5_cl6y5"]
 [ext_resource type="Texture2D" uid="uid://0rkuon2p2bh7" path="res://toplayer1.png" id="5_rastk"]
@@ -25,6 +26,11 @@ size = Vector2(240, 46)
 
 [node name="Main" type="Node"]
 script = ExtResource("1_63v1i")
+
+[node name="Board" type="Sprite2D" parent="."]
+position = Vector2(528, 226)
+scale = Vector2(0.515054, 0.452083)
+texture = ExtResource("2_jtecq")
 
 [node name="Logo" parent="." instance=ExtResource("1_grydc")]
 position = Vector2(393.75, 262.111)

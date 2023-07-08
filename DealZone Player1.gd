@@ -2,6 +2,7 @@ extends Node2D
 var addcount = 0
 var Letters_as_string = ""
 var tiles_in_hand = 0
+var tileholder = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -13,11 +14,16 @@ func _process(delta):
 	pass
 
 
+
 func _on_main_add_tile_to_player_1_inventory(newtile):
 	
-	newtile.set_position(get_children()[addcount].global_position)
+	tileholder.append(newtile)
+	var cards_in_hand = get_parent().get_parent().player1hand.size()
+	newtile.set_position(get_children()[cards_in_hand-1].global_position)
 	add_child(newtile)
 	addcount = addcount+1
+	newtile.drawn_by_player()
+	
 	
 func evaluate():
 	tiles_in_hand=0

@@ -4,10 +4,14 @@ signal add_tile_to_player1_inventory
 signal add_tile_to_player2_inventory
 signal add_tile_to_player3_inventory
 
-var player1hand=[]
-var player2hand=[]
-var player3hand=[]
-var dealerhand=[]
+var player1hand=[] #["X","J","E","S","S"]
+var player2hand=[] #
+var player3hand=[] #
+var dealerhand=[]  #
+var player1tileholder = [] #[<tileobject>,<tileobject>...]
+var player2tileholder = [] #
+var player3tileholder = [] #
+var dealertileholder = []  #
 
 func _ready():
 	newgame_deal_out_some_tiles()
@@ -81,7 +85,7 @@ func newgame_deal_out_some_tiles():
 		var to_hand = $bag.contents.pop_at(rand)
 		newtile.set_letter(to_hand)
 		dealerhand.append(to_hand)
-		newtile.set_position(Vector2((x+1)*60,(x+1)*20 + 75))
+		newtile.set_position(Vector2((x+1)*30,(x+1)*50 + 75))
 		add_child(newtile)
 		
 func matchit(newtile,rand):

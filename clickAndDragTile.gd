@@ -41,6 +41,11 @@ func _ready():
 	rest_point = self.get_position()
 	#LetterTexture.set_texture()
 
+var dealtalready = false
+func drawn_by_player():
+	dealtalready = true
+	pass
+
 func set_letter(lettervalue):
 	Letter = lettervalue
 	match lettervalue:
@@ -106,6 +111,8 @@ func set_letter(lettervalue):
 func _process(delta):
 	if clicked:
 		global_position = lerp(global_position, get_global_mouse_position(), 25*delta)
+		if dealtalready:
+			queue_free()
 	else:
 		global_position = lerp(global_position, rest_point, 25*delta)
 
