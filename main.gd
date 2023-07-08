@@ -1,7 +1,7 @@
 extends Node
 
 
-@onready var instance = preload("res://tile_(placeholder_instance).tscn")
+@onready var instance = preload("res://tile.tscn")
 
 
 var dealer_hand = []

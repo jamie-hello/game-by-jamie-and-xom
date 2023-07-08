@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://brpbxnesju8o" path="res://img/board.png" id="2_jtecq"]
 [ext_resource type="Script" path="res://phase singleton.gd" id="3_o658c"]
 [ext_resource type="Texture2D" uid="uid://cxre1hq4skr8f" path="res://img/bag.png" id="7_2flgw"]
-[ext_resource type="PackedScene" uid="uid://dcvk0hmraq7o1" path="res://tile_(placeholder_instance).tscn" id="15_rrxli"]
+[ext_resource type="PackedScene" uid="uid://dcvk0hmraq7o1" path="res://tile.tscn" id="15_rrxli"]
 [ext_resource type="Script" path="res://bag.gd" id="16_o01yg"]
 [ext_resource type="PackedScene" uid="uid://c1vhlig43wshy" path="res://deal_zone_player.tscn" id="16_pu1g3"]
 
@@ -51,7 +51,7 @@ position = Vector2(400, 530)
 [node name="DealZone Player3" parent="dealerUI" instance=ExtResource("16_pu1g3")]
 position = Vector2(670, 560)
 
-[node name="tile (placeholder instance)" parent="." instance=ExtResource("15_rrxli")]
+[node name="Tile" parent="." instance=ExtResource("15_rrxli")]
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
@@ -65,4 +65,4 @@ script = ExtResource("16_o01yg")
 [connection signal="timeout" from="phase singleton/TimerFirstTurn3" to="phase singleton" method="_on_timer_first_turn_3_timeout"]
 [connection signal="timeout" from="Timer" to="phase singleton" method="_on_timer_timeout"]
 
-[editable path="tile (placeholder instance)"]
+[editable path="Tile"]
