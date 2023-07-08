@@ -45,25 +45,25 @@ func set_letter(lettervalue):
 		"A":
 			$Sprite2D.set_texture(a)
 		"B":
-			$Sprite2D.set_texture(a)
+			$Sprite2D.set_texture(b)
 		"C":
-			$Sprite2D.set_texture(a)
+			$Sprite2D.set_texture(c)
 		"D":
-			$Sprite2D.set_texture(a)
+			$Sprite2D.set_texture(d)
 		"E":
-			$Sprite2D.set_texture(a)
+			$Sprite2D.set_texture(e)
 		"F":
-			$Sprite2D.set_texture(a)
+			$Sprite2D.set_texture(f)
 		"G":
-			$Sprite2D.set_texture(a)
+			$Sprite2D.set_texture(g)
 		"H":
-			$Sprite2D.set_texture(a)
+			$Sprite2D.set_texture(h)
 		"I":
-			$Sprite2D.set_texture(a)
+			$Sprite2D.set_texture(i)
 		"J":
-			$Sprite2D.set_texture(a)
+			$Sprite2D.set_texture(j)
 		"K":
-			$Sprite2D.set_texture(a)
+			$Sprite2D.set_texture(k)
 		"L":
 			$Sprite2D.set_texture(l)
 		"M":
