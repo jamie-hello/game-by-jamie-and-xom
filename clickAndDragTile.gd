@@ -1,9 +1,11 @@
 extends Node2D
 
 var clicked = false
-var rest_point = self.get_transform().get_origin()
+var rest_point = Vector2.ZERO
 var rest_nodes = []
 var Letter = ""
+signal released_tile_from_mouse
+signal newlycreatedtile
 @onready var LetterTexture = $Sprite2D
 var a = preload("res://letters/A.png")
 var b = preload("res://letters/B.png")
@@ -117,6 +119,13 @@ func _input(event):
 	if event is InputEventMouse:
 		if event.button_mask == 0 and clicked:
 			clicked = false
+			#if NOT in range 35 of another tile:
+			if canplacehere:
+				rest_point = get_global_mouse_position()
+			emit_signal("released_tile_from_mouse", self)
+			
+			
+"""			
 			var shortest_dist = 35
 			var foundRestPoint = false
 			for child in rest_nodes:
@@ -128,3 +137,12 @@ func _input(event):
 			if !foundRestPoint:
 				if true:
 					rest_point = get_global_mouse_position()
+"""
+
+var canplacehere = true
+func _on_area_2d_area_entered(area):
+	canplacehere = false
+
+
+func _on_area_2d_area_exited(area):
+	canplacehere = true

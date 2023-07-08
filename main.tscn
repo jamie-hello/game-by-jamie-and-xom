@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://2v74n5qo7jyh"]
+[gd_scene load_steps=19 format=3 uid="uid://2v74n5qo7jyh"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_63v1i"]
 [ext_resource type="PackedScene" uid="uid://npib1ad5mqrc" path="res://logo.tscn" id="1_grydc"]
@@ -10,12 +10,18 @@
 [ext_resource type="Texture2D" uid="uid://ystwu15pkc6k" path="res://toplayer2.png" id="7_vcriq"]
 [ext_resource type="Texture2D" uid="uid://dpbkbmfvoos5f" path="res://player2dealzone.png" id="7_vmve3"]
 [ext_resource type="Script" path="res://DealZone Player2.gd" id="8_17t1j"]
+[ext_resource type="Script" path="res://acceptor.gd" id="8_cbbw5"]
 [ext_resource type="Texture2D" uid="uid://c68f6c81rxofj" path="res://player3dealzone.png" id="8_vdm6k"]
 [ext_resource type="Texture2D" uid="uid://ccs5qb7u82v8q" path="res://toplayer3.png" id="9_d3unp"]
 [ext_resource type="Script" path="res://DealZone Player3.gd" id="11_4bq7q"]
+[ext_resource type="PackedScene" uid="uid://dcvk0hmraq7o1" path="res://tile_(placeholder_instance).tscn" id="15_rrxli"]
+[ext_resource type="Script" path="res://bag.gd" id="16_o01yg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qfcl0"]
 size = Vector2(229, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pqirq"]
+size = Vector2(240, 46)
 
 [node name="Main" type="Node"]
 script = ExtResource("1_63v1i")
@@ -78,6 +84,15 @@ texture = ExtResource("5_rastk")
 position = Vector2(3.5, 0)
 shape = SubResource("RectangleShape2D_qfcl0")
 
+[node name="acceptor" type="Area2D" parent="dealerUI/DealZone Player1"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("8_cbbw5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="dealerUI/DealZone Player1/acceptor"]
+position = Vector2(1, -1)
+shape = SubResource("RectangleShape2D_pqirq")
+
 [node name="DealZone Player2" type="Node2D" parent="dealerUI"]
 position = Vector2(400, 470)
 script = ExtResource("8_17t1j")
@@ -114,6 +129,15 @@ texture = ExtResource("7_vcriq")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="dealerUI/DealZone Player2/evaluator"]
 position = Vector2(3.5, 0)
 shape = SubResource("RectangleShape2D_qfcl0")
+
+[node name="acceptor" type="Area2D" parent="dealerUI/DealZone Player2"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("8_cbbw5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="dealerUI/DealZone Player2/acceptor"]
+position = Vector2(1, -1)
+shape = SubResource("RectangleShape2D_pqirq")
 
 [node name="DealZone Player3" type="Node2D" parent="dealerUI"]
 position = Vector2(650, 510)
@@ -152,7 +176,29 @@ texture = ExtResource("9_d3unp")
 position = Vector2(3.5, 0)
 shape = SubResource("RectangleShape2D_qfcl0")
 
+[node name="acceptor" type="Area2D" parent="dealerUI/DealZone Player3"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("8_cbbw5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="dealerUI/DealZone Player3/acceptor"]
+position = Vector2(1, -1)
+shape = SubResource("RectangleShape2D_pqirq")
+
+[node name="tile (placeholder instance)" parent="." instance=ExtResource("15_rrxli")]
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="bag" type="Node2D" parent="."]
+script = ExtResource("16_o01yg")
+
 [connection signal="add_tile_to_player1_inventory" from="." to="dealerUI/DealZone Player1" method="_on_main_add_tile_to_player_1_inventory"]
 [connection signal="add_tile_to_player2_inventory" from="." to="dealerUI/DealZone Player2" method="_on_main_add_tile_to_player_2_inventory"]
 [connection signal="add_tile_to_player3_inventory" from="." to="dealerUI/DealZone Player3" method="_on_main_add_tile_to_player_3_inventory"]
 [connection signal="pressed" from="dealerUI/evaluatehandsbutton" to="." method="_on_evaluatehandsbutton_pressed"]
+[connection signal="released_tile_from_mouse" from="tile (placeholder instance)" to="dealerUI/DealZone Player1/acceptor" method="_on_tile_placeholder_instance_released_tile_from_mouse"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+
+[editable path="tile (placeholder instance)"]

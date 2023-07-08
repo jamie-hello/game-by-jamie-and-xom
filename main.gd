@@ -16,31 +16,55 @@ func newgame_deal_out_some_tiles():
 	
 	#player1
 	for x in range(7):
-		var rand = randi_range(1,27)
+		var rand = randi_range(0,$bag.contents.size()-1)
 		var newtile = instance.instantiate()
-		matchit(newtile,rand)
+		
+		newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player1/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
+		newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player2/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
+		newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player3/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
+		
+		#matchit(newtile,rand)
+		newtile.set_letter($bag.contents.pop_at(rand))
 		emit_signal("add_tile_to_player1_inventory",newtile)
 		
 	#player2
 	for x in range(7):
-		var rand = randi_range(1,27)
+		var rand = randi_range(0,$bag.contents.size()-1)
 		var newtile = instance.instantiate()
-		matchit(newtile,rand)
+		
+		newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player1/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
+		newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player2/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
+		newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player3/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
+		
+		newtile.set_letter($bag.contents.pop_at(rand))
 		emit_signal("add_tile_to_player2_inventory",newtile)
 
 	#player3
 	for x in range(7):
-		var rand = randi_range(1,27)
+		var rand = randi_range(0,$bag.contents.size()-1)
 		var newtile = instance.instantiate()
-		matchit(newtile,rand)
+		
+		newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player1/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
+		newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player2/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
+		newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player3/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
+		
+		newtile.set_letter($bag.contents.pop_at(rand))
 		emit_signal("add_tile_to_player3_inventory",newtile)
 		
 	#dealer
+	#add in one blank
+	$bag.contents.append("blank")
+	$bag.contents.append("blank")
 	for x in range(7):
-		var rand = randi_range(1,27)
+		var rand = randi_range(0,$bag.contents.size()-1)
 		var newtile = instance.instantiate()
-		matchit(newtile,rand)
-		newtile.set_position(Vector2((x+1)*80,(x+1)*20 + 75))
+		
+		newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player1/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
+		newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player2/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
+		newtile.released_tile_from_mouse.connect(get_node("dealerUI/DealZone Player3/acceptor")._on_tile_placeholder_instance_released_tile_from_mouse)
+		
+		newtile.set_letter($bag.contents.pop_at(rand))
+		newtile.set_position(Vector2((x+1)*60,(x+1)*20 + 75))
 		add_child(newtile)
 		
 func matchit(newtile,rand):
@@ -113,3 +137,10 @@ func evaluate_hands():
 
 func _on_evaluatehandsbutton_pressed():
 	evaluate_hands()
+
+
+func _on_timer_timeout():
+	evaluate_hands()
+	#$"dealerUI/DealZone Player1/acceptor".cleanup()
+	#$"dealerUI/DealZone Player2/acceptor".cleanup()
+	#$"dealerUI/DealZone Player3/acceptor".cleanup()

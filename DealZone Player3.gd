@@ -1,6 +1,7 @@
 extends Node2D
-var count = 0
+var addcount = 0
 var Letters_as_string = ""
+var tiles_in_hand = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,17 +15,19 @@ func _process(delta):
 
 func _on_main_add_tile_to_player_3_inventory(newtile):
 	
-	newtile.set_position(get_children()[count].global_position)
+	newtile.set_position(get_children()[addcount].global_position)
 	add_child(newtile)
-	count = count+1
+	addcount = addcount+1
 	
 func evaluate():
+	tiles_in_hand=0
 	Letters_as_string = ""
 	var tiles = $evaluator.get_overlapping_areas()
-	print("overlapping areas: ", tiles.size())
-	for n in len(tiles):
+	for n in tiles.size():
 		if !tiles[n].is_in_group("tile"):
-			tiles.remove_at(n)
+			pass
+			#tiles.remove_at(n)
 		else:
 			Letters_as_string = Letters_as_string + (tiles[n].get_parent().Letter + " ")
+			tiles_in_hand = tiles_in_hand + 1
 	print("player3's letters: ",Letters_as_string)

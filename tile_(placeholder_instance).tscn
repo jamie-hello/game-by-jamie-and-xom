@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://dcvk0hmraq7o1"]
+[gd_scene load_steps=5 format=3 uid="uid://dcvk0hmraq7o1"]
 
 [ext_resource type="Script" path="res://clickAndDragTile.gd" id="1_0sed8"]
 [ext_resource type="Texture2D" uid="uid://damgfdt40tfk" path="res://letters/S.png" id="2_5sim4"]
@@ -6,16 +6,32 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vylgp"]
 size = Vector2(30, 30)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_uvp2v"]
+radius = 22.0227
+
 [node name="tile (placeholder instance)" type="Node2D" groups=["tile"]]
-position = Vector2(30, 200)
+position = Vector2(-50, 200)
 script = ExtResource("1_0sed8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_5sim4")
 
 [node name="clickbox" type="Area2D" parent="." groups=["tile"]]
+collision_layer = 5
+collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="clickbox"]
 shape = SubResource("RectangleShape2D_vylgp")
 
+[node name="resting_position" type="Node2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="resting_position" groups=["doNotPlace"]]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="resting_position/Area2D"]
+shape = SubResource("CircleShape2D_uvp2v")
+
 [connection signal="input_event" from="clickbox" to="." method="_on_clickbox_input_event"]
+[connection signal="area_entered" from="resting_position/Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="resting_position/Area2D" to="." method="_on_area_2d_area_exited"]
