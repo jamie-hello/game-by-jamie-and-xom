@@ -19,7 +19,9 @@ func play_turn(): # TODO: Should counts_for_score (false on first turn) be a par
 	# TODO move logic to word_ai.gd?
 	if move == null:
 		print('no valid move, pass the turn')
+		$"../../PhaseSingleton".consecutive_passes += 1
 		return # no valid move, pass the turn; # TODO check for end of game
+	$"../../PhaseSingleton".consecutive_passes = 0
 	print(move)
 	print(PackedByteArray(move[3]).get_string_from_ascii())
 	if move[2] == $"../../WordAI".DIR_SOUTH:
@@ -29,7 +31,7 @@ func play_turn(): # TODO: Should counts_for_score (false on first turn) be a par
 				var to_find = move[3][i]
 				if to_find > 100: # lowercase
 					to_find = 1 # wildcard
-					$"../../bag".set_wildcard_played()
+					$"../../Bag".set_wildcard_played()
 				var pos = hand.find(to_find)
 				hand.pop_at(pos)
 				var tile = rack.pop_at(pos)
@@ -49,6 +51,8 @@ func play_turn(): # TODO: Should counts_for_score (false on first turn) be a par
 	if not $"../../PhaseSingleton".is_opening:
 		score += move[4]
 		print(score)
+		if hand.is_empty() and $"../..".dealer_hand.is_empty():
+			$"../../PhaseSingleton".consecutive_passes = 4 # game over
 	cleanup()
 
 

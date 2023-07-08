@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b8aykduqsqo68" path="res://word_ai.tscn" id="2_374l1"]
 [ext_resource type="Texture2D" uid="uid://brpbxnesju8o" path="res://img/board.png" id="2_jtecq"]
 [ext_resource type="Script" path="res://phase_singleton.gd" id="4_6gvyf"]
-[ext_resource type="Texture2D" uid="uid://cxre1hq4skr8f" path="res://img/bag.png" id="7_2flgw"]
+[ext_resource type="Texture2D" uid="uid://cxre1hq4skr8f" path="res://img/sack.png" id="8_4rhig"]
 [ext_resource type="PackedScene" uid="uid://dcvk0hmraq7o1" path="res://tile.tscn" id="15_rrxli"]
 [ext_resource type="Script" path="res://bag.gd" id="16_o01yg"]
 [ext_resource type="PackedScene" uid="uid://c1vhlig43wshy" path="res://deal_zone_player.tscn" id="16_pu1g3"]
@@ -13,11 +13,6 @@
 script = ExtResource("1_63v1i")
 
 [node name="WordAI" parent="." instance=ExtResource("2_374l1")]
-
-[node name="Board" type="Sprite2D" parent="."]
-position = Vector2(528, 226)
-scale = Vector2(0.515054, 0.452083)
-texture = ExtResource("2_jtecq")
 
 [node name="PhaseSingleton" type="Node" parent="."]
 script = ExtResource("4_6gvyf")
@@ -31,10 +26,24 @@ one_shot = true
 [node name="TimerFirstTurn3" type="Timer" parent="PhaseSingleton"]
 one_shot = true
 
-[node name="Bag" type="Sprite2D" parent="."]
+[node name="Bag" type="Node2D" parent="."]
+script = ExtResource("16_o01yg")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="Board" type="Sprite2D" parent="."]
+position = Vector2(528, 226)
+scale = Vector2(0.515054, 0.452083)
+texture = ExtResource("2_jtecq")
+
+[node name="Sack" type="Sprite2D" parent="."]
 position = Vector2(216, 141)
 scale = Vector2(0.39, 0.441667)
-texture = ExtResource("7_2flgw")
+texture = ExtResource("8_4rhig")
+
+[node name="Tile" parent="." instance=ExtResource("15_rrxli")]
 
 [node name="dealerUI" type="Control" parent="."]
 layout_mode = 3
@@ -50,15 +59,6 @@ position = Vector2(400, 530)
 
 [node name="DealZone Player3" parent="dealerUI" instance=ExtResource("16_pu1g3")]
 position = Vector2(670, 560)
-
-[node name="Tile" parent="." instance=ExtResource("15_rrxli")]
-
-[node name="Timer" type="Timer" parent="."]
-one_shot = true
-autostart = true
-
-[node name="bag" type="Node2D" parent="."]
-script = ExtResource("16_o01yg")
 
 [connection signal="timeout" from="PhaseSingleton/TimerFirstTurn1" to="PhaseSingleton" method="_on_timer_first_turn_1_timeout"]
 [connection signal="timeout" from="PhaseSingleton/TimerFirstTurn2" to="PhaseSingleton" method="_on_timer_first_turn_2_timeout"]

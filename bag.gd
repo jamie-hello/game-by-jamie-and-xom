@@ -21,6 +21,8 @@ func add_remaining_letters():
 
 
 func draw_seven():
+	if contents.is_empty():
+		return []
 	if contents.size() == 6:
 		set_wildcard_played()
 	var result = []
