@@ -4,6 +4,7 @@ extends Node2D
 var DECK = [9, 2, 2, 5, 13, 2, 3, 3, 9, 1, 1, 4, 2, 6, 8, 2, 1, 6, 5, 7, 4, 2, 2, 1, 2, 1]
 var contents = []
 var wildcard_played = false
+signal draw7
 
 
 func newbagnewgame():
@@ -33,6 +34,7 @@ func draw_seven():
 		contents.resize(contents.size() - 1)
 	if contents.size() == 41 and wildcard_played: # add second wildcard when halfway
 		contents.append(1)
+	emit_signal("draw7")
 	return result
 
 

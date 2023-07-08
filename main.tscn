@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://2v74n5qo7jyh"]
+[gd_scene load_steps=18 format=3 uid="uid://2v74n5qo7jyh"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_63v1i"]
 [ext_resource type="PackedScene" uid="uid://b8aykduqsqo68" path="res://word_ai.tscn" id="2_374l1"]
@@ -7,7 +7,13 @@
 [ext_resource type="Texture2D" uid="uid://cxre1hq4skr8f" path="res://img/sack.png" id="8_4rhig"]
 [ext_resource type="Script" path="res://dealerUI.gd" id="8_r8kwx"]
 [ext_resource type="Texture2D" uid="uid://c87tx7xfu7e5i" path="res://img/tile hi-res.png" id="9_kmoio"]
+[ext_resource type="AudioStream" uid="uid://bq7jpo6poue6o" path="res://sounds/playtilessound.wav" id="11_y5lmr"]
+[ext_resource type="Script" path="res://sounds/playedtiles.gd" id="12_84e8n"]
+[ext_resource type="AudioStream" uid="uid://cyojesm6hdpff" path="res://sounds/clicktiletoplayerhand.wav" id="13_8u22v"]
+[ext_resource type="Script" path="res://sounds/clicktiletoplayerhand.gd" id="14_v03jb"]
+[ext_resource type="AudioStream" uid="uid://cod0xy0wf11pr" path="res://sounds/refresh_hand.wav" id="15_hvvdl"]
 [ext_resource type="PackedScene" uid="uid://dcvk0hmraq7o1" path="res://tile.tscn" id="15_rrxli"]
+[ext_resource type="Script" path="res://sounds/refresh_hand.gd" id="16_3e3ur"]
 [ext_resource type="Script" path="res://bag.gd" id="16_o01yg"]
 [ext_resource type="PackedScene" uid="uid://c1vhlig43wshy" path="res://deal_zone_player.tscn" id="16_pu1g3"]
 
@@ -102,7 +108,26 @@ offset_right = 77.0
 offset_bottom = 75.0
 text = "10"
 
+[node name="playedtiles" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_y5lmr")
+script = ExtResource("12_84e8n")
+
+[node name="clicktiletoplayerhand" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_8u22v")
+script = ExtResource("14_v03jb")
+
+[node name="refresh_hand" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_hvvdl")
+script = ExtResource("16_3e3ur")
+
 [connection signal="timeout" from="PhaseSingleton/TimerFirstTurn1" to="PhaseSingleton" method="_on_timer_first_turn_1_timeout"]
 [connection signal="timeout" from="PhaseSingleton/TimerFirstTurn2" to="PhaseSingleton" method="_on_timer_first_turn_2_timeout"]
 [connection signal="timeout" from="PhaseSingleton/TimerFirstTurn3" to="PhaseSingleton" method="_on_timer_first_turn_3_timeout"]
+[connection signal="draw7" from="Bag" to="refresh_hand" method="_on_bag_draw_7"]
 [connection signal="timeout" from="Timer" to="PhaseSingleton" method="_on_timer_timeout"]
+[connection signal="clicktiletoplayerhand" from="dealerUI/DealZone Player1" to="clicktiletoplayerhand" method="_on_deal_zone_player_1_clicktiletoplayerhand"]
+[connection signal="played_tiles_sound" from="dealerUI/DealZone Player1" to="playedtiles" method="_on_deal_zone_player_1_played_tiles_sound"]
+[connection signal="clicktiletoplayerhand" from="dealerUI/DealZone Player2" to="clicktiletoplayerhand" method="_on_deal_zone_player_1_clicktiletoplayerhand"]
+[connection signal="played_tiles_sound" from="dealerUI/DealZone Player2" to="playedtiles" method="_on_deal_zone_player_1_played_tiles_sound"]
+[connection signal="clicktiletoplayerhand" from="dealerUI/DealZone Player3" to="clicktiletoplayerhand" method="_on_deal_zone_player_1_clicktiletoplayerhand"]
+[connection signal="played_tiles_sound" from="dealerUI/DealZone Player3" to="playedtiles" method="_on_deal_zone_player_1_played_tiles_sound"]

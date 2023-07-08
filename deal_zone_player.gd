@@ -4,6 +4,9 @@ extends Node2D
 var hand = [] # ASCII
 var rack = [] # instances
 var score = 0
+signal played_tiles_sound
+signal clicktiletoplayerhand
+
 
 
 func _ready():
@@ -23,6 +26,7 @@ func play_turn(): # TODO: Should counts_for_score (false on first turn) be a par
 		return # no valid move, pass the turn; # TODO check for end of game
 	$"../../PhaseSingleton".consecutive_passes = 0
 	print(move)
+	emit_signal("played_tiles_sound")
 	print(PackedByteArray(move[3]).get_string_from_ascii())
 	if move[2] == $"../../WordAI".DIR_SOUTH:
 		for i in move[3].size():
@@ -70,3 +74,4 @@ func add_tile(tile):
 	tile.rest_point = tile.global_position
 	var ascii_code = tile.Letter.to_ascii_buffer()[0] if tile.Letter.length() == 1 else 1
 	hand.append(ascii_code)
+	emit_signal("clicktiletoplayerhand")
