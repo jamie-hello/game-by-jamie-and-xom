@@ -34,11 +34,12 @@ func _ready():
 			word_dict[alpha] = [word]
 	f.close()
 #	pass # Replace with function body.
-	var hand = PackedByteArray()
-	for i in range(7):
-		hand.append(65 + (randi() % 26))
-	print(hand.get_string_from_ascii())
-	get_best_first_move(hand)
+#	var hand = PackedByteArray()
+#	for i in range(7):
+#		hand.append(65 + (randi() % 26))
+#	hand[0] = 1
+#	print(hand.get_string_from_ascii())
+#	get_best_first_move(hand)
 
 
 func letter_mult(square):
@@ -46,7 +47,7 @@ func letter_mult(square):
 
 
 func word_mult(square):
-	return square >> 4
+	return square >> 2
 
 
 func alphabetize(word):
@@ -74,15 +75,13 @@ func get_best_first_move(hand):
 			for m in matches:
 				var word = assign_wildcards(hand, m)
 				for offset in range(0, len):
-					var score = score_move(7, 7 - offset, DIR_EAST, word)
+					var score = score_move(7 - offset, 7, DIR_EAST, word)
 					if score == best_score:
-						best_moves.append([7, 7 - offset, DIR_EAST, word])
+						best_moves.append([7 - offset, 7, DIR_EAST, word])
 					elif score > best_score:
 						best_score = score
-						best_moves = [[7, 7 - offset, DIR_EAST, word]]
+						best_moves = [[7 - offset, 7, DIR_EAST, word]]
 	
-	print(best_score)
-	print(best_moves)
 	if best_moves.is_empty():
 		return null
 	return best_moves.pick_random()
@@ -225,7 +224,7 @@ func letter_value(letter):
 
 
 func create_proto_board():
-	var result = create_2d_array(BOARD_SIZE, BOARD_SIZE, 0)
+	var result = create_2d_array(BOARD_SIZE, BOARD_SIZE, SQ_NORMAL)
 	result[0][0] = SQ_TW
 	result[0][7] = SQ_TW
 	result[0][14] = SQ_TW
