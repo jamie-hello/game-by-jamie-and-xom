@@ -66,9 +66,9 @@ func get_anagrams(s):
 
 # hand should be a int array or PackedByteArray; assume reflective symmetry and only consider DIR_EAST
 func get_best_first_move(hand):
+	var substr_by_len = generate_substrings(hand)
 	var best_moves = []
 	var best_score = -1
-	var substr_by_len = generate_substrings(hand)
 	for len in range(1, 8):
 		for s in substr_by_len[len - 1]:
 			var matches = get_anagrams(s.get_string_from_ascii().to_upper())
@@ -87,6 +87,185 @@ func get_best_first_move(hand):
 	return best_moves.pick_random()
 
 
+# hand should be a int array or PackedByteArray
+func get_best_move(hand):
+	if tableau[7][7] == 0:
+		return get_best_first_move(hand)
+	var substr_by_len = generate_substrings(hand)
+	var best_moves = []
+	var best_score = -1
+	var searched = [create_2d_array(BOARD_SIZE, BOARD_SIZE, false), create_2d_array(BOARD_SIZE, BOARD_SIZE, false)] # E, S
+	var parallel_dir = -1
+	
+	for y in BOARD_SIZE:
+		for x in BOARD_SIZE:
+			if tableau[y][x] != 0:
+				var best_local = get_best_local_move(x, y, searched)
+				if not best_local.is_empty():
+					if best_local[0][4] == best_score:
+						best_moves.append_array(best_local)
+					elif best_local[0][4] > best_score:
+						best_score = best_local[0][4]
+						best_moves = best_local
+			else:
+				parallel_dir = has_parallel_move(x, y)
+				if parallel_dir != -1:
+					var best_parallel = get_best_parallel_move(hand, substr_by_len, x, y, parallel_dir)
+					if not best_parallel.is_empty():
+						if best_parallel[0][4] == best_score:
+							best_moves.append_array(best_parallel)
+						elif best_parallel[0][4] > best_score:
+							best_score = best_parallel[0][4]
+							best_moves = best_parallel
+	
+	if best_moves.is_empty():
+		return null
+	return best_moves.pick_random()
+
+
+func get_best_parallel_move(hand, substr_by_len, x, y, dir):
+	var max_play_size = hand.size()
+	if max_play_size < 2:
+		return []
+	var best_moves = []
+	var best_score = -1
+	if dir == DIR_SOUTH:
+		for i in max_play_size:
+			if y - i < 0 or (y - i > 0 and tableau[y - i - 1][x] != 0):
+				return best_moves
+			for j in max_play_size:
+				if i == 0 and j == 0:
+					continue
+				if i + j + 1 > max_play_size:
+					break
+				if y + j >= BOARD_SIZE or (y + j < BOARD_END and tableau[y + j + 1][x] != 0):
+					break
+				var substrings = substr_by_len[i + j + 1]
+				for s in substrings:
+					var anags = get_anagrams(s.get_string_from_ascii().to_upper())
+					for m in anags:
+						var word = assign_wildcards(hand, m)
+						if is_valid_move(x, y - i, dir, word):
+							var score = score_move(x, y - i, dir, word)
+							if score == best_score:
+								best_moves.append([x, y - i, dir, word, score])
+							elif score > best_score:
+								best_score = score
+								best_moves = [[x, y - i, dir, word, score]]
+	else:
+		for i in max_play_size:
+			if x - i < 0 or (x - i > 0 and tableau[y][x - i - 1] != 0):
+				return best_moves
+			for j in max_play_size:
+				if i == 0 and j == 0:
+					continue
+				if i + j + 1 > max_play_size:
+					break
+				if x + j >= BOARD_SIZE or (x + j < BOARD_END and tableau[y][x + j + 1] != 0):
+					break
+				var substrings = substr_by_len[i + j + 1]
+				for s in substrings:
+					var anags = get_anagrams(s.get_string_from_ascii().to_upper())
+					for m in anags:
+						var word = assign_wildcards(hand, m)
+						if is_valid_move(x - i, y, dir, word):
+							var score = score_move(x - i, y, dir, word)
+							if score == best_score:
+								best_moves.append([x - i, y, dir, word, score])
+							elif score > best_score:
+								best_score = score
+								best_moves = [[x - i, y, dir, word, score]]
+	return best_moves
+
+
+func has_parallel_move(x, y):
+	if tableau[y][x] != 0:
+		return -1
+	if (x > 0 and tableau[y][x - 1] != 0) or (x < BOARD_END and tableau[y][x + 1] != 0):
+		if (y > 0 and tableau[y - 1][x] != 0) or (y < BOARD_END and tableau[y + 1][x] != 0):
+			return -1
+		if y == 1 or y == BOARD_END - 1:
+			return DIR_EAST
+		if y > 1 and tableau[y - 2][x] == 0:
+			return DIR_EAST
+		if y < BOARD_END - 1 and tableau[y + 2][x] == 0:
+			return DIR_EAST
+	if (y > 0 and tableau[y - 1][x] != 0) or (y < BOARD_END and tableau[y + 1][x] != 0):
+		if (x > 0 and tableau[y][x - 1] != 0) or (x < BOARD_END and tableau[y][x + 1] != 0):
+			return -1
+		if x == 1 or x == BOARD_END - 1:
+			return DIR_SOUTH
+		if x > 1 and tableau[y][x - 2] == 0:
+			return DIR_SOUTH
+		if x < BOARD_END - 1 and tableau[y][x + 2] == 0:
+			return DIR_SOUTH
+	return -1
+
+
+func is_valid_move(x, y, dir, word):
+	# can skip check for using tiles from hand?
+	if word.size() < 2:
+		return false
+	# can skip dictionary check on word itself?
+	# can skip board boundary check?
+	# can skip check for collision before and after word itself?
+	var next_to_something = false
+	var xx = x
+	var yy = y
+	
+	# "Check if it's a prefix/suffix of some word" is commented out in the original code
+	
+	# "Collisions with letters already on board must match up"
+#	var tiles_needed = [] # can skip check word overlaps correctly with letters on tableau?
+	if dir == DIR_SOUTH:
+		for i in word.size():
+			var perp_invalid = is_perp_invalid(x, y + i, dir, word[i])
+			if perp_invalid:
+				return false
+			if tableau[y+i][x] != 0 or tableau[y+i][max(x-1,0)] != 0 or tableau[y+i][min(x+1,BOARD_END)] != 0:
+				next_to_something = true
+	else:
+		for i in word.size():
+			# can skip check word overlaps correctly with letters on tableau?
+			var perp_invalid = is_perp_invalid(x + i, y, dir, word[i])
+			if perp_invalid:
+				return false
+			if tableau[y][x+i] != 0 or tableau[max(y-1,0)][x+i] != 0 or tableau[min(y+1,BOARD_END)][x+i] != 0:
+				next_to_something = true
+	return next_to_something
+
+
+func is_perp_invalid(x, y, orig_dir, letter):
+	if orig_dir == DIR_SOUTH:
+		if (x == 0 or tableau[y][x-1] == 0) and (x == BOARD_END or tableau[y][x+1] == 0):
+			return false
+		var xx = x
+		while xx != 0 and tableau[y][xx-1] != 0:
+			xx -= 1
+		var start = xx
+		var str = ""
+		str += String.chr(letter if xx == x else tableau[y][xx])
+		while xx != BOARD_END and tableau[y][xx+1] != 0:
+			xx += 1
+			str += String.chr(letter if xx == x else tableau[y][xx])
+		str = str.to_upper()
+		var alpha = alphabetize(str)
+		return not (word_dict.has(alpha) and str in word_dict[alpha])
+	else:
+		if (y == 0 or tableau[y-1][x] == 0) and (y == BOARD_END or tableau[y+1][x] == 0):
+			return false
+		var yy = y
+		while yy != 0 and tableau[yy-1][x] != 0:
+			yy -= 1
+		var start = yy
+		var str = ""
+		str += String.chr(letter if yy == y else tableau[yy][x])
+		while yy != BOARD_END and tableau[yy+1][x] != 0:
+			yy += 1
+			str += String.chr(letter if yy == y else tableau[yy][x])
+		str = str.to_upper()
+		var alpha = alphabetize(str)
+		return not (word_dict.has(alpha) and str in word_dict[alpha])
 
 
 # currently does not check that hand actually contains wildcards; m should be an uppercase string
