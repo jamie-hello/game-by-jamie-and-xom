@@ -1,12 +1,12 @@
 extends Node2D
 
+
 var clicked = false
 var rest_point = Vector2.ZERO
 var rest_nodes = []
 var Letter = ""
-var activeplayer = get_parent()
-signal released_tile_from_mouse
-signal newlycreatedtile
+
+
 @onready var LetterTexture = $Sprite2D
 var a = preload("res://img/letters/A.png")
 var b = preload("res://img/letters/B.png")
@@ -37,15 +37,19 @@ var z = preload("res://img/letters/Z.png")
 var blank = preload("res://img/letters/blank.png")
 
 
+var dealtalready = false
+
+
 func _ready():
 	rest_nodes = get_tree().get_nodes_in_group("restzone")
 	rest_point = self.get_position()
 	#LetterTexture.set_texture()
 
-var dealtalready = false
+
 func drawn_by_player():
 	dealtalready = true
 	pass
+
 
 func set_letter(lettervalue):
 	Letter = lettervalue
@@ -125,40 +129,3 @@ func _on_clickbox_input_event(viewport, event, shape_idx):
 	if event.is_action_pressed("click"):
 		clicked = true
 		pass
-
-"""
-func _input(event):
-	if event is InputEventMouse:
-		if event.button_mask == 0 and clicked:
-			clicked = false
-			#if NOT in range 35 of another tile:
-			if canplacehere:
-				rest_point = get_global_mouse_position()
-			emit_signal("released_tile_from_mouse", self)
-			"""
-			
-			
-"""			
-			var shortest_dist = 35
-			var foundRestPoint = false
-			for child in rest_nodes:
-				var distance = global_position.distance_to(child.global_position)
-				if distance < shortest_dist:
-					foundRestPoint = true
-					rest_point = child.global_position
-					shortest_dist = distance
-			if !foundRestPoint:
-				if true:
-					rest_point = get_global_mouse_position()
-"""
-
-var canplacehere = true
-func _on_area_2d_area_entered(area):
-	canplacehere = false
-
-func _on_active_player(p):
-	print("newactiveplayer ",p)
-	activeplayer=p
-
-func _on_area_2d_area_exited(area):
-	canplacehere = true

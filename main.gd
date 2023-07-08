@@ -1,4 +1,6 @@
 extends Node
+
+
 @onready var instance = preload("res://tile_(placeholder_instance).tscn")
 
 
@@ -64,21 +66,3 @@ func deal_tile(whoseturn, tile):
 	if whoseturn.rack.size() == 7:
 		$"phase singleton".is_opening = false
 		$"phase singleton".play_turn()
-
-
-func evaluate_hands():
-#	$"dealerUI/DealZone Player1".evaluate()
-#	$"dealerUI/DealZone Player2".evaluate()
-#	$"dealerUI/DealZone Player3".evaluate()
-	pass
-
-
-func _on_evaluatehandsbutton_pressed():
-	evaluate_hands()
-
-
-func _on_timer_timeout():
-	evaluate_hands()
-	#$"dealerUI/DealZone Player1/acceptor".cleanup()
-	#$"dealerUI/DealZone Player2/acceptor".cleanup()
-	#$"dealerUI/DealZone Player3/acceptor".cleanup()

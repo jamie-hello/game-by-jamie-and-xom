@@ -1,10 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://2v74n5qo7jyh"]
+[gd_scene load_steps=9 format=3 uid="uid://2v74n5qo7jyh"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_63v1i"]
-[ext_resource type="PackedScene" uid="uid://npib1ad5mqrc" path="res://logo.tscn" id="1_grydc"]
 [ext_resource type="PackedScene" uid="uid://b8aykduqsqo68" path="res://word_ai.tscn" id="2_374l1"]
 [ext_resource type="Texture2D" uid="uid://brpbxnesju8o" path="res://img/board.png" id="2_jtecq"]
-[ext_resource type="Texture2D" uid="uid://b0hlhmd7qy1s2" path="res://img/logo-lowalpha.png" id="2_tek4f"]
 [ext_resource type="Script" path="res://phase singleton.gd" id="3_o658c"]
 [ext_resource type="Texture2D" uid="uid://cxre1hq4skr8f" path="res://img/bag.png" id="7_2flgw"]
 [ext_resource type="PackedScene" uid="uid://dcvk0hmraq7o1" path="res://tile_(placeholder_instance).tscn" id="15_rrxli"]
@@ -33,11 +31,6 @@ one_shot = true
 [node name="TimerFirstTurn3" type="Timer" parent="phase singleton"]
 one_shot = true
 
-[node name="Logo" parent="." instance=ExtResource("1_grydc")]
-position = Vector2(122, 270)
-scale = Vector2(0.0594, 0.187819)
-texture = ExtResource("2_tek4f")
-
 [node name="Bag" type="Sprite2D" parent="."]
 position = Vector2(216, 141)
 scale = Vector2(0.39, 0.441667)
@@ -48,14 +41,6 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-
-[node name="evaluatehandsbutton" type="Button" parent="dealerUI"]
-layout_mode = 0
-offset_left = 164.0
-offset_top = 1.0
-offset_right = 290.0
-offset_bottom = 32.0
-text = "evaluate hands"
 
 [node name="DealZone Player1" parent="dealerUI" instance=ExtResource("16_pu1g3")]
 position = Vector2(130, 560)
@@ -78,8 +63,6 @@ script = ExtResource("16_o01yg")
 [connection signal="timeout" from="phase singleton/TimerFirstTurn1" to="phase singleton" method="_on_timer_first_turn_1_timeout"]
 [connection signal="timeout" from="phase singleton/TimerFirstTurn2" to="phase singleton" method="_on_timer_first_turn_2_timeout"]
 [connection signal="timeout" from="phase singleton/TimerFirstTurn3" to="phase singleton" method="_on_timer_first_turn_3_timeout"]
-[connection signal="pressed" from="dealerUI/evaluatehandsbutton" to="." method="_on_evaluatehandsbutton_pressed"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Timer" to="phase singleton" method="_on_timer_timeout"]
 
 [editable path="tile (placeholder instance)"]

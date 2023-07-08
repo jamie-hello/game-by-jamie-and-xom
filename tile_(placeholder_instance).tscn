@@ -33,5 +33,3 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_uvp2v")
 
 [connection signal="input_event" from="clickbox" to="." method="_on_clickbox_input_event"]
-[connection signal="area_entered" from="resting_position/Area2D" to="." method="_on_area_2d_area_entered"]
-[connection signal="area_exited" from="resting_position/Area2D" to="." method="_on_area_2d_area_exited"]
