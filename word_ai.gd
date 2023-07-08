@@ -77,15 +77,17 @@ func get_best_first_move(hand):
 				for offset in range(0, len):
 					var score = score_move(7 - offset, 7, DIR_EAST, word)
 					if score == best_score:
-						best_moves.append([7 - offset, 7, DIR_EAST, word])
+						best_moves.append([7 - offset, 7, DIR_EAST, word, score])
 					elif score > best_score:
 						best_score = score
-						best_moves = [[7 - offset, 7, DIR_EAST, word]]
+						best_moves = [[7 - offset, 7, DIR_EAST, word, score]]
 	
 	if best_moves.is_empty():
 		return null
 	return best_moves.pick_random()
-	
+
+
+
 
 # currently does not check that hand actually contains wildcards; m should be an uppercase string
 func assign_wildcards(hand, m):
