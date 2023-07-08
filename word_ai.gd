@@ -34,6 +34,11 @@ func _ready():
 			word_dict[alpha] = [word]
 	f.close()
 #	pass # Replace with function body.
+	var hand = PackedByteArray()
+	for i in range(7):
+		hand.append(65 + (randi() % 26))
+	print(hand.get_string_from_ascii())
+	get_best_first_move(hand)
 
 
 func letter_mult(square):
@@ -50,11 +55,77 @@ func alphabetize(word):
 	return ascii.get_string_from_ascii()
 
 
+# s should be all caps
 func get_anagrams(s):
 	var alpha = alphabetize(s)
 	if not word_dict.has(alpha):
 		return []
 	return word_dict[alpha]
+
+
+# hand should be a int array or PackedByteArray; assume reflective symmetry and only consider DIR_EAST
+func get_best_first_move(hand):
+	var best_moves = []
+	var best_score = -1
+	var substr_by_len = generate_substrings(hand)
+	for len in range(1, 8):
+		for s in substr_by_len[len - 1]:
+			var matches = get_anagrams(s.get_string_from_ascii().to_upper())
+			for m in matches:
+				var word = assign_wildcards(hand, m)
+				for offset in range(0, len):
+					var score = score_move(7, 7 - offset, DIR_EAST, word)
+					if score == best_score:
+						best_moves.append([7, 7 - offset, DIR_EAST, word])
+					elif score > best_score:
+						best_score = score
+						best_moves = [[7, 7 - offset, DIR_EAST, word]]
+	
+	print(best_score)
+	print(best_moves)
+	if best_moves.is_empty():
+		return null
+	return best_moves.pick_random()
+	
+
+# currently does not check that hand actually contains wildcards; m should be an uppercase string
+func assign_wildcards(hand, m):
+	var result = m.to_ascii_buffer()
+	var h = hand.duplicate()
+	for i in range(result.size()):
+		var pos = h.find(result[i])
+		if pos == -1:
+			result[i] += 32 # to lower case
+		else:
+			h.remove_at(pos)
+	return result
+
+
+# "strings" is a misnomer; hand must be a PackedByteArray!
+func generate_substrings(hand):
+	var d = {}
+	d[""] = PackedByteArray()
+	for c in hand:
+		var keys = d.keys()
+		if c == 1:
+			for cc in range(97, 123): # (a, z + 1)
+				for k in keys:
+					var new_value = d[k].duplicate()
+					new_value.append(cc)
+					new_value.sort()
+					d[new_value.get_string_from_ascii()] = new_value
+		else:
+			for k in keys:
+				var new_value = d[k].duplicate()
+				new_value.append(c)
+				new_value.sort()
+				d[new_value.get_string_from_ascii()] = new_value
+	var substr_by_len = []
+	for tile in hand:
+		substr_by_len.append([])
+	for v in d.values():
+		substr_by_len[v.size() - 1].append(v)
+	return substr_by_len
 
 
 func score_perpendicular(x, y, orig_dir, letter):
@@ -121,7 +192,7 @@ func score_one_word(x, y, dir, word):
 			else:
 				result += letter_value(word[i])
 	else:
-		for i in word.length():
+		for i in word.size():
 			if (tableau[y][x+i] == 0):
 				result += letter_value(word[i]) * letter_mult(board[y][x+i])
 				mult *= word_mult(board[y][x+i])
