@@ -50,7 +50,7 @@ func newgame_deal_out_some_tiles():
 
 	# dealer
 	$bag.add_remaining_letters() # add in one blank and QXZJ
-	dealer_newhand()
+	dealer_newhand() # TODO maybe don't draw until opening is ended, to really emphasize the game hadn't started
 
 
 func deal_tile(whoseturn, tile):
@@ -62,7 +62,8 @@ func deal_tile(whoseturn, tile):
 	if dealer_hand.is_empty():
 		dealer_newhand()
 	if whoseturn.rack.size() == 7:
-		$"phase singleton".nextphase()
+		$"phase singleton".is_opening = false
+		$"phase singleton".play_turn()
 
 
 func evaluate_hands():

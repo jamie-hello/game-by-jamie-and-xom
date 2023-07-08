@@ -1,10 +1,17 @@
 extends Node
 
-var wawawa="w"
-var player1 =  ""
-var player2 = ""
-var player3 = ""
-var active_turn
+
+var STEP_DEALING = 0
+var STEP_PLAYING = 1
+var STEP_ANIMATING = 2
+
+var player1
+var player2
+var player3
+var active_player
+var active_step
+var is_opening
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -21,73 +28,76 @@ func _on_timer_timeout():
 	player2 = get_parent().get_node("dealerUI").get_node("DealZone Player2")
 	player3 = get_parent().get_node("dealerUI").get_node("DealZone Player3")
 	#start the game
-	player1firstturn()
-	pass # Replace with function body.
+	is_opening = true
+	set_active_player(1, STEP_PLAYING)
+	player1turn()
 
 
-func player1firstturn():
-	#active_turn=player1
-	player1.get_node("Arrow").set_visible(true)
+func set_active_player(n, step):
+	if n == 1:
+		active_player = player1
+	elif n == 2:
+		active_player = player2
+	elif n == 3:
+		active_player = player3
+	active_step = step
+	player1.get_node("Arrow").set_visible(n == 1)
+	player2.get_node("Arrow").set_visible(n == 2)
+	player3.get_node("Arrow").set_visible(n == 3)
+
+
+func player1turn():
 	player1.play_turn()
+	active_step = STEP_ANIMATING
 	$TimerFirstTurn1.start(1)
 
 
 func _on_timer_first_turn_1_timeout():
-	player1.get_node("Arrow").set_visible(false)
-	player2firstturn()
-	pass # Replace with function body.
+	if is_opening:
+		set_active_player(2, STEP_PLAYING)
+		player2turn()
+	else:
+		nextphase()
 
-func player2firstturn():
-	#active_turn=player2
-	player2.get_node("Arrow").set_visible(true)
+
+func player2turn():
 	player2.play_turn()
+	active_step = STEP_ANIMATING
 	$TimerFirstTurn2.start(1)
 
 
 func _on_timer_first_turn_2_timeout():
-	player2.get_node("Arrow").set_visible(false)
-	player3firstturn()
-	pass # Replace with function body.
-	
-func player3firstturn():
-	#active_turn=player3
-	player3.get_node("Arrow").set_visible(true)
+	if is_opening:
+		set_active_player(3, STEP_PLAYING)
+		player3turn()
+	else:
+		nextphase()
+
+
+func player3turn():
 	player3.play_turn()
+	active_step = STEP_ANIMATING
 	$TimerFirstTurn3.start(1)
-	pass
 
 
 func _on_timer_first_turn_3_timeout():
-	player3.get_node("Arrow").set_visible(false)
-	player1nextturn()
-	pass # Replace with function body.
+	nextphase()
+
+
+func play_turn():
+	active_step = STEP_PLAYING
+	if active_player == player1:
+		player1turn()
+	elif active_player == player2:
+		player2turn()
+	elif active_player == player3:
+		player3turn()
+
 
 func nextphase():
-	if active_turn == player1:
-		player2nextturn()
-	elif active_turn == player2:
-		player3nextturn()
-	elif active_turn == player3:
-		player1nextturn()
-	pass
-
-func player1nextturn():
-	active_turn=player1
-	print("active player: ",active_turn)
-	player3.get_node("Arrow").set_visible(false)
-	player1.get_node("Arrow").set_visible(true)
-	#get_parent().player1hand.size()
-	
-func player2nextturn():
-	active_turn=player2
-	print("active player: ",active_turn)
-	player1.get_node("Arrow").set_visible(false)
-	player2.get_node("Arrow").set_visible(true)
-	#get_parent().player2hand.size()
-func player3nextturn():
-	active_turn=player3
-	print("active player: ",active_turn)
-	player2.get_node("Arrow").set_visible(false)
-	player3.get_node("Arrow").set_visible(true)
-	#get_parent().player3hand.size()
-	
+	if active_player == player1:
+		set_active_player(2, STEP_DEALING)
+	elif active_player == player2:
+		set_active_player(3, STEP_DEALING)
+	elif active_player == player3:
+		set_active_player(1, STEP_DEALING)
