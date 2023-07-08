@@ -1,13 +1,16 @@
-[gd_scene load_steps=9 format=3 uid="uid://2v74n5qo7jyh"]
+[gd_scene load_steps=11 format=3 uid="uid://2v74n5qo7jyh"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_63v1i"]
 [ext_resource type="PackedScene" uid="uid://b8aykduqsqo68" path="res://word_ai.tscn" id="2_374l1"]
 [ext_resource type="Script" path="res://phase_singleton.gd" id="4_6gvyf"]
 [ext_resource type="PackedScene" uid="uid://cnfeyum3ky12d" path="res://board.tscn" id="5_2uyb6"]
 [ext_resource type="Texture2D" uid="uid://cxre1hq4skr8f" path="res://img/sack.png" id="8_4rhig"]
+[ext_resource type="Texture2D" uid="uid://c87tx7xfu7e5i" path="res://img/tile hi-res.png" id="9_kmoio"]
 [ext_resource type="PackedScene" uid="uid://dcvk0hmraq7o1" path="res://tile.tscn" id="15_rrxli"]
 [ext_resource type="Script" path="res://bag.gd" id="16_o01yg"]
 [ext_resource type="PackedScene" uid="uid://c1vhlig43wshy" path="res://deal_zone_player.tscn" id="16_pu1g3"]
+
+[sub_resource type="Theme" id="Theme_6hi3u"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_63v1i")
@@ -58,6 +61,44 @@ position = Vector2(397, 644)
 
 [node name="DealZone Player3" parent="dealerUI" instance=ExtResource("16_pu1g3")]
 position = Vector2(669, 678)
+
+[node name="TileHi-res" type="Sprite2D" parent="."]
+position = Vector2(934, 308)
+texture = ExtResource("9_kmoio")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TileHi-res"]
+offset_left = -24.0
+offset_top = -14.0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = SubResource("Theme_6hi3u")
+text = "Q"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="TileHi-res"]
+offset_left = 35.0
+offset_top = 39.0
+offset_right = 70.0
+offset_bottom = 67.0
+text = "10"
+
+[node name="TileHi-res2" type="Sprite2D" parent="."]
+position = Vector2(790, 137)
+scale = Vector2(0.246599, 0.253448)
+texture = ExtResource("9_kmoio")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TileHi-res2"]
+offset_left = -12.0
+offset_top = -20.0
+offset_right = 28.0
+offset_bottom = 8.0
+text = "Q"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="TileHi-res2"]
+offset_left = 45.0
+offset_top = 39.0
+offset_right = 77.0
+offset_bottom = 75.0
+text = "10"
 
 [connection signal="timeout" from="PhaseSingleton/TimerFirstTurn1" to="PhaseSingleton" method="_on_timer_first_turn_1_timeout"]
 [connection signal="timeout" from="PhaseSingleton/TimerFirstTurn2" to="PhaseSingleton" method="_on_timer_first_turn_2_timeout"]
