@@ -39,7 +39,7 @@ func _ready():
 #		hand.append(65 + (randi() % 26))
 #	hand[0] = 1
 #	print(hand.get_string_from_ascii())
-#	get_best_first_move(hand)
+#	print(get_best_first_move(hand))
 
 
 func letter_mult(square):
