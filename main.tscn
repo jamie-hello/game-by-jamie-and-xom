@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://2v74n5qo7jyh"]
+[gd_scene load_steps=12 format=3 uid="uid://2v74n5qo7jyh"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_63v1i"]
 [ext_resource type="PackedScene" uid="uid://b8aykduqsqo68" path="res://word_ai.tscn" id="2_374l1"]
 [ext_resource type="Script" path="res://phase_singleton.gd" id="4_6gvyf"]
 [ext_resource type="PackedScene" uid="uid://cnfeyum3ky12d" path="res://board.tscn" id="5_2uyb6"]
 [ext_resource type="Texture2D" uid="uid://cxre1hq4skr8f" path="res://img/sack.png" id="8_4rhig"]
+[ext_resource type="Script" path="res://dealerUI.gd" id="8_r8kwx"]
 [ext_resource type="Texture2D" uid="uid://c87tx7xfu7e5i" path="res://img/tile hi-res.png" id="9_kmoio"]
 [ext_resource type="PackedScene" uid="uid://dcvk0hmraq7o1" path="res://tile.tscn" id="15_rrxli"]
 [ext_resource type="Script" path="res://bag.gd" id="16_o01yg"]
@@ -52,6 +53,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("8_r8kwx")
 
 [node name="DealZone Player1" parent="dealerUI" instance=ExtResource("16_pu1g3")]
 position = Vector2(120, 659)
@@ -104,5 +106,3 @@ text = "10"
 [connection signal="timeout" from="PhaseSingleton/TimerFirstTurn2" to="PhaseSingleton" method="_on_timer_first_turn_2_timeout"]
 [connection signal="timeout" from="PhaseSingleton/TimerFirstTurn3" to="PhaseSingleton" method="_on_timer_first_turn_3_timeout"]
 [connection signal="timeout" from="Timer" to="PhaseSingleton" method="_on_timer_timeout"]
-
-[editable path="Tile"]

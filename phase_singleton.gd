@@ -49,6 +49,7 @@ func set_active_player(n, step):
 	player1.get_node("Arrow").set_visible(n == 1)
 	player2.get_node("Arrow").set_visible(n == 2)
 	player3.get_node("Arrow").set_visible(n == 3)
+	
 
 
 func game_over():
