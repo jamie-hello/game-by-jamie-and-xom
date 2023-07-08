@@ -359,7 +359,7 @@ func is_perp_invalid(x, y, orig_dir, letter):
 #		var start = xx
 		var str = ""
 		str += String.chr(letter if xx == x else tableau[y][xx])
-		while xx != BOARD_END and tableau[y][xx+1] != 0:
+		while xx != BOARD_END and (xx + 1 == x or tableau[y][xx+1] != 0):
 			xx += 1
 			str += String.chr(letter if xx == x else tableau[y][xx])
 		str = str.to_upper()
@@ -374,7 +374,7 @@ func is_perp_invalid(x, y, orig_dir, letter):
 #		var start = yy
 		var str = ""
 		str += String.chr(letter if yy == y else tableau[yy][x])
-		while yy != BOARD_END and tableau[yy+1][x] != 0:
+		while yy != BOARD_END and (yy + 1 == y or tableau[yy+1][x] != 0):
 			yy += 1
 			str += String.chr(letter if yy == y else tableau[yy][x])
 		str = str.to_upper()
