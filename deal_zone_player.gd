@@ -17,7 +17,10 @@ func play_turn(): # TODO: Should counts_for_score (false on first turn) be a par
 	var move = $"../../WordAI".get_best_move(hand)
 	# TODO move logic to word_ai.gd?
 	if move == null:
+		print('no valid move, pass the turn')
 		return # no valid move, pass the turn; # TODO check for end of game
+	print(move)
+	print(PackedByteArray(move[3]).get_string_from_ascii())
 	if move[2] == $"../../WordAI".DIR_SOUTH:
 		for i in move[3].size():
 			if $"../../WordAI".tableau[move[1] + i][move[0]] == 0:

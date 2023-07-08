@@ -290,20 +290,20 @@ func has_parallel_move(x, y):
 		if (y > 0 and tableau[y - 1][x] != 0) or (y < BOARD_END and tableau[y + 1][x] != 0):
 			return -1
 		if y == 1 or y == BOARD_END - 1:
-			return DIR_EAST
+			return DIR_SOUTH
 		if y > 1 and tableau[y - 2][x] == 0:
-			return DIR_EAST
+			return DIR_SOUTH
 		if y < BOARD_END - 1 and tableau[y + 2][x] == 0:
-			return DIR_EAST
+			return DIR_SOUTH
 	if (y > 0 and tableau[y - 1][x] != 0) or (y < BOARD_END and tableau[y + 1][x] != 0):
 		if (x > 0 and tableau[y][x - 1] != 0) or (x < BOARD_END and tableau[y][x + 1] != 0):
 			return -1
 		if x == 1 or x == BOARD_END - 1:
-			return DIR_SOUTH
+			return DIR_EAST
 		if x > 1 and tableau[y][x - 2] == 0:
-			return DIR_SOUTH
+			return DIR_EAST
 		if x < BOARD_END - 1 and tableau[y][x + 2] == 0:
-			return DIR_SOUTH
+			return DIR_EAST
 	return -1
 
 
