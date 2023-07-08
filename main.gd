@@ -63,5 +63,5 @@ func deal_tile(whoseturn, tile):
 	if dealer_hand.is_empty():
 		dealer_newhand()
 	if whoseturn.rack.size() == 7:
-		$"phase singleton".is_opening = false
-		$"phase singleton".play_turn()
+		$PhaseSingleton.is_opening = false
+		$PhaseSingleton.play_turn()

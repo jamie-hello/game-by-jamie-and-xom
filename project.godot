@@ -16,7 +16,7 @@ config/features=PackedStringArray("4.1", "GL Compatibility")
 
 [autoload]
 
-PhaseSingleton="*res://phase singleton.gd"
+PhaseSingleton="*res://phase_singleton.gd"
 
 [display]
 

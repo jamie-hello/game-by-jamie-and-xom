@@ -112,10 +112,10 @@ func set_letter(lettervalue):
 func _process(delta):
 	if clicked:
 		#global_position = lerp(global_position, get_global_mouse_position(), 25*delta)
-		if dealtalready or $"../phase singleton".active_step != $"../phase singleton".STEP_DEALING:
+		if dealtalready or $"../PhaseSingleton".active_step != $"../PhaseSingleton".STEP_DEALING:
 			pass
 		else:
-			var whoseturn = get_parent().get_node("phase singleton").active_player
+			var whoseturn = get_parent().get_node("PhaseSingleton").active_player
 			if whoseturn != null:
 				if whoseturn.rack.size() < 7:
 					get_parent().deal_tile(whoseturn, self)
