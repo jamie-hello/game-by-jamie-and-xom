@@ -4,6 +4,7 @@ var clicked = false
 var rest_point = Vector2.ZERO
 var rest_nodes = []
 var Letter = ""
+var activeplayer = get_parent()
 signal released_tile_from_mouse
 signal newlycreatedtile
 @onready var LetterTexture = $Sprite2D
@@ -110,11 +111,18 @@ func set_letter(lettervalue):
 
 func _process(delta):
 	if clicked:
-		global_position = lerp(global_position, get_global_mouse_position(), 25*delta)
+		#global_position = lerp(global_position, get_global_mouse_position(), 25*delta)
 		if dealtalready:
-			queue_free()
+			pass
+		else:
+			var whoseturn = get_parent().get_node("phase singleton").active_turn
+			if whoseturn != null:
+				if whoseturn.tileholder.size() < 7:
+					whoseturn.add_a_tile(self)
+					print("added ",Letter," to ",whoseturn)
 	else:
 		global_position = lerp(global_position, rest_point, 25*delta)
+		pass
 
 
 func _on_clickbox_input_event(viewport, event, shape_idx):
@@ -122,6 +130,7 @@ func _on_clickbox_input_event(viewport, event, shape_idx):
 		clicked = true
 		pass
 
+"""
 func _input(event):
 	if event is InputEventMouse:
 		if event.button_mask == 0 and clicked:
@@ -130,6 +139,7 @@ func _input(event):
 			if canplacehere:
 				rest_point = get_global_mouse_position()
 			emit_signal("released_tile_from_mouse", self)
+			"""
 			
 			
 """			
@@ -150,6 +160,9 @@ var canplacehere = true
 func _on_area_2d_area_entered(area):
 	canplacehere = false
 
+func _on_active_player(p):
+	print("newactiveplayer ",p)
+	activeplayer=p
 
 func _on_area_2d_area_exited(area):
 	canplacehere = true

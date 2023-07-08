@@ -18,7 +18,7 @@ func cleanup():
 			#tiles.remove_at(n)
 		else:
 			tiles[n].position = get_parent().get_children()[n].global_position
-
+"""
 func _on_tile_placeholder_instance_released_tile_from_mouse(tile):
 	var overlapping = get_overlapping_areas()
 	var tilecheck = tile.get_node("clickbox")
@@ -34,3 +34,4 @@ func _on_tile_placeholder_instance_released_tile_from_mouse(tile):
 				
 	
 			#place the tile correctly
+"""
