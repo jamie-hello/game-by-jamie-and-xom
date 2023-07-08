@@ -53,8 +53,7 @@ func cleanup():
 
 func add_tile(tile):
 	rack.append(tile)
-	var prev_hand_size = hand.size()
-	tile.set_position(get_children()[prev_hand_size - 1].global_position)
+	tile.set_position(get_children()[hand.size()].global_position)
 	add_child(tile)
 	tile.rest_point = tile.global_position
 	var ascii_code = tile.Letter.to_ascii_buffer()[0] if tile.Letter.length() == 1 else 1
