@@ -70,7 +70,7 @@ func deal_tile(whoseturn, tile):
 	dealer_rack[pos] = null
 	$HUD.hide_card(pos)
 	whoseturn.add_tile(tile)
-	print("added ", tile.Letter, " to ", whoseturn)
+	#print("added ", tile.Letter, " to ", whoseturn)
 	emit_signal("spawn_a_click_animation")#spawn that thing
 	
 	var newcard = card_instance.instantiate()

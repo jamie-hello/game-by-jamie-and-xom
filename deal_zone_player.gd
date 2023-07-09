@@ -54,7 +54,6 @@ func play_turn(): # TODO: Should counts_for_score (false on first turn) be a par
 				tile.rest_point = tile.global_position
 	if not $"../../PhaseSingleton".is_opening:
 		score += move[4]
-		print(score)
 		if hand.is_empty() and $"../..".dealer_hand.is_empty():
 			$"../../PhaseSingleton".consecutive_passes = 4 # game over
 	cleanup()
