@@ -75,6 +75,7 @@ offset_bottom = 72.0
 texture_normal = ExtResource("3_nobn5")
 
 [node name="NewGameButton" type="TextureButton" parent="."]
+visible = false
 offset_left = 1208.0
 offset_top = 80.0
 offset_right = 1272.0
