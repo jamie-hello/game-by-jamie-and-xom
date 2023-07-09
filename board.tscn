@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cnfeyum3ky12d"]
 
 [ext_resource type="Texture2D" uid="uid://ntr3xjfwb8t3" path="res://img/bottomlayer.png" id="1_ltk4q"]
-[ext_resource type="Texture2D" uid="uid://de3c2njoxevp7" path="res://img/top_layer.png" id="3_1yu0k"]
+[ext_resource type="Texture2D" uid="uid://bs1i8muqrag5l" path="res://img/top_layer board with values.png" id="2_62x6l"]
 
 [node name="Board" type="Node2D"]
 
@@ -9,4 +9,4 @@
 texture = ExtResource("1_ltk4q")
 
 [node name="top layer" type="Sprite2D" parent="."]
-texture = ExtResource("3_1yu0k")
+texture = ExtResource("2_62x6l")

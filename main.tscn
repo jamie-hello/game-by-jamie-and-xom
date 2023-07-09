@@ -7,7 +7,6 @@
 [ext_resource type="Script" path="res://Sack.gd" id="7_iudja"]
 [ext_resource type="Texture2D" uid="uid://cxre1hq4skr8f" path="res://img/sack.png" id="8_4rhig"]
 [ext_resource type="Script" path="res://dealerUI.gd" id="8_r8kwx"]
-[ext_resource type="PackedScene" uid="uid://sqdrxsihoy41" path="res://clicksprite.tscn" id="8_ur6a6"]
 [ext_resource type="Texture2D" uid="uid://c87tx7xfu7e5i" path="res://img/tile hi-res.png" id="9_kmoio"]
 [ext_resource type="AudioStream" uid="uid://leb2tjo4ym5k" path="res://sounds/mahjongclacks.wav" id="11_uf8cn"]
 [ext_resource type="Script" path="res://sounds/playedtiles.gd" id="12_84e8n"]
@@ -19,6 +18,9 @@
 [ext_resource type="Script" path="res://bag.gd" id="16_o01yg"]
 [ext_resource type="PackedScene" uid="uid://c1vhlig43wshy" path="res://deal_zone_player.tscn" id="16_pu1g3"]
 [ext_resource type="AudioStream" uid="uid://ck7p2mmpj2f7f" path="res://sounds/POL-end-of-time-short.wav" id="17_cdye7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jt3yh"]
+radius = 1.0
 
 [sub_resource type="Theme" id="Theme_6hi3u"]
 
@@ -56,7 +58,15 @@ scale = Vector2(0.39, 0.441667)
 texture = ExtResource("8_4rhig")
 script = ExtResource("7_iudja")
 
-[node name="Sprite2D" parent="Sack" instance=ExtResource("8_ur6a6")]
+[node name="clicksprite" parent="Sack" instance_placeholder="res://clicksprite.tscn"]
+position = Vector2(-35.8974, 11.3207)
+
+[node name="Area2D" type="Area2D" parent="Sack"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sack/Area2D"]
+shape = SubResource("CircleShape2D_jt3yh")
 
 [node name="Tile" parent="." instance=ExtResource("15_rrxli")]
 
