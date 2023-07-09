@@ -6,11 +6,11 @@
 [ext_resource type="Script" path="res://phase_singleton.gd" id="4_6gvyf"]
 [ext_resource type="Script" path="res://dealerUI.gd" id="8_r8kwx"]
 [ext_resource type="PackedScene" uid="uid://c71aqpsc57mwx" path="res://hud.tscn" id="10_v4hmd"]
-[ext_resource type="AudioStream" uid="uid://bq7jpo6poue6o" path="res://sounds/playtilessound.wav" id="11_y5lmr"]
+[ext_resource type="AudioStream" uid="uid://leb2tjo4ym5k" path="res://sounds/mahjongclacks.wav" id="11_uf8cn"]
 [ext_resource type="Script" path="res://sounds/playedtiles.gd" id="12_84e8n"]
 [ext_resource type="AudioStream" uid="uid://cyojesm6hdpff" path="res://sounds/clicktiletoplayerhand.wav" id="13_8u22v"]
 [ext_resource type="Script" path="res://sounds/clicktiletoplayerhand.gd" id="14_v03jb"]
-[ext_resource type="AudioStream" uid="uid://cod0xy0wf11pr" path="res://sounds/refresh_hand.wav" id="15_hvvdl"]
+[ext_resource type="AudioStream" uid="uid://l7lrkeqq301a" path="res://sounds/PII-FX-Crystal05.ogg" id="15_dkyax"]
 [ext_resource type="PackedScene" uid="uid://dcvk0hmraq7o1" path="res://tile.tscn" id="15_rrxli"]
 [ext_resource type="Script" path="res://sounds/refresh_hand.gd" id="16_3e3ur"]
 [ext_resource type="Script" path="res://bag.gd" id="16_o01yg"]
@@ -67,7 +67,7 @@ position = Vector2(926, 206)
 [node name="HUD" parent="." instance=ExtResource("10_v4hmd")]
 
 [node name="playedtiles" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("11_y5lmr")
+stream = ExtResource("11_uf8cn")
 script = ExtResource("12_84e8n")
 
 [node name="clicktiletoplayerhand" type="AudioStreamPlayer" parent="."]
@@ -75,7 +75,7 @@ stream = ExtResource("13_8u22v")
 script = ExtResource("14_v03jb")
 
 [node name="refresh_hand" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("15_hvvdl")
+stream = ExtResource("15_dkyax")
 script = ExtResource("16_3e3ur")
 
 [node name="music" type="AudioStreamPlayer" parent="."]
