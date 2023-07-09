@@ -30,8 +30,24 @@ func dealer_newhand():
 		newtile.set_letter(tilename)
 		newtile.set_position(Vector2((i+1)*30,(i+1)*50 - 1000))
 		dealer_rack[i] = newtile
-		$HUD.show_card(i, "" if dealer_hand[i] == 1 else tilename, "" if dealer_hand[i] == 1 else str($WordAI.letter_value(dealer_hand[i])))
 		add_child(newtile)
+		
+		var tmpcard = card_instance.instantiate()
+		tmpcard.get_node("Glyph").text = tilename if tilename.length() == 1 else ""
+		tmpcard.get_node("SubScript").text = str($WordAI.letter_value(dealer_hand[i])) if tilename.length() == 1 else ""
+		add_child(tmpcard)
+		tmpcard.position = Vector2(933, 443)
+		tmpcard.destination_x = $HUD.get_children()[i].position.x + 60
+		tmpcard.destination_y = $HUD.get_children()[i].position.y + 60
+		tmpcard.moving = true
+		var lam = func _lam(_i):
+			if tmpcard.signal_id != -1:
+				tmpcard.signal_id = -1
+				tmpcard.queue_free()
+				if dealer_hand[i] != 0:
+					$HUD.show_card(i, "" if dealer_hand[i] == 1 else tilename, "" if dealer_hand[i] == 1 else str($WordAI.letter_value(dealer_hand[i])))
+		tmpcard.connect("done_moving", lam)
+		
 	return true
 
 
@@ -116,7 +132,20 @@ func deal_tile(whoseturn, tile):
 
 func _on_hud_hand_card_pressed(pos):
 	if dealer_rack[pos] != null:
-		dealer_rack[pos].clicked = true
+		var dealer_tile_count = 0
+		var player_tile_count = 0
+		for tile in dealer_rack:
+			if tile != null:
+				dealer_tile_count += 1
+		for tile in $PhaseSingleton.active_player.rack:
+			if tile != null:
+				player_tile_count += 1
+		if dealer_tile_count + player_tile_count <= 7:
+			for tile in dealer_rack:
+				if tile != null:
+					tile.clicked = true
+		else:
+			dealer_rack[pos].clicked = true
 
 
 func _on_done_moving(i):
