@@ -55,7 +55,12 @@ script = ExtResource("6_jaa0b")
 
 [node name="CurrentScore" type="Label" parent="Score"]
 layout_mode = 0
+<<<<<<< Updated upstream
 offset_left = -171.0
 offset_top = -27.0
+=======
+offset_left = -188.0
+offset_top = -21.0
+>>>>>>> Stashed changes
 offset_right = -123.0
 offset_bottom = 6.0

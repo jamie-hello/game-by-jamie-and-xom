@@ -94,6 +94,16 @@ func game_over():
 	player2.score += bonuses[1]
 	player3.score += bonuses[2]
 	print([player1.score, player2.score, player3.score])
+	
+	#high scores recording
+	var sortscores = [player1.score, player2.score, player3.score]
+	sortscores.sort()
+	HighscoresSingleton.RecordNewRun(
+		player1.score + player2.score + player3.score,
+		sortscores[2],
+		sortscores[0]
+	)
+	get_parent().get_node("HighScoresOnGameover").display_scores()
 
 
 func player1turn():
