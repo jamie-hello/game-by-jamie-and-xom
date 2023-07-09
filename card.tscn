@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://26b7pkpmsb3m"]
+[gd_scene load_steps=3 format=3 uid="uid://26b7pkpmsb3m"]
 
 [ext_resource type="Texture2D" uid="uid://c87tx7xfu7e5i" path="res://img/tile hi-res.png" id="1_jo73o"]
+[ext_resource type="Script" path="res://card.gd" id="2_q6y6n"]
 
 [node name="Card" type="Sprite2D"]
 texture = ExtResource("1_jo73o")
+script = ExtResource("2_q6y6n")
 
 [node name="Glyph" type="Label" parent="."]
 offset_left = -54.0

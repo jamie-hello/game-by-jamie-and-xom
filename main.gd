@@ -5,6 +5,7 @@ signal spawn_a_click_animation
 
 
 @onready var instance = preload("res://tile.tscn")
+@onready var card_instance = preload("res://card.tscn")
 
 
 var dealer_hand = []
@@ -71,6 +72,17 @@ func deal_tile(whoseturn, tile):
 	whoseturn.add_tile(tile)
 	print("added ", tile.Letter, " to ", whoseturn)
 	emit_signal("spawn_a_click_animation")#spawn that thing
+	
+	var newcard = card_instance.instantiate()
+	newcard.get_node("Glyph").text = tile.Letter if tile.Letter.length() == 1 else ""
+	newcard.get_node("SubScript").text = str($WordAI.letter_value(ascii_code)) if tile.Letter.length() == 1 else ""
+	add_child(newcard)
+	newcard.position = $HUD.cards[pos].position
+	newcard.destination_x = tile.position.x
+	newcard.destination_y = tile.position.y
+	newcard.destination_scale = 0.5
+	newcard.moving = true
+	
 	var dealer_should_draw = true
 	for code in dealer_hand:
 		if code != 0:
