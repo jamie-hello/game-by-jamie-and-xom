@@ -5,12 +5,10 @@ extends Control
 @onready var newscorepopup = $"newScore Popup"
 
 
-func _process(delta):
-	CurrentScore.set_text(str(get_parent().score))
-
-
 func _on_deal_zone_player_new_score(wordscore,word,isOpening):
 	if not isOpening:
+		CurrentScore.set_text(str(get_parent().score))
+		CurrentScore.show()
 		newscorepopup.get_node("Label").set_visible(0)
 		newscorepopup.set_text(word+" +"+str(wordscore))
 	else:

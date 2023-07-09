@@ -61,8 +61,6 @@ func play_turn(): # TODO: Should counts_for_score (false on first turn) be a par
 				for i in move[3].size():
 					if $"../../WordAI".tableau[move[1] + i][move[0]] == 0:
 						$"../../WordAI".tableau[move[1] + i][move[0]] = move[3][i]
-				emit_signal("played_tiles_sound")
-				emit_signal("new_score",move[4],PackedByteArray(move[3]).get_string_from_ascii(),$"../../PhaseSingleton".is_opening)
 				if not $"../../PhaseSingleton".is_opening:
 					score += move[4]
 					var has_remaining_tiles = false
@@ -72,6 +70,8 @@ func play_turn(): # TODO: Should counts_for_score (false on first turn) be a par
 							break
 					if (not has_remaining_tiles) and $"../..".dealer_hand.is_empty():
 						$"../../PhaseSingleton".consecutive_passes = 4 # game over
+				emit_signal("played_tiles_sound")
+				emit_signal("new_score",move[4],PackedByteArray(move[3]).get_string_from_ascii(),$"../../PhaseSingleton".is_opening)
 				$"../../PhaseSingleton/TimerFirstTurn1".start($"../../PhaseSingleton".ANIMATION_DELAY)
 		rightmost_card.connect("done_moving", handler)
 	else:
@@ -101,8 +101,6 @@ func play_turn(): # TODO: Should counts_for_score (false on first turn) be a par
 				for i in move[3].size():
 					if $"../../WordAI".tableau[move[1]][move[0] + i] == 0:
 						$"../../WordAI".tableau[move[1]][move[0] + i] = move[3][i]
-				emit_signal("played_tiles_sound")
-				emit_signal("new_score",move[4],PackedByteArray(move[3]).get_string_from_ascii(),$"../../PhaseSingleton".is_opening)
 				if not $"../../PhaseSingleton".is_opening:
 					score += move[4]
 					var has_remaining_tiles = false
@@ -112,6 +110,8 @@ func play_turn(): # TODO: Should counts_for_score (false on first turn) be a par
 							break
 					if (not has_remaining_tiles) and $"../..".dealer_hand.is_empty():
 						$"../../PhaseSingleton".consecutive_passes = 4 # game over
+				emit_signal("played_tiles_sound")
+				emit_signal("new_score",move[4],PackedByteArray(move[3]).get_string_from_ascii(),$"../../PhaseSingleton".is_opening)
 				$"../../PhaseSingleton/TimerFirstTurn1".start($"../../PhaseSingleton".ANIMATION_DELAY)
 		rightmost_card.connect("done_moving", handler)
 

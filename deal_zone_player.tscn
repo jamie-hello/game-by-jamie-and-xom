@@ -62,6 +62,7 @@ offset_bottom = 40.0
 script = ExtResource("6_jaa0b")
 
 [node name="CurrentScore" type="Label" parent="Score"]
+visible = false
 layout_mode = 0
 offset_left = -230.0
 offset_top = -27.0
