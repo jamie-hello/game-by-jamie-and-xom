@@ -31,6 +31,7 @@ func play_turn(): # TODO: Should counts_for_score (false on first turn) be a par
 	$"../../PhaseSingleton".consecutive_passes = 0
 	print(move)
 	emit_signal("played_tiles_sound")
+	emit_signal("new_score",move[4],PackedByteArray(move[3]).get_string_from_ascii(),$"../../PhaseSingleton".is_opening)
 	print(PackedByteArray(move[3]).get_string_from_ascii())
 	if move[2] == $"../../WordAI".DIR_SOUTH:
 		for i in move[3].size():
@@ -72,7 +73,7 @@ func play_turn(): # TODO: Should counts_for_score (false on first turn) be a par
 				tile.queue_free()
 	if not $"../../PhaseSingleton".is_opening:
 		score += move[4]
-		emit_signal("new_score",move[4],PackedByteArray(move[3]).get_string_from_ascii())
+		
 		var has_remaining_tiles = false
 		for x in hand:
 			if x != 0:

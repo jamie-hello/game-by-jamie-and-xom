@@ -118,7 +118,7 @@ color = Color(1, 0.580392, 0.580392, 1)
 [node name="Button" type="Button" parent="HighScoresOnGameover/X"]
 layout_mode = 0
 offset_right = 40.0
-offset_bottom = 39.0
+offset_bottom = 40.0
 
 [node name="Label" type="Label" parent="HighScoresOnGameover/X"]
 layout_mode = 0
@@ -223,7 +223,7 @@ text = "Total                     Winner                        Loser"
 layout_mode = 0
 offset_left = 666.0
 offset_top = 228.0
-offset_right = 979.0
+offset_right = 1017.0
 offset_bottom = 295.0
 color = Color(0.698039, 0.576471, 1, 1)
 
@@ -241,7 +241,7 @@ offset_left = -89.0
 offset_top = 36.0
 offset_right = 281.0
 offset_bottom = 59.0
-text = "Total              Winner                   Loser"
+text = "Total       Winner's Score          Loser's Score"
 
 [node name="result of this game" type="Label" parent="HighScoresOnGameover"]
 layout_mode = 0

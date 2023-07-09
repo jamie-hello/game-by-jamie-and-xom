@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c1vhlig43wshy"]
+[gd_scene load_steps=9 format=3 uid="uid://c1vhlig43wshy"]
 
 [ext_resource type="Texture2D" uid="uid://20u2p4oaewjk" path="res://img/arrow.png" id="1_bej43"]
 [ext_resource type="Script" path="res://deal_zone_player.gd" id="1_c04r7"]
@@ -9,6 +9,10 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_36h0f"]
 font_color = Color(0.986, 1, 0.93, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_wtqbu"]
+font_size = 9
+font_color = Color(0.870588, 0.772549, 0.772549, 1)
 
 [node name="DealZonePlayer" type="Node2D"]
 script = ExtResource("1_c04r7")
@@ -71,5 +75,12 @@ offset_top = 10.0
 offset_right = -178.0
 offset_bottom = 33.0
 label_settings = SubResource("LabelSettings_36h0f")
+
+[node name="Label" type="Label" parent="Score/newScore Popup"]
+layout_mode = 0
+offset_top = 17.0
+offset_right = 150.0
+offset_bottom = 43.0
+label_settings = SubResource("LabelSettings_wtqbu")
 
 [connection signal="new_score" from="." to="Score" method="_on_deal_zone_player_new_score"]
