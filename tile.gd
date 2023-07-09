@@ -9,7 +9,7 @@ var card = null
 
 
 @onready var LetterTexture = $Sprite2D
-var blank = preload("res://img/letters/blank.png")
+var blank = preload("res://img/blank.png")
 
 
 var dealtalready = false
