@@ -39,8 +39,13 @@ func play_turn(): # TODO: Should counts_for_score (false on first turn) be a par
 				var pos = hand.find(to_find)
 				hand.pop_at(pos)
 				var tile = rack.pop_at(pos)
-				tile.global_position = Vector2(0.515 * (move[0] - 7) * 930 / 14 + 528, 0.452 * (move[1] + i - 7) * 960 / 14 + 226)
-				tile.rest_point = tile.global_position
+				if tile.Letter.length() != 1:
+					tile.card.get_node("Glyph").text = String.chr(move[3][i] - 32)
+				tile.card.destination_scale = 0.333333
+				tile.card.destination_x = move[0] * 40 + 80
+				tile.card.destination_y = (move[1] + i) * 40 + 80
+				tile.card.moving = true
+				tile.queue_free()
 	else:
 		for i in move[3].size():
 			if $"../../WordAI".tableau[move[1]][move[0] + i] == 0:
@@ -49,9 +54,13 @@ func play_turn(): # TODO: Should counts_for_score (false on first turn) be a par
 				var pos = hand.find(to_find if to_find < 100 else 1) # convert lowercase to wildcard
 				hand.pop_at(pos)
 				var tile = rack.pop_at(pos)
-				tile.global_position = Vector2((move[0] + i) * 490 / 14 + 300, move[1] * 210 / 14 + 160)
-				tile.global_position = Vector2(0.515 * (move[0] + i - 7) * 930 / 14 + 528, 0.452 * (move[1] - 7) * 960 / 14 + 226)
-				tile.rest_point = tile.global_position
+				if tile.Letter.length() != 1:
+					tile.card.get_node("Glyph").text = String.chr(move[3][i] - 32)
+				tile.card.destination_scale = 0.333333
+				tile.card.destination_x = (move[0] + i) * 40 + 80
+				tile.card.destination_y = move[1] * 40 + 80
+				tile.card.moving = true
+				tile.queue_free()
 	if not $"../../PhaseSingleton".is_opening:
 		score += move[4]
 		if hand.is_empty() and $"../..".dealer_hand.is_empty():

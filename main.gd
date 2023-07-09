@@ -40,25 +40,43 @@ func newgame_deal_out_some_tiles():
 	var tiles = $Bag.draw_seven()
 	for i in 7:
 		var tilename = "blank" if tiles[i] == 1 else String.chr(tiles[i])
-		var newtile = instance.instantiate()
-		newtile.set_letter(tilename)
-		$"dealerUI/DealZone Player1".add_tile(newtile)
+		var tile = instance.instantiate()
+		tile.set_letter(tilename)
+		$"dealerUI/DealZone Player1".add_tile(tile)
+		tile.card = card_instance.instantiate()
+		tile.card.get_node("Glyph").text = tile.Letter
+		tile.card.get_node("SubScript").text = str($WordAI.letter_value(tiles[i]))
+		add_child(tile.card)
+		tile.card.set_scale(Vector2(.5, .5))
+		tile.card.position = tile.position
 		
 	# player2
 	tiles = $Bag.draw_seven()
 	for i in 7:
 		var tilename = "blank" if tiles[i] == 1 else String.chr(tiles[i])
-		var newtile = instance.instantiate()
-		newtile.set_letter(tilename)
-		$"dealerUI/DealZone Player2".add_tile(newtile)
+		var tile = instance.instantiate()
+		tile.set_letter(tilename)
+		$"dealerUI/DealZone Player2".add_tile(tile)
+		tile.card = card_instance.instantiate()
+		tile.card.get_node("Glyph").text = tile.Letter
+		tile.card.get_node("SubScript").text = str($WordAI.letter_value(tiles[i]))
+		add_child(tile.card)
+		tile.card.set_scale(Vector2(.5, .5))
+		tile.card.position = tile.position
 
 	# player3
 	tiles = $Bag.draw_seven()
 	for i in 7:
 		var tilename = "blank" if tiles[i] == 1 else String.chr(tiles[i])
-		var newtile = instance.instantiate()
-		newtile.set_letter(tilename)
-		$"dealerUI/DealZone Player3".add_tile(newtile)
+		var tile = instance.instantiate()
+		tile.set_letter(tilename)
+		$"dealerUI/DealZone Player3".add_tile(tile)
+		tile.card = card_instance.instantiate()
+		tile.card.get_node("Glyph").text = tile.Letter
+		tile.card.get_node("SubScript").text = str($WordAI.letter_value(tiles[i]))
+		add_child(tile.card)
+		tile.card.set_scale(Vector2(.5, .5))
+		tile.card.position = tile.position
 
 	$Bag.add_remaining_letters()
 
@@ -73,15 +91,15 @@ func deal_tile(whoseturn, tile):
 	#print("added ", tile.Letter, " to ", whoseturn)
 	emit_signal("spawn_a_click_animation")#spawn that thing
 	
-	var newcard = card_instance.instantiate()
-	newcard.get_node("Glyph").text = tile.Letter if tile.Letter.length() == 1 else ""
-	newcard.get_node("SubScript").text = str($WordAI.letter_value(ascii_code)) if tile.Letter.length() == 1 else ""
-	add_child(newcard)
-	newcard.position = $HUD.cards[pos].position
-	newcard.destination_x = tile.position.x
-	newcard.destination_y = tile.position.y
-	newcard.destination_scale = 0.5
-	newcard.moving = true
+	tile.card = card_instance.instantiate()
+	tile.card.get_node("Glyph").text = tile.Letter if tile.Letter.length() == 1 else ""
+	tile.card.get_node("SubScript").text = str($WordAI.letter_value(ascii_code)) if tile.Letter.length() == 1 else ""
+	add_child(tile.card)
+	tile.card.position = $HUD.cards[pos].position
+	tile.card.destination_x = tile.position.x
+	tile.card.destination_y = tile.position.y
+	tile.card.destination_scale = 0.5
+	tile.card.moving = true
 	
 	var dealer_should_draw = true
 	for code in dealer_hand:
@@ -92,8 +110,8 @@ func deal_tile(whoseturn, tile):
 		dealer_newhand()
 	if whoseturn.rack.size() == 7 or dealer_hand.is_empty():
 		$PhaseSingleton.active_step = $PhaseSingleton.STEP_PLAYING
-		newcard.signal_id = 1
-		newcard.connect("done_moving", _on_done_moving)
+		tile.card.signal_id = 1
+		tile.card.connect("done_moving", _on_done_moving)
 
 
 func _on_hud_hand_card_pressed(pos):

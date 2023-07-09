@@ -5,6 +5,7 @@ var clicked = false
 var rest_point = Vector2.ZERO
 var rest_nodes = []
 var Letter = ""
+var card = null
 
 
 @onready var LetterTexture = $Sprite2D
