@@ -27,16 +27,16 @@ func play_turn(): # TODO: Should counts_for_score (false on first turn) be a par
 	if move == null:
 		print('no valid move, pass the turn')
 		$"../../PhaseSingleton".consecutive_passes += 1
+		emit_signal("new_score",0,"passed turn",$"../../PhaseSingleton".is_opening)
 		return # no valid move, pass the turn; # TODO check for end of game
 	$"../../PhaseSingleton".consecutive_passes = 0
 	print(move)
-	emit_signal("played_tiles_sound")
-	emit_signal("new_score",move[4],PackedByteArray(move[3]).get_string_from_ascii(),$"../../PhaseSingleton".is_opening)
 	print(PackedByteArray(move[3]).get_string_from_ascii())
+	var rightmost_pos = -1
+	var rightmost_card = null
 	if move[2] == $"../../WordAI".DIR_SOUTH:
 		for i in move[3].size():
 			if $"../../WordAI".tableau[move[1] + i][move[0]] == 0:
-				$"../../WordAI".tableau[move[1] + i][move[0]] = move[3][i]
 				var to_find = move[3][i]
 				if to_find > 95: # lowercase
 					to_find = 1 # wildcard
@@ -51,11 +51,32 @@ func play_turn(): # TODO: Should counts_for_score (false on first turn) be a par
 				tile.card.destination_x = move[0] * 40 + 80
 				tile.card.destination_y = (move[1] + i) * 40 + 80
 				tile.card.moving = true
+				if pos > rightmost_pos:
+					rightmost_pos = pos
+					rightmost_card = tile.card
 				tile.queue_free()
+		var handler = func _handler(_i):
+			if $"../../PhaseSingleton".active_player == self and $"../../PhaseSingleton".active_step == $"../../PhaseSingleton".STEP_PLAYING:
+				$"../../PhaseSingleton".active_step = $"../../PhaseSingleton".STEP_ANIMATING
+				for i in move[3].size():
+					if $"../../WordAI".tableau[move[1] + i][move[0]] == 0:
+						$"../../WordAI".tableau[move[1] + i][move[0]] = move[3][i]
+				emit_signal("played_tiles_sound")
+				emit_signal("new_score",move[4],PackedByteArray(move[3]).get_string_from_ascii(),$"../../PhaseSingleton".is_opening)
+				if not $"../../PhaseSingleton".is_opening:
+					score += move[4]
+					var has_remaining_tiles = false
+					for x in hand:
+						if x != 0:
+							has_remaining_tiles = true
+							break
+					if (not has_remaining_tiles) and $"../..".dealer_hand.is_empty():
+						$"../../PhaseSingleton".consecutive_passes = 4 # game over
+				$"../../PhaseSingleton/TimerFirstTurn1".start($"../../PhaseSingleton".ANIMATION_DELAY)
+		rightmost_card.connect("done_moving", handler)
 	else:
 		for i in move[3].size():
 			if $"../../WordAI".tableau[move[1]][move[0] + i] == 0:
-				$"../../WordAI".tableau[move[1]][move[0] + i] = move[3][i]
 				var to_find = move[3][i]
 				if to_find > 95: # lowercase
 					to_find = 1 # wildcard
@@ -70,17 +91,29 @@ func play_turn(): # TODO: Should counts_for_score (false on first turn) be a par
 				tile.card.destination_x = (move[0] + i) * 40 + 80
 				tile.card.destination_y = move[1] * 40 + 80
 				tile.card.moving = true
+				if pos > rightmost_pos:
+					rightmost_pos = pos
+					rightmost_card = tile.card
 				tile.queue_free()
-	if not $"../../PhaseSingleton".is_opening:
-		score += move[4]
-		
-		var has_remaining_tiles = false
-		for x in hand:
-			if x != 0:
-				has_remaining_tiles = true
-				break
-		if (not has_remaining_tiles) and $"../..".dealer_hand.is_empty():
-			$"../../PhaseSingleton".consecutive_passes = 4 # game over
+		var handler = func _handler(_i):
+			if $"../../PhaseSingleton".active_player == self and $"../../PhaseSingleton".active_step == $"../../PhaseSingleton".STEP_PLAYING:
+				$"../../PhaseSingleton".active_step = $"../../PhaseSingleton".STEP_ANIMATING
+				for i in move[3].size():
+					if $"../../WordAI".tableau[move[1]][move[0] + i] == 0:
+						$"../../WordAI".tableau[move[1]][move[0] + i] = move[3][i]
+				emit_signal("played_tiles_sound")
+				emit_signal("new_score",move[4],PackedByteArray(move[3]).get_string_from_ascii(),$"../../PhaseSingleton".is_opening)
+				if not $"../../PhaseSingleton".is_opening:
+					score += move[4]
+					var has_remaining_tiles = false
+					for x in hand:
+						if x != 0:
+							has_remaining_tiles = true
+							break
+					if (not has_remaining_tiles) and $"../..".dealer_hand.is_empty():
+						$"../../PhaseSingleton".consecutive_passes = 4 # game over
+				$"../../PhaseSingleton/TimerFirstTurn1".start($"../../PhaseSingleton".ANIMATION_DELAY)
+		rightmost_card.connect("done_moving", handler)
 
 
 func add_tile(tile):

@@ -69,6 +69,7 @@ func set_active_turn_rack_scale(n):
 			player2.get_node("Rack").set_scale(Vector2(1.0,1.0))
 			player3.get_node("Rack").set_scale(Vector2(1.07,1.07))
 
+
 func game_over():
 	print("gameover")
 	set_active_player(0, STEP_GAMEOVER)
@@ -120,57 +121,43 @@ func game_over():
 	)
 	get_parent().get_node("HighScoresOnGameover").display_scores()
 
+
 func player1turn():
 	player1.play_turn()
-	active_step = STEP_ANIMATING
-	$TimerFirstTurn1.start(ANIMATION_DELAY)
 
 
 func _on_timer_first_turn_1_timeout():
 	if consecutive_passes >= 3:
 		game_over()
 		return
-	if is_opening or $"..".dealer_hand.is_empty():
-		set_active_player(2, STEP_PLAYING)
-		player2turn()
-	else:
+	if active_player == player1:
+		if is_opening or $"..".dealer_hand.is_empty():
+			set_active_player(2, STEP_PLAYING)
+			player2turn()
+		else:
+			nextphase()
+	elif active_player == player2:
+		if is_opening or $"..".dealer_hand.is_empty():
+			set_active_player(3, STEP_PLAYING)
+			player3turn()
+		else:
+			nextphase()
+	elif active_player == player3:
+		if is_opening:
+			$"..".dealer_newhand()
+			is_opening = false
+		elif $"..".dealer_hand.is_empty():
+			set_active_player(1, STEP_PLAYING)
+			player1turn()
 		nextphase()
 
 
 func player2turn():
 	player2.play_turn()
-	active_step = STEP_ANIMATING
-	$TimerFirstTurn2.start(ANIMATION_DELAY)
-
-
-func _on_timer_first_turn_2_timeout():
-	if consecutive_passes >= 3:
-		game_over()
-		return
-	if is_opening or $"..".dealer_hand.is_empty():
-		set_active_player(3, STEP_PLAYING)
-		player3turn()
-	else:
-		nextphase()
 
 
 func player3turn():
 	player3.play_turn()
-	active_step = STEP_ANIMATING
-	$TimerFirstTurn3.start(ANIMATION_DELAY)
-
-
-func _on_timer_first_turn_3_timeout():
-	if consecutive_passes >= 3:
-		game_over()
-		return
-	if is_opening:
-		$"..".dealer_newhand()
-		is_opening = false
-	elif $"..".dealer_hand.is_empty():
-		set_active_player(1, STEP_PLAYING)
-		player1turn()
-	nextphase()
 
 
 func play_turn():

@@ -40,12 +40,6 @@ script = ExtResource("4_6gvyf")
 [node name="TimerFirstTurn1" type="Timer" parent="PhaseSingleton"]
 one_shot = true
 
-[node name="TimerFirstTurn2" type="Timer" parent="PhaseSingleton"]
-one_shot = true
-
-[node name="TimerFirstTurn3" type="Timer" parent="PhaseSingleton"]
-one_shot = true
-
 [node name="Bag" type="Node2D" parent="."]
 script = ExtResource("16_o01yg")
 
@@ -252,8 +246,6 @@ offset_bottom = 292.0
 
 [connection signal="spawn_a_click_animation" from="." to="Bag" method="_on_main_spawn_a_click_animation"]
 [connection signal="timeout" from="PhaseSingleton/TimerFirstTurn1" to="PhaseSingleton" method="_on_timer_first_turn_1_timeout"]
-[connection signal="timeout" from="PhaseSingleton/TimerFirstTurn2" to="PhaseSingleton" method="_on_timer_first_turn_2_timeout"]
-[connection signal="timeout" from="PhaseSingleton/TimerFirstTurn3" to="PhaseSingleton" method="_on_timer_first_turn_3_timeout"]
 [connection signal="draw7" from="Bag" to="refresh_hand" method="_on_bag_draw_7"]
 [connection signal="timeout" from="Timer" to="PhaseSingleton" method="_on_timer_timeout"]
 [connection signal="clicktiletoplayerhand" from="dealerUI/DealZone Player1" to="clicktiletoplayerhand" method="_on_deal_zone_player_1_clicktiletoplayerhand"]

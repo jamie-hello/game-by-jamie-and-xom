@@ -37,7 +37,9 @@ func _process(delta):
 			scale.x = destination_scale
 			scale.y = destination_scale
 			moving = false
-			done_moving.emit(signal_id)
+			var old_signal_id = signal_id
+			signal_id = 0
+			done_moving.emit(old_signal_id)
 		else:
 			scale.x = old_scale * .95 + destination_scale * .05
 			scale.y = scale.x
