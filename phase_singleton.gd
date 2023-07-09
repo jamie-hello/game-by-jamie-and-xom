@@ -6,6 +6,8 @@ var STEP_PLAYING = 1
 var STEP_ANIMATING = 2
 var STEP_GAMEOVER = 3
 
+var ANIMATION_DELAY = 0.1
+
 var player1
 var player2
 var player3
@@ -82,7 +84,7 @@ func game_over():
 func player1turn():
 	player1.play_turn()
 	active_step = STEP_ANIMATING
-	$TimerFirstTurn1.start(1)
+	$TimerFirstTurn1.start(ANIMATION_DELAY)
 
 
 func _on_timer_first_turn_1_timeout():
@@ -99,7 +101,7 @@ func _on_timer_first_turn_1_timeout():
 func player2turn():
 	player2.play_turn()
 	active_step = STEP_ANIMATING
-	$TimerFirstTurn2.start(1)
+	$TimerFirstTurn2.start(ANIMATION_DELAY)
 
 
 func _on_timer_first_turn_2_timeout():
@@ -116,7 +118,7 @@ func _on_timer_first_turn_2_timeout():
 func player3turn():
 	player3.play_turn()
 	active_step = STEP_ANIMATING
-	$TimerFirstTurn3.start(1)
+	$TimerFirstTurn3.start(ANIMATION_DELAY)
 
 
 func _on_timer_first_turn_3_timeout():
