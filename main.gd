@@ -174,9 +174,9 @@ func restart_game():
 		tile_or_card.queue_free()
 
 	$HUD/ScoresButton.hide()
-	$"dealerUI/DealZone Player1/Score".hide()
-	$"dealerUI/DealZone Player2/Score".hide()
-	$"dealerUI/DealZone Player3/Score".hide()
+	$"dealerUI/DealZone Player1/Score/CurrentScore".hide()
+	$"dealerUI/DealZone Player2/Score/CurrentScore".hide()
+	$"dealerUI/DealZone Player3/Score/CurrentScore".hide()
 	dealer_hand = []
 	dealer_rack = [null, null, null, null, null, null, null]
 	$WordAI.board = $WordAI.create_proto_board()
