@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c1vhlig43wshy"]
+[gd_scene load_steps=8 format=3 uid="uid://c1vhlig43wshy"]
 
 [ext_resource type="Texture2D" uid="uid://20u2p4oaewjk" path="res://img/arrow.png" id="1_bej43"]
 [ext_resource type="Script" path="res://deal_zone_player.gd" id="1_c04r7"]
@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://bwedxmm2ya8n" path="res://img/player1dealzone.png" id="2_g58qw"]
 [ext_resource type="Texture2D" uid="uid://nyrfptv3183a" path="res://img/2dlight.webp" id="5_2mpqu"]
 [ext_resource type="Script" path="res://Score.gd" id="6_jaa0b"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tgcvh"]
+font_size = 37
 
 [node name="DealZonePlayer" type="Node2D"]
 script = ExtResource("1_c04r7")
@@ -53,9 +56,19 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("6_jaa0b")
 
+[node name="newScore Popup" type="Label" parent="Score"]
+layout_mode = 0
+offset_left = -218.0
+offset_top = 10.0
+offset_right = -182.0
+offset_bottom = 40.0
+
 [node name="CurrentScore" type="Label" parent="Score"]
 layout_mode = 0
-offset_left = -171.0
-offset_top = -27.0
+offset_left = -169.0
+offset_top = -21.0
 offset_right = -123.0
-offset_bottom = 6.0
+offset_bottom = 30.0
+label_settings = SubResource("LabelSettings_tgcvh")
+
+[connection signal="new_score" from="." to="Score" method="_on_deal_zone_player_new_score"]

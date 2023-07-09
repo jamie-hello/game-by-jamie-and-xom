@@ -6,7 +6,7 @@ var rack = [] # instances
 var score = 0
 signal played_tiles_sound
 signal clicktiletoplayerhand
-
+signal new_score
 
 
 func _ready():
@@ -54,6 +54,7 @@ func play_turn(): # TODO: Should counts_for_score (false on first turn) be a par
 				tile.rest_point = tile.global_position
 	if not $"../../PhaseSingleton".is_opening:
 		score += move[4]
+		emit_signal("new_score",move[4],PackedByteArray(move[3]).get_string_from_ascii())
 		if hand.is_empty() and $"../..".dealer_hand.is_empty():
 			$"../../PhaseSingleton".consecutive_passes = 4 # game over
 	cleanup()
