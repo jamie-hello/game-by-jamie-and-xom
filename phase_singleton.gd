@@ -48,9 +48,9 @@ func set_active_player(n, step):
 	elif n == 3:
 		active_player = player3
 	active_step = step
-	player1.get_node("Arrow").set_visible(n == 1)
-	player2.get_node("Arrow").set_visible(n == 2)
-	player3.get_node("Arrow").set_visible(n == 3)
+	player1.get_node("PointLight2D").set_visible(n == 1)
+	player2.get_node("PointLight2D").set_visible(n == 2)
+	player3.get_node("PointLight2D").set_visible(n == 3)
 	
 
 
