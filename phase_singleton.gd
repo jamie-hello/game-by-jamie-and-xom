@@ -51,8 +51,23 @@ func set_active_player(n, step):
 	player1.get_node("PointLight2D").set_visible(n == 1)
 	player2.get_node("PointLight2D").set_visible(n == 2)
 	player3.get_node("PointLight2D").set_visible(n == 3)
+	set_active_turn_rack_scale(n)
 	
-
+	
+func set_active_turn_rack_scale(n):
+	match n:
+		1:
+			player1.get_node("Rack").set_scale(Vector2(1.07,1.07))
+			player2.get_node("Rack").set_scale(Vector2(1.0,1.0))
+			player3.get_node("Rack").set_scale(Vector2(1.0,1.0))
+		2:
+			player1.get_node("Rack").set_scale(Vector2(1.0,1.0))
+			player2.get_node("Rack").set_scale(Vector2(1.07,1.07))
+			player3.get_node("Rack").set_scale(Vector2(1.0,1.0))
+		3:
+			player1.get_node("Rack").set_scale(Vector2(1.0,1.0))
+			player2.get_node("Rack").set_scale(Vector2(1.0,1.0))
+			player3.get_node("Rack").set_scale(Vector2(1.07,1.07))
 
 func game_over():
 	print("gameover")
@@ -95,6 +110,15 @@ func game_over():
 	player3.score += bonuses[2]
 	print([player1.score, player2.score, player3.score])
 
+	#high scores recording
+	var sortscores = [player1.score, player2.score, player3.score]
+	sortscores.sort()
+	HighscoresSingleton.RecordNewRun(
+		player1.score + player2.score + player3.score,
+		sortscores[2],
+		sortscores[0]
+	)
+	get_parent().get_node("HighScoresOnGameover").display_scores()
 
 func player1turn():
 	player1.play_turn()

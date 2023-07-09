@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://2v74n5qo7jyh"]
+[gd_scene load_steps=20 format=3 uid="uid://2v74n5qo7jyh"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_63v1i"]
 [ext_resource type="PackedScene" uid="uid://b8aykduqsqo68" path="res://word_ai.tscn" id="2_374l1"]
@@ -16,6 +16,13 @@
 [ext_resource type="Script" path="res://bag.gd" id="16_o01yg"]
 [ext_resource type="PackedScene" uid="uid://c1vhlig43wshy" path="res://deal_zone_player.tscn" id="16_pu1g3"]
 [ext_resource type="AudioStream" uid="uid://ck7p2mmpj2f7f" path="res://sounds/POL-end-of-time-short.wav" id="17_cdye7"]
+[ext_resource type="Script" path="res://HighScoresOnGameover.gd" id="17_dqw2y"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0wuoa"]
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_g31cq"]
+font_size = 30
 
 [node name="Main" type="Node"]
 script = ExtResource("1_63v1i")
@@ -84,6 +91,165 @@ stream = ExtResource("17_cdye7")
 volume_db = -16.0
 autoplay = true
 
+[node name="HighScoresOnGameover" type="Control" parent="."]
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+offset_left = 100.0
+offset_top = 1000.0
+offset_right = 140.0
+offset_bottom = 1040.0
+script = ExtResource("17_dqw2y")
+
+[node name="background" type="ColorRect" parent="HighScoresOnGameover"]
+layout_mode = 0
+offset_right = 1134.0
+offset_bottom = 478.0
+color = Color(0.454902, 0.254902, 0.631373, 1)
+
+[node name="X" type="ColorRect" parent="HighScoresOnGameover"]
+layout_mode = 0
+offset_left = 1073.0
+offset_top = 11.0
+offset_right = 1113.0
+offset_bottom = 51.0
+color = Color(1, 0.580392, 0.580392, 1)
+
+[node name="Button" type="Button" parent="HighScoresOnGameover/X"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 39.0
+
+[node name="Label" type="Label" parent="HighScoresOnGameover/X"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = -3.0
+offset_right = 40.0
+offset_bottom = 42.0
+text = "X"
+label_settings = SubResource("LabelSettings_0wuoa")
+
+[node name="highscores_" type="Label" parent="HighScoresOnGameover"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 83.0
+offset_right = 210.0
+offset_bottom = 172.0
+text = "High Scores"
+label_settings = SubResource("LabelSettings_g31cq")
+
+[node name="ColorRect" type="ColorRect" parent="HighScoresOnGameover/highscores_"]
+layout_mode = 0
+offset_left = 182.0
+offset_top = -2.0
+offset_right = 533.0
+offset_bottom = 170.0
+color = Color(0.690196, 0.533333, 1, 1)
+
+[node name="total" type="Label" parent="HighScoresOnGameover/highscores_"]
+layout_mode = 0
+offset_left = 190.0
+offset_top = 44.0
+offset_right = 294.0
+offset_bottom = 162.0
+
+[node name="winner" type="Label" parent="HighScoresOnGameover/highscores_"]
+layout_mode = 0
+offset_left = 317.0
+offset_top = 44.0
+offset_right = 410.0
+offset_bottom = 162.0
+
+[node name="loser" type="Label" parent="HighScoresOnGameover/highscores_"]
+layout_mode = 0
+offset_left = 459.0
+offset_top = 44.0
+offset_right = 523.0
+offset_bottom = 162.0
+
+[node name="Label" type="Label" parent="HighScoresOnGameover/highscores_"]
+layout_mode = 0
+offset_left = 196.0
+offset_right = 531.0
+offset_bottom = 26.0
+text = "Total                     Winner                        Loser"
+
+[node name="lowscores_" type="Label" parent="HighScoresOnGameover"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 278.0
+offset_right = 210.0
+offset_bottom = 435.0
+text = "Low Scores"
+label_settings = SubResource("LabelSettings_g31cq")
+
+[node name="ColorRect" type="ColorRect" parent="HighScoresOnGameover/lowscores_"]
+layout_mode = 0
+offset_left = 182.0
+offset_top = -2.0
+offset_right = 533.0
+offset_bottom = 170.0
+color = Color(0.690196, 0.533333, 1, 1)
+
+[node name="total" type="Label" parent="HighScoresOnGameover/lowscores_"]
+layout_mode = 0
+offset_left = 190.0
+offset_top = 44.0
+offset_right = 294.0
+offset_bottom = 162.0
+
+[node name="winner" type="Label" parent="HighScoresOnGameover/lowscores_"]
+layout_mode = 0
+offset_left = 317.0
+offset_top = 44.0
+offset_right = 410.0
+offset_bottom = 162.0
+
+[node name="loser" type="Label" parent="HighScoresOnGameover/lowscores_"]
+layout_mode = 0
+offset_left = 459.0
+offset_top = 44.0
+offset_right = 523.0
+offset_bottom = 162.0
+
+[node name="Label" type="Label" parent="HighScoresOnGameover/lowscores_"]
+layout_mode = 0
+offset_left = 196.0
+offset_right = 531.0
+offset_bottom = 26.0
+text = "Total                     Winner                        Loser"
+
+[node name="ColorRect2" type="ColorRect" parent="HighScoresOnGameover"]
+layout_mode = 0
+offset_left = 666.0
+offset_top = 228.0
+offset_right = 979.0
+offset_bottom = 295.0
+color = Color(0.698039, 0.576471, 1, 1)
+
+[node name="This games result" type="Label" parent="HighScoresOnGameover"]
+layout_mode = 0
+offset_left = 759.0
+offset_top = 195.0
+offset_right = 905.0
+offset_bottom = 221.0
+text = "This Game's Result"
+
+[node name="Label" type="Label" parent="HighScoresOnGameover/This games result"]
+layout_mode = 0
+offset_left = -89.0
+offset_top = 36.0
+offset_right = 281.0
+offset_bottom = 59.0
+text = "Total              Winner                   Loser"
+
+[node name="result of this game" type="Label" parent="HighScoresOnGameover"]
+layout_mode = 0
+offset_left = 678.0
+offset_top = 252.0
+offset_right = 966.0
+offset_bottom = 292.0
+
 [connection signal="spawn_a_click_animation" from="." to="Bag" method="_on_main_spawn_a_click_animation"]
 [connection signal="timeout" from="PhaseSingleton/TimerFirstTurn1" to="PhaseSingleton" method="_on_timer_first_turn_1_timeout"]
 [connection signal="timeout" from="PhaseSingleton/TimerFirstTurn2" to="PhaseSingleton" method="_on_timer_first_turn_2_timeout"]
@@ -97,3 +263,4 @@ autoplay = true
 [connection signal="clicktiletoplayerhand" from="dealerUI/DealZone Player3" to="clicktiletoplayerhand" method="_on_deal_zone_player_1_clicktiletoplayerhand"]
 [connection signal="played_tiles_sound" from="dealerUI/DealZone Player3" to="playedtiles" method="_on_deal_zone_player_1_played_tiles_sound"]
 [connection signal="hand_card_pressed" from="HUD" to="." method="_on_hud_hand_card_pressed"]
+[connection signal="pressed" from="HighScoresOnGameover/X/Button" to="HighScoresOnGameover" method="_on_button_pressed"]

@@ -17,4 +17,3 @@ func _on_deal_zone_player_new_score(wordscore,word):
 	var tween = newscorepopup.create_tween()
 	tween.tween_property(newscorepopup,"position",Vector2(-186,-20),1.50)
 	tween.tween_property(newscorepopup,"modulate",Color(1,1,1,0),.90)
-	print("newscorepopup")

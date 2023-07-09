@@ -27,6 +27,7 @@ func _ready():
 	player1.get_node("PointLight2D").set_item_cull_mask(2)
 	player2.get_node("PointLight2D").set_item_cull_mask(4)
 	player3.get_node("PointLight2D").set_item_cull_mask(8)
+	
 	pass # Replace with function body.
 
 
