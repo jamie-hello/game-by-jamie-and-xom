@@ -34,9 +34,11 @@ func play_turn(): # TODO: Should counts_for_score (false on first turn) be a par
 	print(PackedByteArray(move[3]).get_string_from_ascii())
 	var rightmost_pos = -1
 	var rightmost_card = null
+	var tiles_used = 0
 	if move[2] == $"../../WordAI".DIR_SOUTH:
 		for i in move[3].size():
 			if $"../../WordAI".tableau[move[1] + i][move[0]] == 0:
+				tiles_used += 1
 				var to_find = move[3][i]
 				if to_find > 95: # lowercase
 					to_find = 1 # wildcard
@@ -71,12 +73,13 @@ func play_turn(): # TODO: Should counts_for_score (false on first turn) be a par
 					if (not has_remaining_tiles) and $"../..".dealer_hand.is_empty():
 						$"../../PhaseSingleton".consecutive_passes = 4 # game over
 				emit_signal("played_tiles_sound")
-				emit_signal("new_score",move[4],PackedByteArray(move[3]).get_string_from_ascii(),$"../../PhaseSingleton".is_opening)
+				emit_signal("new_score",move[4],PackedByteArray(move[3]).get_string_from_ascii(),$"../../PhaseSingleton".is_opening,tiles_used == 7)
 				$"../../PhaseSingleton/TimerFirstTurn1".start($"../../PhaseSingleton".ANIMATION_DELAY)
 		rightmost_card.connect("done_moving", handler)
 	else:
 		for i in move[3].size():
 			if $"../../WordAI".tableau[move[1]][move[0] + i] == 0:
+				tiles_used += 1
 				var to_find = move[3][i]
 				if to_find > 95: # lowercase
 					to_find = 1 # wildcard
@@ -111,7 +114,7 @@ func play_turn(): # TODO: Should counts_for_score (false on first turn) be a par
 					if (not has_remaining_tiles) and $"../..".dealer_hand.is_empty():
 						$"../../PhaseSingleton".consecutive_passes = 4 # game over
 				emit_signal("played_tiles_sound")
-				emit_signal("new_score",move[4],PackedByteArray(move[3]).get_string_from_ascii(),$"../../PhaseSingleton".is_opening)
+				emit_signal("new_score",move[4],PackedByteArray(move[3]).get_string_from_ascii(),$"../../PhaseSingleton".is_opening,tiles_used == 7)
 				$"../../PhaseSingleton/TimerFirstTurn1".start($"../../PhaseSingleton".ANIMATION_DELAY)
 		rightmost_card.connect("done_moving", handler)
 
