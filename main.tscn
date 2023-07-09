@@ -129,9 +129,10 @@ offset_left = 40.0
 offset_top = 83.0
 offset_right = 210.0
 offset_bottom = 172.0
-text = "High Scores"
+text = "HIGH"
 label_settings = SubResource("LabelSettings_g31cq")
-horizontal_alignment = 2
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ColorRect" type="ColorRect" parent="HighScoresOnGameover/highscores_"]
 layout_mode = 0
@@ -143,25 +144,25 @@ color = Color(0.690196, 0.533333, 1, 1)
 
 [node name="total" type="Label" parent="HighScoresOnGameover/highscores_"]
 layout_mode = 0
-offset_left = 185.0
+offset_left = 133.0
 offset_top = 44.0
-offset_right = 289.0
+offset_right = 237.0
 offset_bottom = 162.0
 horizontal_alignment = 2
 
 [node name="winner" type="Label" parent="HighScoresOnGameover/highscores_"]
 layout_mode = 0
-offset_left = 312.0
+offset_left = 285.0
 offset_top = 44.0
-offset_right = 405.0
+offset_right = 378.0
 offset_bottom = 162.0
 horizontal_alignment = 2
 
 [node name="loser" type="Label" parent="HighScoresOnGameover/highscores_"]
 layout_mode = 0
-offset_left = 454.0
+offset_left = 459.0
 offset_top = 44.0
-offset_right = 518.0
+offset_right = 523.0
 offset_bottom = 162.0
 horizontal_alignment = 2
 
@@ -179,9 +180,10 @@ offset_left = 40.0
 offset_top = 278.0
 offset_right = 210.0
 offset_bottom = 435.0
-text = "Low Scores"
+text = "LOW"
 label_settings = SubResource("LabelSettings_g31cq")
-horizontal_alignment = 2
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ColorRect" type="ColorRect" parent="HighScoresOnGameover/lowscores_"]
 layout_mode = 0
@@ -193,25 +195,25 @@ color = Color(0.690196, 0.533333, 1, 1)
 
 [node name="total" type="Label" parent="HighScoresOnGameover/lowscores_"]
 layout_mode = 0
-offset_left = 185.0
+offset_left = 133.0
 offset_top = 44.0
-offset_right = 289.0
+offset_right = 237.0
 offset_bottom = 162.0
 horizontal_alignment = 2
 
 [node name="winner" type="Label" parent="HighScoresOnGameover/lowscores_"]
 layout_mode = 0
-offset_left = 312.0
+offset_left = 285.0
 offset_top = 44.0
-offset_right = 405.0
+offset_right = 378.0
 offset_bottom = 162.0
-horizontal_alignment = 1
+horizontal_alignment = 2
 
 [node name="loser" type="Label" parent="HighScoresOnGameover/lowscores_"]
 layout_mode = 0
-offset_left = 454.0
+offset_left = 459.0
 offset_top = 44.0
-offset_right = 518.0
+offset_right = 523.0
 offset_bottom = 162.0
 horizontal_alignment = 2
 

@@ -25,7 +25,7 @@ func display_scores():
 	LowWinner.text = ("" if threelowest[0][1] == -666 else str(threelowest[0][1]))  + "\n" + ("" if threelowest[1][1] == -666 else str(threelowest[1][1])) + "\n" + ("" if threelowest[2][1] == -666 else str(threelowest[2][1]))
 	LowLoser.text = ("" if threelowest[0][2] == -666 else str(threelowest[0][2]))  + "\n" + ("" if threelowest[1][2] == -666 else str(threelowest[1][2])) + "\n" + ("" if threelowest[2][2] == -666 else str(threelowest[2][2]))
 	var newestrun = get_current_scores()
-	resultofthisgame.text = (str(newestrun[0])+"                    "+str(newestrun[1])+"                       "+str(newestrun[2]))
+	resultofthisgame.text = (str(newestrun[0])+"                                "+str(newestrun[1])+"                               "+str(newestrun[2]))
 
 	var tween = create_tween()
 	tween.tween_property(self,"position",Vector2(100,150),1)
