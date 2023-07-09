@@ -18,16 +18,6 @@ func get_current_scores():
 func display_scores():
 	var threehighest = HighscoresSingleton.get_three_highest_scores()
 	var threelowest = HighscoresSingleton.get_three_lowest_scores()
-	for line in threehighest:
-		if line[0] == 0 and line[1] == 0 and line[2] == 0:
-			line[0] = -666
-			line[1] = -666
-			line[2] = -666
-	for line in threelowest:
-		if line[0] == 0 and line[1] == 0 and line[2] == 0:
-			line[0] = -666
-			line[1] = -666
-			line[2] = -666
 	HighTotal.text = ("" if threehighest[0][0] == -666 else str(threehighest[0][0]))  + "\n" + ("" if threehighest[1][0] == -666 else str(threehighest[1][0])) + "\n" + ("" if threehighest[2][0] == -666 else str(threehighest[2][0]))
 	HighWinner.text = ("" if threehighest[0][1] == -666 else str(threehighest[0][1]))  + "\n" + ("" if threehighest[1][1] == -666 else str(threehighest[1][1])) + "\n" + ("" if threehighest[2][1] == -666 else str(threehighest[2][1]))
 	HighLoser.text = ("" if threehighest[0][2] == -666 else str(threehighest[0][2]))  + "\n" + ("" if threehighest[1][2] == -666 else str(threehighest[1][2])) + "\n" + ("" if threehighest[2][2] == -666 else str(threehighest[2][2]))
