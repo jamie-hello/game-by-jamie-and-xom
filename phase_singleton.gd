@@ -120,6 +120,7 @@ func game_over():
 		sortscores[2],
 		sortscores[0]
 	)
+	$"../HUD/NewGameButton".show()
 	get_parent().get_node("HighScoresOnGameover").display_scores()
 
 
