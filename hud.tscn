@@ -55,6 +55,15 @@ offset_top = 586.0
 offset_right = 1183.0
 offset_bottom = 706.0
 
+[node name="TilesLeft" type="Label" parent="."]
+offset_left = 1233.0
+offset_top = 581.0
+offset_right = 1280.0
+offset_bottom = 669.0
+text = "Tiles Left: 84"
+horizontal_alignment = 1
+autowrap_mode = 2
+
 [connection signal="pressed" from="HandCard0" to="." method="_on_hand_card_0_pressed"]
 [connection signal="pressed" from="HandCard1" to="." method="_on_hand_card_1_pressed"]
 [connection signal="pressed" from="HandCard2" to="." method="_on_hand_card_2_pressed"]

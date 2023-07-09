@@ -47,7 +47,7 @@ func dealer_newhand():
 				if dealer_hand[i] != 0:
 					$HUD.show_card(i, "" if dealer_hand[i] == 1 else tilename, "" if dealer_hand[i] == 1 else str($WordAI.letter_value(dealer_hand[i])))
 		tmpcard.connect("done_moving", lam)
-		
+
 	return true
 
 
@@ -106,7 +106,7 @@ func deal_tile(whoseturn, tile):
 	whoseturn.add_tile(tile)
 	#print("added ", tile.Letter, " to ", whoseturn)
 	emit_signal("spawn_a_click_animation")#spawn that thing
-	
+
 	tile.card = card_instance.instantiate()
 	tile.card.get_node("Glyph").text = tile.Letter if tile.Letter.length() == 1 else ""
 	tile.card.get_node("SubScript").text = str($WordAI.letter_value(ascii_code)) if tile.Letter.length() == 1 else ""
@@ -116,7 +116,10 @@ func deal_tile(whoseturn, tile):
 	tile.card.destination_y = tile.position.y
 	tile.card.destination_scale = 0.5
 	tile.card.moving = true
-	
+
+	$HUD.tiles_left -= 1
+	$HUD/TilesLeft.text = "Tiles Left: " + str($HUD.tiles_left)
+
 	var dealer_should_draw = true
 	for code in dealer_hand:
 		if code != 0:

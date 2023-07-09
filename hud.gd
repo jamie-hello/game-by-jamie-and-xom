@@ -5,6 +5,7 @@ signal hand_card_pressed(pos)
 
 
 @onready var cards = [$HandCard0, $HandCard1, $HandCard2, $HandCard3, $HandCard4, $HandCard5, $HandCard6]
+var tiles_left = 84
 
 
 func show_card(pos, glyph, sub_script):
