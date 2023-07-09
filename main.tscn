@@ -1,10 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://2v74n5qo7jyh"]
+[gd_scene load_steps=18 format=3 uid="uid://2v74n5qo7jyh"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_63v1i"]
 [ext_resource type="PackedScene" uid="uid://b8aykduqsqo68" path="res://word_ai.tscn" id="2_374l1"]
+[ext_resource type="Texture2D" uid="uid://v2qg8qaeicga" path="res://img/backdrop.png" id="2_xsuxx"]
 [ext_resource type="Script" path="res://phase_singleton.gd" id="4_6gvyf"]
-[ext_resource type="PackedScene" uid="uid://cnfeyum3ky12d" path="res://board.tscn" id="5_2uyb6"]
-[ext_resource type="Texture2D" uid="uid://cxre1hq4skr8f" path="res://img/sack.png" id="8_4rhig"]
 [ext_resource type="Script" path="res://dealerUI.gd" id="8_r8kwx"]
 [ext_resource type="Texture2D" uid="uid://c87tx7xfu7e5i" path="res://img/tile hi-res.png" id="9_kmoio"]
 [ext_resource type="AudioStream" uid="uid://bq7jpo6poue6o" path="res://sounds/playtilessound.wav" id="11_y5lmr"]
@@ -22,6 +21,11 @@
 
 [node name="Main" type="Node"]
 script = ExtResource("1_63v1i")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_xsuxx")
 
 [node name="WordAI" parent="." instance=ExtResource("2_374l1")]
 
@@ -43,15 +47,6 @@ script = ExtResource("16_o01yg")
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 autostart = true
-
-[node name="Board" parent="." instance=ExtResource("5_2uyb6")]
-position = Vector2(536, 241)
-scale = Vector2(0.565, 0.565)
-
-[node name="Sack" type="Sprite2D" parent="."]
-position = Vector2(216, 141)
-scale = Vector2(0.39, 0.441667)
-texture = ExtResource("8_4rhig")
 
 [node name="Tile" parent="." instance=ExtResource("15_rrxli")]
 
