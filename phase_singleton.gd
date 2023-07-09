@@ -39,6 +39,10 @@ func _on_timer_timeout():
 	player1turn()
 
 
+#func signpost():
+#	print(active_step)
+
+
 func set_active_player(n, step):
 	if n == 0:
 		active_player = null
@@ -148,10 +152,12 @@ func _on_timer_first_turn_1_timeout():
 		if is_opening:
 			$"..".dealer_newhand()
 			is_opening = false
+			nextphase()
 		elif $"..".dealer_hand.is_empty():
 			set_active_player(1, STEP_PLAYING)
 			player1turn()
-		nextphase()
+		else:
+			nextphase()
 
 
 func player2turn():

@@ -25,6 +25,8 @@ func play_turn(): # TODO: Should counts_for_score (false on first turn) be a par
 	if filtered_hand.is_empty():
 		$"../../PhaseSingleton".game_over()
 		return
+#	elif filtered_hand.size() == 1:
+#		print("Is the bug here")
 	var move = $"../../WordAI".get_best_move(filtered_hand)
 	if move == null:
 		print('no valid move, pass the turn')
@@ -65,6 +67,7 @@ func play_turn(): # TODO: Should counts_for_score (false on first turn) be a par
 					rightmost_card = tile.card
 				tile.queue_free()
 		var handler = func _handler(_i):
+#			$"../../PhaseSingleton".signpost()
 			if $"../../PhaseSingleton".active_player == self and $"../../PhaseSingleton".active_step == $"../../PhaseSingleton".STEP_PLAYING:
 				$"../../PhaseSingleton".active_step = $"../../PhaseSingleton".STEP_ANIMATING
 				for i in move[3].size():
@@ -106,6 +109,7 @@ func play_turn(): # TODO: Should counts_for_score (false on first turn) be a par
 					rightmost_card = tile.card
 				tile.queue_free()
 		var handler = func _handler(_i):
+#			$"../../PhaseSingleton".signpost()
 			if $"../../PhaseSingleton".active_player == self and $"../../PhaseSingleton".active_step == $"../../PhaseSingleton".STEP_PLAYING:
 				$"../../PhaseSingleton".active_step = $"../../PhaseSingleton".STEP_ANIMATING
 				for i in move[3].size():
