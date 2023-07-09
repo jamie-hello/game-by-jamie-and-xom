@@ -1,7 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://dcvk0hmraq7o1"]
 
 [ext_resource type="Script" path="res://tile.gd" id="1_sri1r"]
-[ext_resource type="Texture2D" uid="uid://damgfdt40tfk" path="res://img/letters/S.png" id="2_tih03"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8kv20"]
+load_path = "res://.godot/imported/S.png-2381b77553a9bbba9850ec4f55dbe559.ctex"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vylgp"]
 size = Vector2(30, 30)
@@ -15,7 +17,7 @@ position = Vector2(-50, 200)
 script = ExtResource("1_sri1r")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_tih03")
+texture = SubResource("CompressedTexture2D_8kv20")
 
 [node name="clickbox" type="Area2D" parent="." groups=["tile"]]
 collision_layer = 5
