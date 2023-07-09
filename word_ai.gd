@@ -74,6 +74,8 @@ func get_best_first_move(hand):
 			var matches = get_anagrams(s.get_string_from_ascii().to_upper())
 			for m in matches:
 				var word = assign_wildcards(hand, m)
+				if word == null:
+					continue
 				for offset in range(0, len):
 					var score = score_move(7 - offset, 7, DIR_EAST, word)
 					if score == best_score:
@@ -261,7 +263,7 @@ func get_perp_moves(hand, substr_by_len, x, y, dir):
 								break
 						if lines_up:
 							var word = assign_wildcards_for_perp(hand, m, x, y - i, dir)
-							if is_valid_move(x, y - i, dir, word, false):
+							if word != null and is_valid_move(x, y - i, dir, word, false):
 								moves.append([x, y - i, dir, word])
 	else:
 		for i in x + 1:
@@ -296,7 +298,7 @@ func get_perp_moves(hand, substr_by_len, x, y, dir):
 								break
 						if lines_up:
 							var word = assign_wildcards_for_perp(hand, m, x - i, y, dir)
-							if is_valid_move(x - i, y, dir, word, false):
+							if word != null and is_valid_move(x - i, y, dir, word, false):
 								moves.append([x - i, y, dir, word])
 	return moves
 
@@ -312,6 +314,10 @@ func assign_wildcards_for_perp(hand, m, x, y, dir):
 			else:
 				var pos = h.find(result[i])
 				if pos == -1:
+					pos = h.find(1)
+					if pos == -1:
+						return null # bug? anyway, bail!
+					h.remove_at(pos)
 					result[i] += 32 # to lower case
 				else:
 					h.remove_at(pos)
@@ -394,7 +400,7 @@ func get_best_parallel_move(hand, substr_by_len, x, y, dir):
 					var anags = get_anagrams(s.get_string_from_ascii().to_upper())
 					for m in anags:
 						var word = assign_wildcards(hand, m)
-						if is_valid_move(x - i, y, dir, word, true):
+						if word != null and is_valid_move(x - i, y, dir, word, true):
 							var score = score_move(x - i, y, dir, word)
 							if score == best_score:
 								best_moves.append([x - i, y, dir, word, score])
@@ -510,6 +516,10 @@ func assign_wildcards(hand, m):
 	for i in result.size():
 		var pos = h.find(result[i])
 		if pos == -1:
+			pos = h.find(1)
+			if pos == -1:
+				return null # bug? anyway, bail!
+			h.remove_at(pos)
 			result[i] += 32 # to lower case
 		else:
 			h.remove_at(pos)
