@@ -91,9 +91,16 @@ func deal_tile(whoseturn, tile):
 	if dealer_should_draw:
 		dealer_newhand()
 	if whoseturn.rack.size() == 7 or dealer_hand.is_empty():
-		$PhaseSingleton.play_turn()
+		$PhaseSingleton.active_step = $PhaseSingleton.STEP_PLAYING
+		newcard.signal_id = 1
+		newcard.connect("done_moving", _on_done_moving)
 
 
 func _on_hud_hand_card_pressed(pos):
 	if dealer_rack[pos] != null:
 		dealer_rack[pos].clicked = true
+
+
+func _on_done_moving(i):
+	if i == 1:
+		$PhaseSingleton.play_turn()
