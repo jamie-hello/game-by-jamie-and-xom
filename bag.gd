@@ -1,6 +1,9 @@
 extends Node2D
 
 
+
+@onready var clickspriteinstance = preload("res://clicksprite.tscn")
+
 var DECK = [9, 2, 2, 5, 13, 2, 3, 3, 9, 1, 1, 4, 2, 6, 8, 2, 1, 6, 5, 7, 4, 2, 2, 1, 2, 1]
 var contents = []
 var wildcard_played = false
@@ -52,3 +55,12 @@ func _ready():
 
 func _process(delta):
 	pass
+
+
+func _on_main_spawn_a_click_animation():
+	
+	var newclickanim = clickspriteinstance.instantiate()
+	add_child(newclickanim)
+	newclickanim.global_position = get_global_mouse_position()
+	print("click animation at ", newclickanim.global_position,"  mouse position at ", get_global_mouse_position())
+	pass # Replace with function body.

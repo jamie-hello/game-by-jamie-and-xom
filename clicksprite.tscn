@@ -12,12 +12,11 @@ script = ExtResource("3_reper")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_sbujd")
-position = Vector2(-1000, 0)
 texture = ExtResource("2_b25yv")
-script = ExtResource("3_reper")
 
 [node name="Timer" type="Timer" parent="Sprite2D"]
 wait_time = 0.76
 autostart = true
 
+[connection signal="timeout" from="Sprite2D/Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Sprite2D/Timer" to="Sprite2D" method="_on_timer_timeout"]

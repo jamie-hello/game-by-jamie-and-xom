@@ -83,6 +83,7 @@ stream = ExtResource("17_cdye7")
 volume_db = -14.991
 autoplay = true
 
+[connection signal="spawn_a_click_animation" from="." to="Bag" method="_on_main_spawn_a_click_animation"]
 [connection signal="timeout" from="PhaseSingleton/TimerFirstTurn1" to="PhaseSingleton" method="_on_timer_first_turn_1_timeout"]
 [connection signal="timeout" from="PhaseSingleton/TimerFirstTurn2" to="PhaseSingleton" method="_on_timer_first_turn_2_timeout"]
 [connection signal="timeout" from="PhaseSingleton/TimerFirstTurn3" to="PhaseSingleton" method="_on_timer_first_turn_3_timeout"]

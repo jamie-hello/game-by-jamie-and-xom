@@ -1,6 +1,7 @@
 extends Node
 
-
+@onready var clickspriteinstance = preload("res://clicksprite.tscn")
+signal spawn_a_click_animation
 @onready var instance = preload("res://tile.tscn")
 
 
@@ -81,3 +82,4 @@ func deal_tile(whoseturn, tile):
 func _on_hud_hand_card_pressed(pos):
 	if dealer_rack[pos] != null:
 		dealer_rack[pos].clicked = true
+		emit_signal("spawn_a_click_animation")#spawn that thing
