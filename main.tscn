@@ -44,8 +44,8 @@ one_shot = true
 script = ExtResource("16_o01yg")
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
 one_shot = true
-autostart = true
 
 [node name="Tile" parent="." instance=ExtResource("15_rrxli")]
 
@@ -131,6 +131,7 @@ offset_right = 210.0
 offset_bottom = 172.0
 text = "High Scores"
 label_settings = SubResource("LabelSettings_g31cq")
+horizontal_alignment = 2
 
 [node name="ColorRect" type="ColorRect" parent="HighScoresOnGameover/highscores_"]
 layout_mode = 0
@@ -142,31 +143,35 @@ color = Color(0.690196, 0.533333, 1, 1)
 
 [node name="total" type="Label" parent="HighScoresOnGameover/highscores_"]
 layout_mode = 0
-offset_left = 190.0
+offset_left = 185.0
 offset_top = 44.0
-offset_right = 294.0
+offset_right = 289.0
 offset_bottom = 162.0
+horizontal_alignment = 2
 
 [node name="winner" type="Label" parent="HighScoresOnGameover/highscores_"]
 layout_mode = 0
-offset_left = 317.0
+offset_left = 312.0
 offset_top = 44.0
-offset_right = 410.0
+offset_right = 405.0
 offset_bottom = 162.0
+horizontal_alignment = 2
 
 [node name="loser" type="Label" parent="HighScoresOnGameover/highscores_"]
 layout_mode = 0
-offset_left = 459.0
+offset_left = 454.0
 offset_top = 44.0
-offset_right = 523.0
+offset_right = 518.0
 offset_bottom = 162.0
+horizontal_alignment = 2
 
 [node name="Label" type="Label" parent="HighScoresOnGameover/highscores_"]
 layout_mode = 0
-offset_left = 196.0
-offset_right = 531.0
+offset_left = 191.0
+offset_right = 526.0
 offset_bottom = 26.0
 text = "Total                     Winner                        Loser"
+horizontal_alignment = 2
 
 [node name="lowscores_" type="Label" parent="HighScoresOnGameover"]
 layout_mode = 0
@@ -176,6 +181,7 @@ offset_right = 210.0
 offset_bottom = 435.0
 text = "Low Scores"
 label_settings = SubResource("LabelSettings_g31cq")
+horizontal_alignment = 2
 
 [node name="ColorRect" type="ColorRect" parent="HighScoresOnGameover/lowscores_"]
 layout_mode = 0
@@ -187,62 +193,69 @@ color = Color(0.690196, 0.533333, 1, 1)
 
 [node name="total" type="Label" parent="HighScoresOnGameover/lowscores_"]
 layout_mode = 0
-offset_left = 190.0
+offset_left = 185.0
 offset_top = 44.0
-offset_right = 294.0
+offset_right = 289.0
 offset_bottom = 162.0
+horizontal_alignment = 2
 
 [node name="winner" type="Label" parent="HighScoresOnGameover/lowscores_"]
 layout_mode = 0
-offset_left = 317.0
+offset_left = 312.0
 offset_top = 44.0
-offset_right = 410.0
+offset_right = 405.0
 offset_bottom = 162.0
+horizontal_alignment = 1
 
 [node name="loser" type="Label" parent="HighScoresOnGameover/lowscores_"]
 layout_mode = 0
-offset_left = 459.0
+offset_left = 454.0
 offset_top = 44.0
-offset_right = 523.0
+offset_right = 518.0
 offset_bottom = 162.0
+horizontal_alignment = 2
 
 [node name="Label" type="Label" parent="HighScoresOnGameover/lowscores_"]
 layout_mode = 0
-offset_left = 196.0
-offset_right = 531.0
+offset_left = 191.0
+offset_right = 526.0
 offset_bottom = 26.0
 text = "Total                     Winner                        Loser"
+horizontal_alignment = 2
 
 [node name="ColorRect2" type="ColorRect" parent="HighScoresOnGameover"]
 layout_mode = 0
 offset_left = 666.0
-offset_top = 228.0
+offset_top = 81.0
 offset_right = 1017.0
-offset_bottom = 295.0
+offset_bottom = 148.0
 color = Color(0.698039, 0.576471, 1, 1)
 
 [node name="This games result" type="Label" parent="HighScoresOnGameover"]
 layout_mode = 0
 offset_left = 759.0
-offset_top = 195.0
+offset_top = 48.0
 offset_right = 905.0
-offset_bottom = 221.0
-text = "This Game's Result"
+offset_bottom = 74.0
+text = "This Game's Score"
+horizontal_alignment = 1
 
 [node name="Label" type="Label" parent="HighScoresOnGameover/This games result"]
 layout_mode = 0
-offset_left = -89.0
+offset_left = -91.0
 offset_top = 36.0
-offset_right = 281.0
-offset_bottom = 59.0
+offset_right = 252.0
+offset_bottom = 62.0
 text = "Total       Winner's Score          Loser's Score"
+horizontal_alignment = 2
 
 [node name="result of this game" type="Label" parent="HighScoresOnGameover"]
 layout_mode = 0
-offset_left = 678.0
-offset_top = 252.0
-offset_right = 966.0
-offset_bottom = 292.0
+offset_left = 668.0
+offset_top = 112.0
+offset_right = 1006.0
+offset_bottom = 145.0
+horizontal_alignment = 2
 
 [connection signal="spawn_a_click_animation" from="." to="Bag" method="_on_main_spawn_a_click_animation"]
 [connection signal="timeout" from="PhaseSingleton/TimerFirstTurn1" to="PhaseSingleton" method="_on_timer_first_turn_1_timeout"]

@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://c71aqpsc57mwx"]
+[gd_scene load_steps=5 format=3 uid="uid://c71aqpsc57mwx"]
 
 [ext_resource type="Script" path="res://hud.gd" id="1_i5a6w"]
 [ext_resource type="PackedScene" uid="uid://dgpsnw5csubjk" path="res://hand_card.tscn" id="2_332bg"]
+[ext_resource type="Texture2D" uid="uid://3pb4qncwwret" path="res://img/Trophy-Emoji.png" id="3_nobn5"]
+[ext_resource type="Texture2D" uid="uid://3dkatjpdyycu" path="res://img/newgame.png" id="4_phmfl"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_i5a6w")
@@ -64,6 +66,21 @@ text = "Tiles Left: 84"
 horizontal_alignment = 1
 autowrap_mode = 2
 
+[node name="ScoresButton" type="TextureButton" parent="."]
+visible = false
+offset_left = 1208.0
+offset_top = 8.0
+offset_right = 1272.0
+offset_bottom = 72.0
+texture_normal = ExtResource("3_nobn5")
+
+[node name="NewGameButton" type="TextureButton" parent="."]
+offset_left = 1208.0
+offset_top = 80.0
+offset_right = 1272.0
+offset_bottom = 144.0
+texture_normal = ExtResource("4_phmfl")
+
 [connection signal="pressed" from="HandCard0" to="." method="_on_hand_card_0_pressed"]
 [connection signal="pressed" from="HandCard1" to="." method="_on_hand_card_1_pressed"]
 [connection signal="pressed" from="HandCard2" to="." method="_on_hand_card_2_pressed"]
@@ -71,3 +88,5 @@ autowrap_mode = 2
 [connection signal="pressed" from="HandCard4" to="." method="_on_hand_card_4_pressed"]
 [connection signal="pressed" from="HandCard5" to="." method="_on_hand_card_5_pressed"]
 [connection signal="pressed" from="HandCard6" to="." method="_on_hand_card_6_pressed"]
+[connection signal="pressed" from="ScoresButton" to="." method="_on_scores_button_pressed"]
+[connection signal="pressed" from="NewGameButton" to="." method="_on_new_game_button_pressed"]

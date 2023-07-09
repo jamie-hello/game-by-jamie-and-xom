@@ -16,7 +16,8 @@ func RecordNewRun(totalscore,highscorer,lowscorer):
 
 func get_newest_hiscore():
 	return newestrun
-	pass
+
+
 func get_three_highest_scores():
 	sort_highest_scores()
 	var threehighest = []

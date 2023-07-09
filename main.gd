@@ -14,6 +14,7 @@ var dealer_rack = [null, null, null, null, null, null, null]
 
 func _ready():
 	newgame_deal_out_some_tiles()
+	$Timer.start()
 
 
 func _process(delta):
@@ -27,12 +28,14 @@ func dealer_newhand():
 	for i in 7:
 		var tilename = "blank" if dealer_hand[i] == 1 else String.chr(dealer_hand[i])
 		var newtile = instance.instantiate()
+		newtile.add_to_group("deleteMe")
 		newtile.set_letter(tilename)
 		newtile.set_position(Vector2((i+1)*30,(i+1)*50 - 1000))
 		dealer_rack[i] = newtile
 		add_child(newtile)
 		
 		var tmpcard = card_instance.instantiate()
+		tmpcard.add_to_group("deleteMe")
 		tmpcard.get_node("Glyph").text = tilename if tilename.length() == 1 else ""
 		tmpcard.get_node("SubScript").text = str($WordAI.letter_value(dealer_hand[i])) if tilename.length() == 1 else ""
 		add_child(tmpcard)
@@ -57,9 +60,11 @@ func newgame_deal_out_some_tiles():
 	for i in 7:
 		var tilename = "blank" if tiles[i] == 1 else String.chr(tiles[i])
 		var tile = instance.instantiate()
+		tile.add_to_group("deleteMe")
 		tile.set_letter(tilename)
 		$"dealerUI/DealZone Player1".add_tile(tile)
 		tile.card = card_instance.instantiate()
+		tile.card.add_to_group("deleteMe")
 		tile.card.get_node("Glyph").text = tile.Letter
 		tile.card.get_node("SubScript").text = str($WordAI.letter_value(tiles[i]))
 		add_child(tile.card)
@@ -71,9 +76,11 @@ func newgame_deal_out_some_tiles():
 	for i in 7:
 		var tilename = "blank" if tiles[i] == 1 else String.chr(tiles[i])
 		var tile = instance.instantiate()
+		tile.add_to_group("deleteMe")
 		tile.set_letter(tilename)
 		$"dealerUI/DealZone Player2".add_tile(tile)
 		tile.card = card_instance.instantiate()
+		tile.card.add_to_group("deleteMe")
 		tile.card.get_node("Glyph").text = tile.Letter
 		tile.card.get_node("SubScript").text = str($WordAI.letter_value(tiles[i]))
 		add_child(tile.card)
@@ -85,9 +92,11 @@ func newgame_deal_out_some_tiles():
 	for i in 7:
 		var tilename = "blank" if tiles[i] == 1 else String.chr(tiles[i])
 		var tile = instance.instantiate()
+		tile.add_to_group("deleteMe")
 		tile.set_letter(tilename)
 		$"dealerUI/DealZone Player3".add_tile(tile)
 		tile.card = card_instance.instantiate()
+		tile.card.add_to_group("deleteMe")
 		tile.card.get_node("Glyph").text = tile.Letter
 		tile.card.get_node("SubScript").text = str($WordAI.letter_value(tiles[i]))
 		add_child(tile.card)
@@ -108,6 +117,7 @@ func deal_tile(whoseturn, tile):
 	emit_signal("spawn_a_click_animation")#spawn that thing
 
 	tile.card = card_instance.instantiate()
+	tile.card.add_to_group("deleteMe")
 	tile.card.get_node("Glyph").text = tile.Letter if tile.Letter.length() == 1 else ""
 	tile.card.get_node("SubScript").text = str($WordAI.letter_value(ascii_code)) if tile.Letter.length() == 1 else ""
 	add_child(tile.card)
@@ -154,3 +164,32 @@ func _on_hud_hand_card_pressed(pos):
 func _on_done_moving(i):
 	if i == 1 and $PhaseSingleton.active_step == $PhaseSingleton.STEP_PLAYING:
 		$PhaseSingleton.play_turn()
+
+
+func restart_game():
+	$PhaseSingleton/TimerFirstTurn1.stop()
+	$Timer.stop()
+
+	for tile_or_card in get_tree().get_nodes_in_group("deleteMe"):
+		tile_or_card.queue_free()
+
+	$HUD/ScoresButton.hide()
+	$"dealerUI/DealZone Player1/Score".hide()
+	$"dealerUI/DealZone Player2/Score".hide()
+	$"dealerUI/DealZone Player3/Score".hide()
+	dealer_hand = []
+	dealer_rack = [null, null, null, null, null, null, null]
+	$WordAI.board = $WordAI.create_proto_board()
+	$WordAI.tableau = $WordAI.create_2d_array($WordAI.BOARD_SIZE, $WordAI.BOARD_SIZE, 0)
+	$Bag.newbagnewgame()
+	for i in 7:
+		$HUD.hide_card(i)
+	$HUD.tiles_left = 84
+	for p in [$PhaseSingleton.player1, $PhaseSingleton.player2, $PhaseSingleton.player3]:
+		p.hand = [0, 0, 0, 0, 0, 0, 0]
+		p.rack = [null, null, null, null, null, null, null]
+		p.score = 0
+
+	newgame_deal_out_some_tiles()
+	$PhaseSingleton._on_timer_timeout()
+	$HighScoresOnGameover._on_button_pressed()

@@ -32,6 +32,7 @@ func _on_timer_timeout():
 	player2 = get_parent().get_node("dealerUI").get_node("DealZone Player2")
 	player3 = get_parent().get_node("dealerUI").get_node("DealZone Player3")
 	#start the game
+	$"../HUD/ScoresButton".show()
 	is_opening = true
 	consecutive_passes = 0
 	set_active_player(1, STEP_PLAYING)

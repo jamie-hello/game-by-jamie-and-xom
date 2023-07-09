@@ -22,13 +22,20 @@ func play_turn(): # TODO: Should counts_for_score (false on first turn) be a par
 	for x in hand:
 		if x != 0:
 			filtered_hand.append(x)
+	if filtered_hand.is_empty():
+		$"../../PhaseSingleton".game_over()
+		return
 	var move = $"../../WordAI".get_best_move(filtered_hand)
-	# TODO move logic to word_ai.gd?
 	if move == null:
 		print('no valid move, pass the turn')
 		$"../../PhaseSingleton".consecutive_passes += 1
 		emit_signal("new_score",0,"passed turn",$"../../PhaseSingleton".is_opening)
-		return # no valid move, pass the turn; # TODO check for end of game
+		if $"../../PhaseSingleton".consecutive_passes >= 3:
+			$"../../PhaseSingleton".game_over()
+			return
+		$"../../PhaseSingleton".active_step = $"../../PhaseSingleton".STEP_ANIMATING
+		$"../../PhaseSingleton/TimerFirstTurn1".start($"../../PhaseSingleton".ANIMATION_DELAY)
+		return
 	$"../../PhaseSingleton".consecutive_passes = 0
 	print(move)
 	print(PackedByteArray(move[3]).get_string_from_ascii())

@@ -44,3 +44,13 @@ func _on_hand_card_5_pressed():
 
 func _on_hand_card_6_pressed():
 	hand_card_pressed.emit(6)
+
+
+func _on_scores_button_pressed():
+	print($"../PhaseSingleton".active_step)
+	$"../HighScoresOnGameover".display_scores()
+
+
+func _on_new_game_button_pressed():
+	$NewGameButton.hide()
+	$"..".restart_game()
