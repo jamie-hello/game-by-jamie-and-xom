@@ -9,6 +9,12 @@ func _ready():
 	runs.append([-666,-666,-666])
 	runs.append([-666,-666,-666])
 	runs.append([-666,-666,-666])
+#	RecordNewRun(randi() %1000,randi() %1000,randi() %1000)
+#	RecordNewRun(randi() %1000,randi() %1000,randi() %1000)
+#	RecordNewRun(randi() %1000,randi() %1000,randi() %1000)
+#	RecordNewRun(randi() %1000,randi() %1000,randi() %1000)
+#	RecordNewRun(randi() %1000,randi() %1000,randi() %1000)
+#	RecordNewRun(randi() %1000,randi() %1000,randi() %1000)
 
 
 func RecordNewRun(totalscore,highscorer,lowscorer):
@@ -20,7 +26,6 @@ func RecordNewRun(totalscore,highscorer,lowscorer):
 			runs[i][2] = lowscorer
 			return
 	runs.append([totalscore,highscorer,lowscorer])
-	pass
 
 
 func get_newest_hiscore():
@@ -52,4 +57,4 @@ func sort_lowest_scores():
 			result_p[col].append(line[col])
 	for col in 3:
 		result_p[col].sort()
-	return [[result_p[0][0], result_p[1][0], result_p[2][0]], [result_p[0][1], result_p[1][1], result_p[2][1]], [result_p[0][2], result_p[1][2], result_p[2][2]]]
+	return [[result_p[0][2], result_p[1][2], result_p[2][2]], [result_p[0][1], result_p[1][1], result_p[2][1]], [result_p[0][0], result_p[1][0], result_p[2][0]]]
