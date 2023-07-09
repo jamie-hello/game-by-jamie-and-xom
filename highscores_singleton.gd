@@ -39,5 +39,10 @@ func get_three_lowest_scores():
 	return threelowest
 
 func sort_highest_scores():
-	runs.sort_custom(func(a,b): return a[0] > b[0])
-	pass
+	var result_p = [[], [], []]
+	for col in 3:
+		for line in runs:
+			result_p[col].append(line[col])
+	for col in 3:
+		result_p[col].sort()
+	return [[result_p[0][result_p[0].size() - 1], result_p[1][result_p[1].size() - 1], result_p[2][result_p[2].size() - 1]], [result_p[0][result_p[0].size() - 2], result_p[1][result_p[1].size() - 2], result_p[2][result_p[2].size() - 2]], [result_p[0][result_p[0].size() - 3], result_p[1][result_p[1].size() - 3], result_p[2][result_p[2].size() - 3]]]
