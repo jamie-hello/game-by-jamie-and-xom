@@ -24,7 +24,7 @@ func dealer_newhand():
 		var tilename = "blank" if dealer_hand[i] == 1 else String.chr(dealer_hand[i])
 		var newtile = instance.instantiate()
 		newtile.set_letter(tilename)
-		newtile.set_position(Vector2((i+1)*30,(i+1)*50 + 165))
+		newtile.set_position(Vector2((i+1)*30,(i+1)*50 - 1000))
 		dealer_rack[i] = newtile
 		$HUD.show_card(i, "" if dealer_hand[i] == 1 else tilename, "" if dealer_hand[i] == 1 else str($WordAI.letter_value(dealer_hand[i])))
 		add_child(newtile)
