@@ -1,11 +1,13 @@
-[gd_scene load_steps=19 format=3 uid="uid://2v74n5qo7jyh"]
+[gd_scene load_steps=21 format=3 uid="uid://2v74n5qo7jyh"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_63v1i"]
 [ext_resource type="PackedScene" uid="uid://b8aykduqsqo68" path="res://word_ai.tscn" id="2_374l1"]
 [ext_resource type="Script" path="res://phase_singleton.gd" id="4_6gvyf"]
 [ext_resource type="PackedScene" uid="uid://cnfeyum3ky12d" path="res://board.tscn" id="5_2uyb6"]
+[ext_resource type="Script" path="res://Sack.gd" id="7_iudja"]
 [ext_resource type="Texture2D" uid="uid://cxre1hq4skr8f" path="res://img/sack.png" id="8_4rhig"]
 [ext_resource type="Script" path="res://dealerUI.gd" id="8_r8kwx"]
+[ext_resource type="PackedScene" uid="uid://sqdrxsihoy41" path="res://clicksprite.tscn" id="8_ur6a6"]
 [ext_resource type="Texture2D" uid="uid://c87tx7xfu7e5i" path="res://img/tile hi-res.png" id="9_kmoio"]
 [ext_resource type="AudioStream" uid="uid://leb2tjo4ym5k" path="res://sounds/mahjongclacks.wav" id="11_uf8cn"]
 [ext_resource type="Script" path="res://sounds/playedtiles.gd" id="12_84e8n"]
@@ -52,6 +54,9 @@ scale = Vector2(0.565, 0.565)
 position = Vector2(216, 141)
 scale = Vector2(0.39, 0.441667)
 texture = ExtResource("8_4rhig")
+script = ExtResource("7_iudja")
+
+[node name="Sprite2D" parent="Sack" instance=ExtResource("8_ur6a6")]
 
 [node name="Tile" parent="." instance=ExtResource("15_rrxli")]
 

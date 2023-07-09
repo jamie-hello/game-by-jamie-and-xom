@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://sqdrxsihoy41"]
+
+[ext_resource type="Shader" path="res://img/rainbowshader.gdshader" id="1_bp52e"]
+[ext_resource type="Texture2D" uid="uid://nyrfptv3183a" path="res://img/2dlight.webp" id="2_b25yv"]
+[ext_resource type="Script" path="res://clicksprite.gd" id="3_reper"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sbujd"]
+shader = ExtResource("1_bp52e")
+
+[node name="Sprite2D" type="Sprite2D"]
+material = SubResource("ShaderMaterial_sbujd")
+position = Vector2(-1000, 0)
+texture = ExtResource("2_b25yv")
+script = ExtResource("3_reper")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.76
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
