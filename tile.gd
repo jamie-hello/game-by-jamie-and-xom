@@ -118,7 +118,7 @@ func _process(delta):
 		else:
 			var whoseturn = get_parent().get_node("PhaseSingleton").active_player
 			if whoseturn != null:
-				if whoseturn.rack.size() < 7:
+				if null in whoseturn.rack:
 					get_parent().deal_tile(whoseturn, self)
 	else:
 		global_position = lerp(global_position, rest_point, 25*delta)

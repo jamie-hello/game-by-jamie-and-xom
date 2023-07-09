@@ -66,11 +66,26 @@ func game_over():
 		bonuses[2] -= $"../WordAI".letter_value(tile)
 	var penalty_sum = bonuses[0] + bonuses[1] + bonuses[2]
 	if $"..".dealer_hand.is_empty() and $"../Bag".contents.is_empty():
-		if player1.hand.is_empty():
+		var player1_has_remaining_tiles = false
+		for x in player1.hand:
+			if x != 0:
+				player1_has_remaining_tiles = true
+				break
+		if not player1_has_remaining_tiles:
 			bonuses[0] -= penalty_sum
-		if player2.hand.is_empty():
+		var player2_has_remaining_tiles = false
+		for x in player2.hand:
+			if x != 0:
+				player2_has_remaining_tiles = true
+				break
+		if not player2_has_remaining_tiles:
 			bonuses[1] -= penalty_sum
-		if player3.hand.is_empty():
+		var player3_has_remaining_tiles = false
+		for x in player3.hand:
+			if x != 0:
+				player3_has_remaining_tiles = true
+				break
+		if not player3_has_remaining_tiles:
 			bonuses[2] -= penalty_sum
 	else:
 		print("gameover by consecutive passes")
