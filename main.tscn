@@ -1,11 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://2v74n5qo7jyh"]
+[gd_scene load_steps=17 format=3 uid="uid://2v74n5qo7jyh"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_63v1i"]
 [ext_resource type="PackedScene" uid="uid://b8aykduqsqo68" path="res://word_ai.tscn" id="2_374l1"]
 [ext_resource type="Texture2D" uid="uid://v2qg8qaeicga" path="res://img/backdrop.png" id="2_xsuxx"]
 [ext_resource type="Script" path="res://phase_singleton.gd" id="4_6gvyf"]
 [ext_resource type="Script" path="res://dealerUI.gd" id="8_r8kwx"]
-[ext_resource type="Texture2D" uid="uid://c87tx7xfu7e5i" path="res://img/tile hi-res.png" id="9_kmoio"]
+[ext_resource type="PackedScene" uid="uid://c71aqpsc57mwx" path="res://hud.tscn" id="10_v4hmd"]
 [ext_resource type="AudioStream" uid="uid://bq7jpo6poue6o" path="res://sounds/playtilessound.wav" id="11_y5lmr"]
 [ext_resource type="Script" path="res://sounds/playedtiles.gd" id="12_84e8n"]
 [ext_resource type="AudioStream" uid="uid://cyojesm6hdpff" path="res://sounds/clicktiletoplayerhand.wav" id="13_8u22v"]
@@ -16,8 +16,6 @@
 [ext_resource type="Script" path="res://bag.gd" id="16_o01yg"]
 [ext_resource type="PackedScene" uid="uid://c1vhlig43wshy" path="res://deal_zone_player.tscn" id="16_pu1g3"]
 [ext_resource type="AudioStream" uid="uid://ck7p2mmpj2f7f" path="res://sounds/POL-end-of-time-short.wav" id="17_cdye7"]
-
-[sub_resource type="Theme" id="Theme_6hi3u"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_63v1i")
@@ -58,51 +56,15 @@ offset_bottom = 40.0
 script = ExtResource("8_r8kwx")
 
 [node name="DealZone Player1" parent="dealerUI" instance=ExtResource("16_pu1g3")]
-position = Vector2(120, 659)
+position = Vector2(962, 47)
 
 [node name="DealZone Player2" parent="dealerUI" instance=ExtResource("16_pu1g3")]
-position = Vector2(397, 644)
+position = Vector2(941, 126)
 
 [node name="DealZone Player3" parent="dealerUI" instance=ExtResource("16_pu1g3")]
-position = Vector2(669, 678)
+position = Vector2(926, 206)
 
-[node name="TileHi-res" type="Sprite2D" parent="."]
-position = Vector2(934, 308)
-texture = ExtResource("9_kmoio")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="TileHi-res"]
-offset_left = -24.0
-offset_top = -14.0
-offset_right = 40.0
-offset_bottom = 40.0
-theme = SubResource("Theme_6hi3u")
-text = "Q"
-
-[node name="RichTextLabel2" type="RichTextLabel" parent="TileHi-res"]
-offset_left = 35.0
-offset_top = 39.0
-offset_right = 70.0
-offset_bottom = 67.0
-text = "10"
-
-[node name="TileHi-res2" type="Sprite2D" parent="."]
-position = Vector2(790, 137)
-scale = Vector2(0.246599, 0.253448)
-texture = ExtResource("9_kmoio")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="TileHi-res2"]
-offset_left = -12.0
-offset_top = -20.0
-offset_right = 28.0
-offset_bottom = 8.0
-text = "Q"
-
-[node name="RichTextLabel2" type="RichTextLabel" parent="TileHi-res2"]
-offset_left = 45.0
-offset_top = 39.0
-offset_right = 77.0
-offset_bottom = 75.0
-text = "10"
+[node name="HUD" parent="." instance=ExtResource("10_v4hmd")]
 
 [node name="playedtiles" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_y5lmr")
@@ -132,3 +94,4 @@ autoplay = true
 [connection signal="played_tiles_sound" from="dealerUI/DealZone Player2" to="playedtiles" method="_on_deal_zone_player_1_played_tiles_sound"]
 [connection signal="clicktiletoplayerhand" from="dealerUI/DealZone Player3" to="clicktiletoplayerhand" method="_on_deal_zone_player_1_clicktiletoplayerhand"]
 [connection signal="played_tiles_sound" from="dealerUI/DealZone Player3" to="playedtiles" method="_on_deal_zone_player_1_played_tiles_sound"]
+[connection signal="hand_card_pressed" from="HUD" to="." method="_on_hud_hand_card_pressed"]

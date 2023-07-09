@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgpsnw5csubjk"]
+
+[ext_resource type="Texture2D" uid="uid://c87tx7xfu7e5i" path="res://img/tile hi-res.png" id="1_1p5k5"]
+
+[node name="HandCard" type="TextureButton"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("1_1p5k5")
+
+[node name="Glyph" type="Label" parent="."]
+layout_mode = 0
+offset_left = 6.0
+offset_top = -16.0
+offset_right = 114.0
+offset_bottom = 128.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 96
+text = "Q"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SubScript" type="Label" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 62.0
+offset_right = 124.0
+offset_bottom = 122.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 2

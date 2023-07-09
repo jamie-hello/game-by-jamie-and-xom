@@ -5,6 +5,7 @@ extends Node
 
 
 var dealer_hand = []
+var dealer_rack = [null, null, null, null, null, null, null]
 
 
 func _ready():
@@ -24,6 +25,8 @@ func dealer_newhand():
 		var newtile = instance.instantiate()
 		newtile.set_letter(tilename)
 		newtile.set_position(Vector2((i+1)*30,(i+1)*50 + 165))
+		dealer_rack[i] = newtile
+		$HUD.show_card(i, "" if dealer_hand[i] == 1 else tilename, "" if dealer_hand[i] == 1 else str($WordAI.letter_value(dealer_hand[i])))
 		add_child(newtile)
 	return true
 
@@ -58,10 +61,23 @@ func newgame_deal_out_some_tiles():
 
 func deal_tile(whoseturn, tile):
 	var ascii_code = tile.Letter.to_ascii_buffer()[0] if tile.Letter.length() == 1 else 1
-	dealer_hand.pop_at(dealer_hand.find(ascii_code))
+	var pos = dealer_rack.find(tile)
+	dealer_hand[pos] = 0
+	dealer_rack[pos] = null
+	$HUD.hide_card(pos)
 	whoseturn.add_tile(tile)
 	print("added ", tile.Letter, " to ", whoseturn)
-	if dealer_hand.is_empty():
+	var dealer_should_draw = true
+	for code in dealer_hand:
+		if code != 0:
+			dealer_should_draw = false
+			break
+	if dealer_should_draw:
 		dealer_newhand()
 	if whoseturn.rack.size() == 7 or dealer_hand.is_empty():
 		$PhaseSingleton.play_turn()
+
+
+func _on_hud_hand_card_pressed(pos):
+	if dealer_rack[pos] != null:
+		dealer_rack[pos].clicked = true

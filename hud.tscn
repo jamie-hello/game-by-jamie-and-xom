@@ -1,0 +1,64 @@
+[gd_scene load_steps=3 format=3 uid="uid://c71aqpsc57mwx"]
+
+[ext_resource type="Script" path="res://hud.gd" id="1_i5a6w"]
+[ext_resource type="PackedScene" uid="uid://dgpsnw5csubjk" path="res://hand_card.tscn" id="2_332bg"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_i5a6w")
+
+[node name="HandCard0" parent="." instance=ExtResource("2_332bg")]
+visible = false
+offset_left = 763.0
+offset_top = 593.0
+offset_right = 883.0
+offset_bottom = 713.0
+
+[node name="HandCard1" parent="." instance=ExtResource("2_332bg")]
+visible = false
+offset_left = 723.0
+offset_top = 450.0
+offset_right = 843.0
+offset_bottom = 570.0
+
+[node name="HandCard2" parent="." instance=ExtResource("2_332bg")]
+visible = false
+offset_left = 790.0
+offset_top = 300.0
+offset_right = 910.0
+offset_bottom = 420.0
+
+[node name="HandCard3" parent="." instance=ExtResource("2_332bg")]
+visible = false
+offset_left = 962.0
+offset_top = 346.0
+offset_right = 1082.0
+offset_bottom = 466.0
+
+[node name="HandCard4" parent="." instance=ExtResource("2_332bg")]
+visible = false
+offset_left = 1121.0
+offset_top = 293.0
+offset_right = 1241.0
+offset_bottom = 413.0
+
+[node name="HandCard5" parent="." instance=ExtResource("2_332bg")]
+visible = false
+offset_left = 1143.0
+offset_top = 447.0
+offset_right = 1263.0
+offset_bottom = 567.0
+
+[node name="HandCard6" parent="." instance=ExtResource("2_332bg")]
+visible = false
+offset_left = 1063.0
+offset_top = 586.0
+offset_right = 1183.0
+offset_bottom = 706.0
+
+[connection signal="pressed" from="HandCard0" to="." method="_on_hand_card_0_pressed"]
+[connection signal="pressed" from="HandCard1" to="." method="_on_hand_card_1_pressed"]
+[connection signal="pressed" from="HandCard2" to="." method="_on_hand_card_2_pressed"]
+[connection signal="pressed" from="HandCard3" to="." method="_on_hand_card_3_pressed"]
+[connection signal="pressed" from="HandCard4" to="." method="_on_hand_card_4_pressed"]
+[connection signal="pressed" from="HandCard5" to="." method="_on_hand_card_5_pressed"]
+[connection signal="pressed" from="HandCard6" to="." method="_on_hand_card_6_pressed"]
