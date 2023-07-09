@@ -113,7 +113,7 @@ func _process(delta):
 	if clicked:
 		#global_position = lerp(global_position, get_global_mouse_position(), 25*delta)
 		if dealtalready or $"../PhaseSingleton".active_step != $"../PhaseSingleton".STEP_DEALING:
-			pass
+			clicked = false
 		else:
 			var whoseturn = get_parent().get_node("PhaseSingleton").active_player
 			if whoseturn != null:
