@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://2v74n5qo7jyh"]
+[gd_scene load_steps=17 format=3 uid="uid://2v74n5qo7jyh"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_63v1i"]
 [ext_resource type="PackedScene" uid="uid://b8aykduqsqo68" path="res://word_ai.tscn" id="2_374l1"]
@@ -16,13 +16,6 @@
 [ext_resource type="Script" path="res://bag.gd" id="16_o01yg"]
 [ext_resource type="PackedScene" uid="uid://c1vhlig43wshy" path="res://deal_zone_player.tscn" id="16_pu1g3"]
 [ext_resource type="AudioStream" uid="uid://ck7p2mmpj2f7f" path="res://sounds/POL-end-of-time-short.wav" id="17_cdye7"]
-[ext_resource type="Script" path="res://HighScoresOnGameover.gd" id="17_kq4rf"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_janpt"]
-font_size = 30
-
-[sub_resource type="LabelSettings" id="LabelSettings_yxysm"]
-font_size = 30
 
 [node name="Main" type="Node"]
 script = ExtResource("1_63v1i")
@@ -91,160 +84,6 @@ stream = ExtResource("17_cdye7")
 volume_db = -16.0
 autoplay = true
 
-[node name="HighScoresOnGameover" type="Control" parent="."]
-z_index = 1
-layout_mode = 3
-anchors_preset = 0
-offset_left = 100.0
-offset_top = 1000.0
-offset_right = 1134.0
-offset_bottom = 1430.0
-script = ExtResource("17_kq4rf")
-
-[node name="background" type="ColorRect" parent="HighScoresOnGameover"]
-layout_mode = 0
-offset_right = 1034.0
-offset_bottom = 430.0
-color = Color(0.45098, 0.247059, 0.631373, 1)
-
-[node name="ColorRect2" type="ColorRect" parent="HighScoresOnGameover"]
-layout_mode = 0
-offset_left = 990.0
-offset_top = 11.0
-offset_right = 1020.0
-offset_bottom = 43.0
-color = Color(0.780392, 0.415686, 0.352941, 1)
-
-[node name="Label" type="Label" parent="HighScoresOnGameover/ColorRect2"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 4.0
-offset_right = 31.0
-offset_bottom = 36.0
-text = "X"
-
-[node name="Button" type="Button" parent="HighScoresOnGameover/ColorRect2"]
-layout_mode = 0
-offset_right = 30.0
-offset_bottom = 32.0
-
-[node name="highscores_" type="Label" parent="HighScoresOnGameover"]
-layout_mode = 0
-offset_left = 40.0
-offset_top = 60.0
-offset_right = 174.0
-offset_bottom = 215.0
-text = "High Scores"
-label_settings = SubResource("LabelSettings_janpt")
-
-[node name="ColorRect" type="ColorRect" parent="HighScoresOnGameover/highscores_"]
-layout_mode = 0
-offset_left = 182.0
-offset_top = 12.0
-offset_right = 552.0
-offset_bottom = 156.0
-color = Color(0.698039, 0.537255, 1, 1)
-
-[node name="total" type="Label" parent="HighScoresOnGameover/highscores_"]
-layout_mode = 0
-offset_left = 190.0
-offset_top = 44.0
-offset_right = 310.0
-offset_bottom = 145.0
-
-[node name="winner" type="Label" parent="HighScoresOnGameover/highscores_"]
-offset_left = 310.0
-offset_top = 50.0
-offset_right = 386.0
-offset_bottom = 141.0
-
-[node name="loser" type="Label" parent="HighScoresOnGameover/highscores_"]
-offset_left = 448.0
-offset_top = 44.0
-offset_right = 530.0
-offset_bottom = 141.0
-
-[node name="Label" type="Label" parent="HighScoresOnGameover/highscores_"]
-layout_mode = 0
-offset_left = 192.0
-offset_top = 16.0
-offset_right = 540.0
-offset_bottom = 43.0
-text = "Total                      Winner                         Loser"
-
-[node name="lowscores_" type="Label" parent="HighScoresOnGameover"]
-layout_mode = 0
-offset_left = 34.0
-offset_top = 262.0
-offset_right = 226.0
-offset_bottom = 389.0
-text = "Low Scores"
-label_settings = SubResource("LabelSettings_yxysm")
-
-[node name="ColorRect" type="ColorRect" parent="HighScoresOnGameover/lowscores_"]
-offset_left = 182.0
-offset_top = 12.0
-offset_right = 552.0
-offset_bottom = 156.0
-color = Color(0.698039, 0.537255, 1, 1)
-
-[node name="total" type="Label" parent="HighScoresOnGameover/lowscores_"]
-offset_left = 190.0
-offset_top = 44.0
-offset_right = 302.0
-offset_bottom = 145.0
-
-[node name="winner" type="Label" parent="HighScoresOnGameover/lowscores_"]
-layout_mode = 0
-offset_left = 310.0
-offset_top = 46.0
-offset_right = 386.0
-offset_bottom = 141.0
-
-[node name="loser" type="Label" parent="HighScoresOnGameover/lowscores_"]
-layout_mode = 0
-offset_left = 448.0
-offset_top = 48.0
-offset_right = 530.0
-offset_bottom = 141.0
-
-[node name="Label" type="Label" parent="HighScoresOnGameover/lowscores_"]
-offset_left = 192.0
-offset_top = 16.0
-offset_right = 540.0
-offset_bottom = 43.0
-text = "Total                      Winner                         Loser"
-
-[node name="ColorRect" type="ColorRect" parent="HighScoresOnGameover"]
-layout_mode = 0
-offset_left = 666.0
-offset_top = 228.0
-offset_right = 974.0
-offset_bottom = 282.0
-color = Color(0.698039, 0.537255, 1, 1)
-
-[node name="This Games Result" type="Label" parent="HighScoresOnGameover"]
-layout_mode = 0
-offset_left = 714.0
-offset_top = 200.0
-offset_right = 950.0
-offset_bottom = 233.0
-text = "This Game's Result:"
-
-[node name="Label" type="Label" parent="HighScoresOnGameover/This Games Result"]
-offset_left = -34.0
-offset_top = 26.0
-offset_right = 558.0
-offset_bottom = 53.0
-text = "Total              Winner                   Loser"
-
-[node name="result of this game" type="Label" parent="HighScoresOnGameover"]
-layout_mode = 0
-offset_left = 678.0
-offset_top = 252.0
-offset_right = 950.0
-offset_bottom = 283.0
-
 [connection signal="spawn_a_click_animation" from="." to="Bag" method="_on_main_spawn_a_click_animation"]
 [connection signal="timeout" from="PhaseSingleton/TimerFirstTurn1" to="PhaseSingleton" method="_on_timer_first_turn_1_timeout"]
 [connection signal="timeout" from="PhaseSingleton/TimerFirstTurn2" to="PhaseSingleton" method="_on_timer_first_turn_2_timeout"]
@@ -258,4 +97,3 @@ offset_bottom = 283.0
 [connection signal="clicktiletoplayerhand" from="dealerUI/DealZone Player3" to="clicktiletoplayerhand" method="_on_deal_zone_player_1_clicktiletoplayerhand"]
 [connection signal="played_tiles_sound" from="dealerUI/DealZone Player3" to="playedtiles" method="_on_deal_zone_player_1_played_tiles_sound"]
 [connection signal="hand_card_pressed" from="HUD" to="." method="_on_hud_hand_card_pressed"]
-[connection signal="pressed" from="HighScoresOnGameover/ColorRect2/Button" to="HighScoresOnGameover" method="_on_button_pressed"]
