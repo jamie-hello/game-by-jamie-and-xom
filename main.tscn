@@ -53,16 +53,17 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+scale = Vector2(1.4, 1.4)
 script = ExtResource("8_r8kwx")
 
 [node name="DealZone Player1" parent="dealerUI" instance=ExtResource("16_pu1g3")]
-position = Vector2(962, 47)
+position = Vector2(720, 40)
 
 [node name="DealZone Player2" parent="dealerUI" instance=ExtResource("16_pu1g3")]
-position = Vector2(941, 126)
+position = Vector2(720, 95)
 
 [node name="DealZone Player3" parent="dealerUI" instance=ExtResource("16_pu1g3")]
-position = Vector2(926, 206)
+position = Vector2(720, 150)
 
 [node name="HUD" parent="." instance=ExtResource("10_v4hmd")]
 
