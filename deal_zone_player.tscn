@@ -1,6 +1,5 @@
-[gd_scene load_steps=9 format=3 uid="uid://c1vhlig43wshy"]
+[gd_scene load_steps=8 format=3 uid="uid://c1vhlig43wshy"]
 
-[ext_resource type="Texture2D" uid="uid://20u2p4oaewjk" path="res://img/arrow.png" id="1_bej43"]
 [ext_resource type="Script" path="res://deal_zone_player.gd" id="1_c04r7"]
 [ext_resource type="Texture2D" uid="uid://0rkuon2p2bh7" path="res://img/toplayer1.png" id="1_ypphn"]
 [ext_resource type="Texture2D" uid="uid://bwedxmm2ya8n" path="res://img/player1dealzone.png" id="2_g58qw"]
@@ -43,11 +42,6 @@ texture = ExtResource("2_g58qw")
 
 [node name="NameTag" type="Sprite2D" parent="."]
 texture = ExtResource("1_ypphn")
-
-[node name="Arrow" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(0, -200)
-texture = ExtResource("1_bej43")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(53, -8)
