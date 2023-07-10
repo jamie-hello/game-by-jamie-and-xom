@@ -161,8 +161,8 @@ func get_best_local_move(hand, substr_by_len, x, y, searched):
 							elif score > best_score:
 								best_score = score
 								best_moves = [[x, y - j, DIR_SOUTH, cand, score]]
-			for r1 in range(y, w_len):
-				if r1 >= BOARD_SIZE or tableau[r1][x] == 0:
+			for r1 in range(y, BOARD_SIZE):
+				if tableau[r1][x] == 0:
 					break
 				searched[DIR_SOUTH][r1][x] = true
 		else: # "Perp word case going SOUTH, i.e. we're in the middle of a word"
@@ -209,8 +209,8 @@ func get_best_local_move(hand, substr_by_len, x, y, searched):
 							elif score > best_score:
 								best_score = score
 								best_moves = [[x - j, y, DIR_EAST, cand, score]]
-			for c1 in range(x, w_len):
-				if c1 >= BOARD_SIZE or tableau[y][c1] == 0:
+			for c1 in range(x, BOARD_SIZE):
+				if tableau[y][c1] == 0:
 					break
 				searched[DIR_EAST][y][c1] = true
 		else: # "Perp word case going EAST, i.e. we're in the middle of a word"
