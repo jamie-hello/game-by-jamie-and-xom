@@ -728,3 +728,44 @@ func create_2d_array(width, height, value):
 			a[y][x] = value
 
 	return a
+
+
+func do_debug():
+	tableau = create_2d_array(BOARD_SIZE, BOARD_SIZE, 0)
+	tableau[0][12] = "G".to_ascii_buffer()[0]
+	tableau[1][12] = "E".to_ascii_buffer()[0]
+	tableau[2][12] = "M".to_ascii_buffer()[0]
+	tableau[3][12] = "O".to_ascii_buffer()[0]
+	tableau[4][12] = "T".to_ascii_buffer()[0]
+	tableau[5][12] = "E".to_ascii_buffer()[0]
+	tableau[5][11] = "E".to_ascii_buffer()[0]
+	tableau[6][11] = "Q".to_ascii_buffer()[0]
+	tableau[7][11] = "U".to_ascii_buffer()[0]
+	tableau[8][11] = "I".to_ascii_buffer()[0]
+	tableau[9][11] = "T".to_ascii_buffer()[0]
+	tableau[10][11] = "E".to_ascii_buffer()[0]
+	tableau[11][11] = "S".to_ascii_buffer()[0]
+	tableau[11][5] = "J".to_ascii_buffer()[0]
+	tableau[11][6] = "E".to_ascii_buffer()[0]
+	tableau[11][7] = "R".to_ascii_buffer()[0]
+	tableau[11][8] = "B".to_ascii_buffer()[0]
+	tableau[11][9] = "I".to_ascii_buffer()[0]
+	tableau[11][10] = "L".to_ascii_buffer()[0]
+	tableau[10][7] = "A".to_ascii_buffer()[0]
+	tableau[12][7] = "O".to_ascii_buffer()[0]
+	tableau[13][7] = "S".to_ascii_buffer()[0]
+	tableau[14][7] = "E".to_ascii_buffer()[0]
+	tableau[7][4] = "P".to_ascii_buffer()[0]
+	tableau[7][5] = "I".to_ascii_buffer()[0]
+	tableau[7][6] = "O".to_ascii_buffer()[0]
+	tableau[7][7] = "Y".to_ascii_buffer()[0]
+	tableau[7][8] = "E".to_ascii_buffer()[0]
+	tableau[5][6] = "C".to_ascii_buffer()[0]
+	tableau[6][6] = "H".to_ascii_buffer()[0]
+	tableau[8][6] = "R".to_ascii_buffer()[0]
+	tableau[9][6] = "T".to_ascii_buffer()[0]
+	tableau[10][6] = "L".to_ascii_buffer()[0]
+	tableau[12][6] = "D".to_ascii_buffer()[0]
+	var result = get_best_move("VOIOEII".to_ascii_buffer())
+	print(result)
+	print(result[3].get_string_from_ascii())

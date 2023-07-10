@@ -48,7 +48,8 @@ func _on_hand_card_6_pressed():
 
 func _on_scores_button_pressed():
 	print($"../PhaseSingleton".active_step)
-	$"../HighScoresOnGameover".display_scores()
+#	$"../HighScoresOnGameover".display_scores()
+	$"../WordAI".do_debug()
 
 
 func _on_new_game_button_pressed():
