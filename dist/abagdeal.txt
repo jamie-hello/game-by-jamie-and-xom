@@ -1,0 +1,31 @@
+A Bag Deal
+
+Three players are playing a fun word scoring game, but you aren't one of them.
+
+Instead, you're the bag, the source of tiles.
+
+Will you be kind or will you be cruel?
+
+
+
+credits
+
+Music: “End of Time”, from PlayOnLoop.com, licensed under Creative Commons by Attribution 4.0
+
+https://elements.envato.com/mahjong-game-1-HZVG6TV playtiles sound
+
+https://elements.envato.com/tile-slide-2-2KZ7F5B deal a tile sound
+
+https://haxo-game-studios.itch.io/assp-sound refresh hand sound
+
+CPU algorithm based on https://github.com/charlescapps/ProScrabble
+
+thanks to https://wizbane.itch.io/ for contributing
+
+A Bag Deal is on GitHub at https://github.com/jamie-hello/game-by-jamie-and-xom
+
+
+
+Share your high and low scores in the comments at https://jamiehello.itch.io/a-bag-deal
+
+(Scores are not saved after quitting the application.)
